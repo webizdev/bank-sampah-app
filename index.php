@@ -123,35 +123,35 @@ include 'includes/header.php';
             <div class="snap-center shrink-0 w-[260px] md:w-[300px] hover:-translate-y-4 transition-transform duration-500 group relative">
                 <div class="absolute inset-0 bg-primary/20 blur-3xl rounded-full scale-90 -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <div class="bg-white rounded-[2.5rem] border-8 border-[var(--on-surface)] shadow-2xl overflow-hidden aspect-[9/19.5]">
-                    <img src="referensi/app%20home.png" alt="App Home" class="w-full h-full object-cover">
+                    <img src="assets/app%20home.png" alt="App Home" class="w-full h-full object-cover">
                 </div>
             </div>
             <!-- Mockup 2: Layanan -->
             <div class="snap-center shrink-0 w-[260px] md:w-[300px] hover:-translate-y-4 transition-transform duration-500 group relative">
                  <div class="absolute inset-0 bg-secondary/20 blur-3xl rounded-full scale-90 -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <div class="bg-white rounded-[2.5rem] border-8 border-[var(--on-surface)] shadow-2xl overflow-hidden aspect-[9/19.5]">
-                    <img src="referensi/app%20layanan.png" alt="App Layanan" class="w-full h-full object-cover">
+                    <img src="assets/app%20layanan.png" alt="App Layanan" class="w-full h-full object-cover">
                 </div>
             </div>
             <!-- Mockup 3: Beli -->
             <div class="snap-center shrink-0 w-[260px] md:w-[300px] hover:-translate-y-4 transition-transform duration-500 group relative scale-105 z-10">
                  <div class="absolute inset-0 bg-primary/30 blur-3xl rounded-full scale-90 -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <div class="bg-white rounded-[2.5rem] border-8 border-[var(--on-surface)] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] overflow-hidden aspect-[9/19.5]">
-                    <img src="referensi/app%20beli.png" alt="App Transaksi" class="w-full h-full object-cover">
+                    <img src="assets/app%20beli.png" alt="App Transaksi" class="w-full h-full object-cover">
                 </div>
             </div>
             <!-- Mockup 4: Profil 1 -->
             <div class="snap-center shrink-0 w-[260px] md:w-[300px] hover:-translate-y-4 transition-transform duration-500 group relative">
                  <div class="absolute inset-0 bg-secondary/20 blur-3xl rounded-full scale-90 -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <div class="bg-white rounded-[2.5rem] border-8 border-[var(--on-surface)] shadow-2xl overflow-hidden aspect-[9/19.5]">
-                    <img src="referensi/app%20profil%201.png" alt="App Profil 1" class="w-full h-full object-cover">
+                    <img src="assets/app%20profil%201.png" alt="App Profil 1" class="w-full h-full object-cover">
                 </div>
             </div>
              <!-- Mockup 5: Profil 2 -->
              <div class="snap-center shrink-0 w-[260px] md:w-[300px] hover:-translate-y-4 transition-transform duration-500 group relative">
                  <div class="absolute inset-0 bg-primary/20 blur-3xl rounded-full scale-90 -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                 <div class="bg-white rounded-[2.5rem] border-8 border-[var(--on-surface)] shadow-2xl overflow-hidden aspect-[9/19.5]">
-                    <img src="referensi/app%20profil%202.png" alt="App Profil 2" class="w-full h-full object-cover">
+                    <img src="assets/app%20profil%202.png" alt="App Profil 2" class="w-full h-full object-cover">
                 </div>
             </div>
         </div>
