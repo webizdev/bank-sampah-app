@@ -37,7 +37,7 @@ try {
 
 function handleCategories($pdo, $method, $action, $data) {
     if ($method === 'GET') {
-        $stmt = $pdo->query("SELECT * FROM waste_categories ORDER BY name ASC");
+        $stmt = $pdo->query("SELECT * FROM waste_categories ORDER BY parent_id ASC, name ASC");
         echo json_encode(['status' => 'success', 'data' => $stmt->fetchAll()]);
     } elseif ($method === 'POST') {
         if ($action === 'delete') {
@@ -45,12 +45,12 @@ function handleCategories($pdo, $method, $action, $data) {
             $stmt->execute([$data['id']]);
         } elseif (isset($data['id']) && $data['id'] > 0) {
             // Update
-            $stmt = $pdo->prepare("UPDATE waste_categories SET name=?, slug=?, description=?, price_per_kg=?, icon=?, is_popular=? WHERE id=?");
-            $stmt->execute([$data['name'], $data['slug'], $data['description'], $data['price_per_kg'], $data['icon'], $data['is_popular'] ? 1 : 0, $data['id']]);
+            $stmt = $pdo->prepare("UPDATE waste_categories SET name=?, slug=?, description=?, price_per_kg=?, icon=?, is_popular=?, parent_id=? WHERE id=?");
+            $stmt->execute([$data['name'], $data['slug'], $data['description'], $data['price_per_kg'], $data['icon'], $data['is_popular'] ? 1 : 0, $data['parent_id'] ?: null, $data['id']]);
         } else {
             // Create
-            $stmt = $pdo->prepare("INSERT INTO waste_categories (name, slug, description, price_per_kg, icon, is_popular) VALUES (?, ?, ?, ?, ?, ?)");
-            $stmt->execute([$data['name'], $data['slug'], $data['description'], $data['price_per_kg'], $data['icon'], $data['is_popular'] ? 1 : 0]);
+            $stmt = $pdo->prepare("INSERT INTO waste_categories (name, slug, description, price_per_kg, icon, is_popular, parent_id) VALUES (?, ?, ?, ?, ?, ?, ?)");
+            $stmt->execute([$data['name'], $data['slug'], $data['description'], $data['price_per_kg'], $data['icon'], $data['is_popular'] ? 1 : 0, $data['parent_id'] ?: null]);
         }
         echo json_encode(['status' => 'success']);
     }

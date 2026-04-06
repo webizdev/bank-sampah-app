@@ -12,7 +12,7 @@ include 'sidebar.php';
             <p class="text-[10px] font-bold text-outline uppercase tracking-widest mt-1">Kelola data sampah dan harga beli</p>
         </div>
         <button onclick="openModal()" class="bg-primary text-white text-[10px] font-black uppercase tracking-widest px-6 py-3 rounded-xl shadow-lg shadow-primary/20 hover:scale-105 transition-all flex items-center gap-2">
-            <span class="material-symbols-outlined text-[16px]">add</span> Tambah Kategori
+            <span class="material-symbols-outlined text-[16px]">add</span> Tambah Data
         </button>
     </header>
 
@@ -22,7 +22,7 @@ include 'sidebar.php';
                 <table class="w-full text-left">
                     <thead>
                         <tr class="bg-surface-container-low text-[10px] font-black uppercase tracking-[0.2em] text-outline">
-                            <th class="px-8 py-6">Kategori</th>
+                            <th class="px-8 py-6">Kategori / Produk</th>
                             <th class="px-8 py-6">Harga / kg</th>
                             <th class="px-8 py-6">Status</th>
                             <th class="px-8 py-6 text-right">Aksi</th>
@@ -42,15 +42,22 @@ include 'sidebar.php';
 <!-- Modal Form -->
 <div id="form-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] hidden flex items-center justify-center p-6">
     <div class="bg-white w-full max-w-lg rounded-[2.5rem] p-10 shadow-2xl overflow-y-auto max-h-[90vh]">
-        <h3 id="modal-title" class="text-2xl font-black text-primary headline tracking-tight mb-2">Tambah Kategori</h3>
-        <p class="text-sm text-on-surface-variant mb-8 font-medium">Lengkapi detail kategori sampah di bawah ini.</p>
+        <h3 id="modal-title" class="text-2xl font-black text-primary headline tracking-tight mb-2">Tambah Data</h3>
+        <p class="text-sm text-on-surface-variant mb-8 font-medium">Lengkapi detail kategori sampah atau produk di bawah ini.</p>
         
         <form id="category-form" class="space-y-6">
             <input type="hidden" id="category-id" name="id">
             
             <div class="grid grid-cols-2 gap-4">
                 <div class="col-span-2">
-                    <label class="block text-[10px] font-bold text-outline uppercase tracking-widest mb-2">Nama Kategori</label>
+                    <label class="block text-[10px] font-bold text-outline uppercase tracking-widest mb-2">Jenis Data</label>
+                    <select id="parent_id" name="parent_id" onchange="togglePriceInput()"
+                            class="w-full bg-surface-container border-none rounded-xl px-4 py-4 focus:ring-2 focus:ring-primary font-bold">
+                        <option value="">-- Tanpa Parent (Ini Kategori) --</option>
+                    </select>
+                </div>
+                <div class="col-span-2">
+                    <label class="block text-[10px] font-bold text-outline uppercase tracking-widest mb-2">Nama Kategori / Produk</label>
                     <input type="text" id="name" name="name" required onkeyup="generateSlug()"
                            class="w-full bg-surface-container border-none rounded-xl px-4 py-4 focus:ring-2 focus:ring-primary font-bold">
                 </div>
@@ -59,13 +66,13 @@ include 'sidebar.php';
                     <input type="text" id="slug" name="slug" required readonly
                            class="w-full bg-surface-container/50 border-none rounded-xl px-4 py-4 font-bold text-outline cursor-not-allowed">
                 </div>
-                <div>
+                <div id="price-group">
                     <label class="block text-[10px] font-bold text-outline uppercase tracking-widest mb-2">Harga (IDR/kg)</label>
                     <input type="number" id="price" name="price_per_kg" required
                            class="w-full bg-surface-container border-none rounded-xl px-4 py-4 focus:ring-2 focus:ring-primary font-bold">
                 </div>
                 <div>
-                    <label class="block text-[10px] font-bold text-outline uppercase tracking-widest mb-2">Icon (Material Symbol)</label>
+                    <label class="block text-[10px] font-bold text-outline uppercase tracking-widest mb-2">Icon (Optional)</label>
                     <input type="text" id="icon" name="icon" placeholder="recycling"
                            class="w-full bg-surface-container border-none rounded-xl px-4 py-4 focus:ring-2 focus:ring-primary font-bold">
                 </div>
@@ -79,7 +86,7 @@ include 'sidebar.php';
 
             <div class="flex items-center gap-3">
                 <input type="checkbox" id="popular" name="is_popular" class="w-5 h-5 rounded border-primary/20 text-primary focus:ring-primary">
-                <label for="popular" class="text-sm font-bold text-on-surface">Tampilkan sebagai kategori populer</label>
+                <label for="popular" class="text-sm font-bold text-on-surface">Tampilkan sebagai populer</label>
             </div>
 
             <div class="flex gap-4 pt-4">
@@ -102,60 +109,123 @@ function generateSlug() {
 }
 
 async function fetchCategories() {
-    const res = await fetch('../api/manage_admin.php?entity=categories');
+    const res = await fetch('../api/get_categories.php');
     const result = await res.json();
     if (result.status === 'success') {
-        categories = result.data;
+        categories = result.all;
         renderTable();
+        updateParentDropdown();
+    }
+}
+
+function updateParentDropdown() {
+    const parentSelect = document.getElementById('parent_id');
+    const mainCats = categories.filter(c => !c.parent_id);
+    parentSelect.innerHTML = '<option value="">-- Tanpa Parent (Ini Kategori) --</option>' + 
+        mainCats.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+}
+
+function togglePriceInput() {
+    const parentId = document.getElementById('parent_id').value;
+    const priceGroup = document.getElementById('price-group');
+    if (parentId) {
+        priceGroup.classList.remove('opacity-30', 'pointer-events-none');
+        document.getElementById('price').required = true;
+    } else {
+        priceGroup.classList.add('opacity-30', 'pointer-events-none');
+        document.getElementById('price').required = false;
+        document.getElementById('price').value = 0;
     }
 }
 
 function renderTable() {
     const tbody = document.getElementById('category-table');
     if (categories.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="4" class="px-8 py-20 text-center text-outline italic">Belum ada kategori.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="4" class="px-8 py-20 text-center text-outline italic">Belum ada data.</td></tr>';
         return;
     }
 
-    tbody.innerHTML = categories.map(cat => `
-        <tr class="hover:bg-primary/5 transition-colors">
-            <td class="px-8 py-6">
-                <div class="flex items-center gap-4">
-                    <div class="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
-                        <span class="material-symbols-outlined">${cat.icon || 'recycling'}</span>
+    const mainCats = categories.filter(c => !c.parent_id);
+    const products = categories.filter(c => c.parent_id);
+
+    let html = '';
+    mainCats.forEach(cat => {
+        // Render Category Header
+        html += `
+            <tr class="bg-primary/5">
+                <td class="px-8 py-4">
+                    <div class="flex items-center gap-4">
+                        <div class="w-8 h-8 rounded-lg bg-primary text-white flex items-center justify-center">
+                            <span class="material-symbols-outlined text-[18px]">${cat.icon || 'folder'}</span>
+                        </div>
+                        <div>
+                            <p class="font-black text-primary text-sm uppercase tracking-tight">${cat.name}</p>
+                        </div>
                     </div>
-                    <div>
-                        <p class="font-black text-primary text-sm">${cat.name}</p>
-                        <p class="text-[10px] text-outline font-medium truncate max-w-[200px]">${cat.description || '-'}</p>
+                </td>
+                <td class="px-8 py-4 text-outline text-[10px] font-bold italic">- Kategori -</td>
+                <td class="px-8 py-4">
+                    ${cat.is_popular ? '<span class="px-3 py-1 bg-secondary/10 text-secondary text-[10px] font-bold rounded-full">POPULER</span>' : ''}
+                </td>
+                <td class="px-8 py-4 text-right">
+                    <div class="flex justify-end gap-2">
+                        <button onclick="editCategory(${cat.id})" class="w-7 h-7 rounded-lg bg-white border border-primary/10 flex items-center justify-center text-outline hover:text-primary">
+                            <span class="material-symbols-outlined text-[16px]">edit</span>
+                        </button>
+                        <button onclick="deleteCategory(${cat.id})" class="w-7 h-7 rounded-lg bg-white border border-red-100 flex items-center justify-center text-red-300 hover:text-red-500">
+                            <span class="material-symbols-outlined text-[16px]">delete</span>
+                        </button>
                     </div>
-                </div>
-            </td>
-            <td class="px-8 py-6 font-black text-sm text-on-surface">
-                IDR ${new Intl.NumberFormat('id-ID').format(cat.price_per_kg)}
-            </td>
-            <td class="px-8 py-6">
-                ${cat.is_popular ? '<span class="px-3 py-1 bg-secondary/10 text-secondary text-[10px] font-bold rounded-full">POPULER</span>' : '<span class="text-outline text-[10px]">Regular</span>'}
-            </td>
-            <td class="px-8 py-6 text-right">
-                <div class="flex justify-end gap-2">
-                    <button onclick="editCategory(${cat.id})" class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-outline hover:text-primary transition-all">
-                        <span class="material-symbols-outlined text-[18px]">edit</span>
-                    </button>
-                    <button onclick="deleteCategory(${cat.id})" class="w-8 h-8 rounded-lg bg-red-50 flex items-center justify-center text-red-400 hover:text-red-600 transition-all">
-                        <span class="material-symbols-outlined text-[18px]">delete</span>
-                    </button>
-                </div>
-            </td>
-        </tr>
-    `).join('');
+                </td>
+            </tr>
+        `;
+
+        // Render Products under this category
+        const children = products.filter(p => p.parent_id == cat.id);
+        children.forEach(prod => {
+            html += `
+                <tr class="hover:bg-primary/[0.02] transition-colors">
+                    <td class="px-8 py-4 pl-20">
+                        <div class="flex items-center gap-3">
+                            <div class="w-2 h-2 rounded-full bg-primary/20"></div>
+                            <div>
+                                <p class="font-bold text-on-surface text-sm">${prod.name}</p>
+                                <p class="text-[10px] text-outline truncate max-w-[200px]">${prod.description || '-'}</p>
+                            </div>
+                        </div>
+                    </td>
+                    <td class="px-8 py-4 font-black text-sm text-primary">
+                        IDR ${new Intl.NumberFormat('id-ID').format(prod.price_per_kg)}
+                    </td>
+                    <td class="px-8 py-4 text-[10px] text-outline">
+                        Produk
+                    </td>
+                    <td class="px-8 py-4 text-right">
+                        <div class="flex justify-end gap-2">
+                            <button onclick="editCategory(${prod.id})" class="w-7 h-7 rounded-lg bg-surface-container flex items-center justify-center text-outline hover:text-primary">
+                                <span class="material-symbols-outlined text-[16px]">edit</span>
+                            </button>
+                            <button onclick="deleteCategory(${prod.id})" class="w-7 h-7 rounded-lg bg-red-50 flex items-center justify-center text-red-400 hover:text-red-600">
+                                <span class="material-symbols-outlined text-[16px]">delete</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            `;
+        });
+    });
+
+    tbody.innerHTML = html;
 }
 
 function openModal(id = null) {
     const form = document.getElementById('category-form');
     form.reset();
     document.getElementById('category-id').value = '';
-    document.getElementById('modal-title').innerText = 'Tambah Kategori';
+    document.getElementById('modal-title').innerText = 'Tambah Data';
     document.getElementById('form-modal').classList.remove('hidden');
+    updateParentDropdown();
+    togglePriceInput();
 }
 
 function closeModal() {
@@ -169,17 +239,19 @@ function editCategory(id) {
     document.getElementById('category-id').value = cat.id;
     document.getElementById('name').value = cat.name;
     document.getElementById('slug').value = cat.slug;
+    document.getElementById('parent_id').value = cat.parent_id || '';
     document.getElementById('price').value = cat.price_per_kg;
     document.getElementById('icon').value = cat.icon;
     document.getElementById('description').value = cat.description;
     document.getElementById('popular').checked = parseInt(cat.is_popular) === 1;
 
-    document.getElementById('modal-title').innerText = 'Edit Kategori';
+    document.getElementById('modal-title').innerText = 'Edit Data';
     document.getElementById('form-modal').classList.remove('hidden');
+    togglePriceInput();
 }
 
 async function deleteCategory(id) {
-    if (!confirm('Apakah Anda yakin ingin menghapus kategori ini? Semua data transaksi terkait mungkin akan terpengaruh.')) return;
+    if (!confirm('Apakah Anda yakin ingin menghapus data ini?')) return;
 
     try {
         const res = await fetch('../api/manage_admin.php?entity=categories&action=delete', {
@@ -220,7 +292,6 @@ document.getElementById('category-form').addEventListener('submit', async (e) =>
     }
 });
 
-// Initial load
 document.addEventListener('DOMContentLoaded', fetchCategories);
 </script>
 

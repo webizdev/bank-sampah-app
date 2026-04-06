@@ -1,5 +1,5 @@
 -- Database Schema for The Organic Breath (Bank Sampah)
--- Version 1.0
+-- Version 1.1 (Hierarchy Support)
 
 CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -22,7 +22,9 @@ CREATE TABLE IF NOT EXISTS waste_categories (
     icon VARCHAR(50) DEFAULT 'recycling',
     image_url TEXT,
     is_popular BOOLEAN DEFAULT FALSE,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    parent_id INT DEFAULT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (parent_id) REFERENCES waste_categories(id) ON DELETE SET NULL
 );
 
 CREATE TABLE IF NOT EXISTS transactions (
@@ -60,10 +62,18 @@ CREATE TABLE IF NOT EXISTS content (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Seed Initial Categories
-INSERT INTO waste_categories (name, slug, description, price_per_kg, icon, is_popular) VALUES
-('Botol PET Bening', 'botol-pet', 'Botol plastik transparan bekas minuman.', 4500, 'local_drink', TRUE),
-('Kardus Bekas', 'kardus-bekas', 'Kardus coklat bersih dan kering.', 2800, 'inventory_2', TRUE),
-('Aluminium Can', 'aluminium-can', 'Kaleng minuman ringan aluminium.', 12000, 'can', TRUE),
-('Kertas HVS/A4', 'kertas-hvs', 'Kertas putih kantor bersih.', 3200, 'description', FALSE),
-('Besi Tebal', 'besi-tebal', 'Potongan besi konstruksi atau plat tebal.', 6500, 'hardware', FALSE);
+-- Seed Initial Categories (Hierarchy Example)
+-- Categories (parent_id is NULL)
+INSERT INTO waste_categories (id, name, slug, description, price_per_kg, icon, is_popular, parent_id) VALUES
+(1, 'Plastik', 'plastik', 'Berbagai jenis sampah berbahan dasar plastik.', 0, 'local_drink', TRUE, NULL),
+(2, 'Kertas', 'kertas', 'Sampah kertas, kardus, dan sejenisnya.', 0, 'description', TRUE, NULL),
+(3, 'Logam', 'logam', 'Sampah besi, aluminium, dan logam lainnya.', 0, 'hardware', TRUE, NULL);
+
+-- Products (Item Unit, parent_id links to parent)
+INSERT INTO waste_categories (name, slug, description, price_per_kg, icon, is_popular, parent_id) VALUES
+('Botol PET Bening', 'botol-pet', 'Botol plastik transparan bekas minuman.', 4500, 'local_drink', TRUE, 1),
+('Gelas Plastik Bersih', 'gelas-plastik', 'Gelas mineral bersih tanpa tutup.', 3500, 'coffee', FALSE, 1),
+('Kardus Bekas', 'kardus-bekas', 'Kardus coklat bersih dan kering.', 2800, 'inventory_2', TRUE, 2),
+('HVS/A4 Putih', 'kertas-hvs', 'Kertas putih kantor bersih.', 3200, 'description', FALSE, 2),
+('Aluminium Can', 'aluminium-can', 'Kaleng minuman ringan aluminium.', 12000, 'can', TRUE, 3),
+('Besi Tebal', 'besi-tebal', 'Potongan besi konstruksi atau plat tebal.', 6500, 'hardware', FALSE, 3);

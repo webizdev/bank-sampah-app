@@ -1,3 +1,5 @@
+const API_BASE = '../api/';
+
 document.addEventListener('DOMContentLoaded', () => {
     // Page detection
     const catalogGrid = document.getElementById('catalog-grid');
@@ -23,10 +25,6 @@ async function fetchUserData() {
 }
 
 function renderUserStats(user) {
-    const statsContainer = document.getElementById('user-stats');
-    if (!statsContainer) return;
-
-    // Mapping values to UI (Assuming IDs exist in index.php)
     const totalKg = document.getElementById('stat-total-kg');
     const balance = document.getElementById('stat-balance');
     const tier = document.getElementById('stat-tier');
@@ -64,11 +62,60 @@ function renderHistory(history) {
     `).join('');
 }
 
-function renderCatalog(categories) {
+async function fetchCategories() {
     const catalogGrid = document.getElementById('catalog-grid');
-    catalogGrid.innerHTML = ''; // Clear skeleton/mock
+    if (!catalogGrid) return;
 
-    categories.forEach(item => {
+    try {
+        const response = await fetch(API_BASE + 'get_categories.php');
+        const result = await response.json();
+
+        if (result.status === 'success') {
+            renderFilters(result.categories);
+            renderCatalog(result.all.filter(item => item.parent_id !== null), result.categories);
+        }
+    } catch (error) {
+        console.error('Error fetching categories:', error);
+    }
+}
+
+function renderFilters(categories) {
+    const filterContainer = document.querySelector('.hide-scrollbar');
+    if (!filterContainer) return;
+
+    let html = `<button onclick="filterCatalog('all')" class="flex-none btn-primary text-sm px-8 filter-btn active">Semua</button>`;
+    
+    categories.forEach(cat => {
+        html += `<button onclick="filterCatalog(${cat.id})" class="flex-none section-container py-3 px-8 text-sm font-bold text-on-surface-variant hover:bg-surface-container-high transition-colors filter-btn">${cat.name}</button>`;
+    });
+
+    filterContainer.innerHTML = html;
+}
+
+let allProducts = [];
+let allCategories = [];
+
+function renderCatalog(products, categories) {
+    const catalogGrid = document.getElementById('catalog-grid');
+    if (!catalogGrid) return;
+    
+    allProducts = products;
+    allCategories = categories;
+    
+    displayProducts(products);
+}
+
+function displayProducts(products) {
+    const catalogGrid = document.getElementById('catalog-grid');
+    catalogGrid.innerHTML = '';
+
+    if (products.length === 0) {
+        catalogGrid.innerHTML = '<div class="col-span-full py-20 text-center text-outline italic">Tidak ada produk ditemukan.</div>';
+        return;
+    }
+
+    products.forEach(item => {
+        const parent = allCategories.find(c => c.id == item.parent_id);
         const card = `
             <div class="card-container group transition-all duration-500 hover:shadow-2xl hover:shadow-primary/5">
                 <div class="h-48 overflow-hidden relative rounded-xl mb-6 bg-surface-container-low">
@@ -80,12 +127,12 @@ function renderCatalog(categories) {
                 <div class="flex justify-between items-start mb-6">
                     <div>
                         <h3 class="font-bold text-lg text-on-surface headline">${item.name}</h3>
-                        <span class="text-xs text-outline font-medium">Kategori: ${item.category}</span>
+                        <span class="text-[10px] bg-primary/5 text-primary px-2 py-1 rounded-md font-bold uppercase tracking-wider">${parent ? parent.name : 'Uncategorized'}</span>
                     </div>
-                    <div class="text-right">
-                        <p class="text-primary font-extrabold text-lg headline">IDR ${new Intl.NumberFormat('id-ID').format(item.price_per_kg)}</p>
-                        <p class="text-[10px] text-outline font-bold uppercase tracking-widest leading-none">Per Kilogram</p>
-                    </div>
+                </div>
+                <div class="text-right mb-6">
+                    <p class="text-primary font-extrabold text-lg headline">IDR ${new Intl.NumberFormat('id-ID').format(item.price_per_kg)}</p>
+                    <p class="text-[10px] text-outline font-bold uppercase tracking-widest leading-none">Per Kilogram</p>
                 </div>
                 <button onclick="openSellModal(${item.id}, '${item.name}', ${item.price_per_kg})" 
                         class="w-full section-container py-3 font-bold text-primary flex items-center justify-center gap-2 hover:bg-primary hover:text-white transition-all duration-300">
@@ -97,34 +144,45 @@ function renderCatalog(categories) {
     });
 }
 
+function filterCatalog(categoryId) {
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.remove('btn-primary', 'active');
+        btn.classList.add('section-container', 'text-on-surface-variant');
+    });
+    
+    const activeBtn = event.currentTarget;
+    activeBtn.classList.add('btn-primary', 'active');
+    activeBtn.classList.remove('section-container', 'text-on-surface-variant');
+
+    if (categoryId === 'all') {
+        displayProducts(allProducts);
+    } else {
+        const filtered = allProducts.filter(p => p.parent_id == categoryId);
+        displayProducts(filtered);
+    }
+}
+
 async function openSellModal(id, name, price) {
     const weight = prompt(`Berapa kg ${name} yang ingin Anda jual?`, "1.0");
     if (weight && !isNaN(weight)) {
         try {
             const response = await fetch(API_BASE + 'submit_transaction.php', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    category_id: id,
-                    weight_est: parseFloat(weight)
-                })
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ category_id: id, weight_est: parseFloat(weight) })
             });
 
             const result = await response.json();
-
             if (result.status === 'success') {
                 const total = weight * price;
-                alert(`Request Berhasil!\nID Transaksi: ${result.data.transaction_id}\nEstimasi Saldo: IDR ${new Intl.NumberFormat('id-ID').format(total)}\n\nTim kami akan menjemput sampah Anda.`);
-                // Ideally refresh the dashboard or redirect
+                alert(`Request Berhasil!\nID Transaksi: ${result.data.transaction_id}\nEstimasi Saldo: IDR ${new Intl.NumberFormat('id-ID').format(total)}`);
                 location.reload(); 
             } else {
                 alert('Error: ' + result.message);
             }
         } catch (error) {
             console.error('Error submitting transaction:', error);
-            alert('Gagal mengirim permintaan. Periksa koneksi Anda.');
+            alert('Gagal mengirim permintaan.');
         }
     }
 }
