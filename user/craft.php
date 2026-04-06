@@ -9,10 +9,10 @@ include '../includes/header.php';
 </section>
 
 <!-- Craft Catalog Grid -->
-<div id="craft-catalog" class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-24">
+<div id="craft-catalog" class="grid grid-cols-2 gap-3 mb-24 lg:grid-cols-3">
     <!-- Will be loaded by JS -->
-    <div class="animate-pulse bg-surface-container-low h-64 rounded-[2rem]"></div>
-    <div class="animate-pulse bg-surface-container-low h-64 rounded-[2rem]"></div>
+    <div class="animate-pulse bg-surface-container-low h-48 rounded-[1.5rem]"></div>
+    <div class="animate-pulse bg-surface-container-low h-48 rounded-[1.5rem]"></div>
 </div>
 
 <script>
@@ -25,21 +25,23 @@ async function fetchCrafts() {
         
         if (result.status === 'success' && result.data.length > 0) {
             container.innerHTML = result.data.map(item => `
-                <div class="bg-white rounded-[2rem] border border-primary/5 shadow-xl overflow-hidden group hover:shadow-2xl transition-all duration-300">
-                    <div class="h-56 relative overflow-hidden">
+                <div class="bg-white rounded-[1.5rem] border border-primary/5 shadow-lg overflow-hidden group hover:shadow-2xl transition-all duration-300 flex flex-col">
+                    <div class="h-32 xs:h-40 relative overflow-hidden">
                         <img src="${item.image_url || 'https://via.placeholder.com/600x400?text=No+Image'}" 
                              alt="${item.title}" 
                              class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
-                        <div class="absolute top-4 right-4 bg-primary text-white px-4 py-2 rounded-full text-xs font-black shadow-lg">
-                            IDR ${new Intl.NumberFormat('id-ID').format(item.price)}
+                        <div class="absolute top-2 right-2 bg-primary/90 text-white px-2 py-1 rounded-full text-[8px] font-black shadow-lg">
+                            Rp${new Intl.NumberFormat('id-ID').format(item.price)}
                         </div>
                     </div>
-                    <div class="p-6">
-                        <h3 class="headline text-lg font-bold text-primary mb-2">${item.title}</h3>
-                        <p class="text-on-surface-variant text-sm mb-6 line-clamp-2">${item.description}</p>
+                    <div class="p-3 flex-grow flex flex-col justify-between">
+                        <div class="mb-3">
+                            <h3 class="headline text-xs font-black text-primary mb-1 line-clamp-1 uppercase tracking-tighter">${item.title}</h3>
+                            <p class="text-on-surface-variant text-[9px] line-clamp-2 leading-tight font-medium">${item.description}</p>
+                        </div>
                         <a href="${item.cta_link}" target="_blank" 
-                           class="block w-full text-center py-4 bg-surface-container-low text-primary font-black rounded-2xl hover:bg-primary hover:text-white transition-all active:scale-95">
-                           Beli Sekarang
+                           class="block w-full text-center py-2 bg-primary/5 text-primary text-[10px] font-black rounded-xl hover:bg-primary hover:text-white transition-all active:scale-95 uppercase tracking-widest">
+                           Beli
                         </a>
                     </div>
                 </div>
