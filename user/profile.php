@@ -42,7 +42,10 @@ $lng = $u['longitude'] ?: 106.8272;
 <section class="mb-6 flex flex-col items-center text-center relative px-2 animate-fade-in">
     <form id="avatar-form" enctype="multipart/form-data" class="relative">
         <label for="avatar-input" class="profile-avatar-wrapper group block w-24 h-24 rounded-full border-4 border-white shadow-2xl overflow-hidden mb-4 bg-surface-container-highest">
-            <img id="avatar-preview" src="<?php echo $u['avatar_url'] ?: 'https://ui-avatars.com/api/?name='.urlencode($u['name']).'&background=0f5238&color=fff&size=128'; ?>" 
+            <?php 
+            $p_avatar = ($u['avatar_url']) ? $path_to_root . str_replace('../', '', $u['avatar_url']) : 'https://ui-avatars.com/api/?name='.urlencode($u['name']).'&background=0f5238&color=fff&size=128';
+            ?>
+            <img id="avatar-preview" src="<?php echo $p_avatar; ?>" 
                  alt="Profile" class="w-full h-full object-cover">
             <div class="overlay">
                 <span class="material-symbols-outlined text-white text-2xl">photo_camera</span>

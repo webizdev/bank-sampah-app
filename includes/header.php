@@ -25,6 +25,17 @@ if (isset($_SESSION['user_id'])) {
         header('Location: ' . $path_to_root . 'admin/dashboard.php');
         exit;
     }
+
+    // Fetch latest user data (for avatar, etc.)
+    try {
+        $stmt_u = $pdo->prepare("SELECT name, avatar_url FROM users WHERE id = ?");
+        $stmt_u->execute([$_SESSION['user_id']]);
+        $user_meta = $stmt_u->fetch();
+        if ($user_meta) {
+            $_SESSION['user_name'] = $user_meta['name'];
+            $_SESSION['user_avatar'] = $user_meta['avatar_url'];
+        }
+    } catch (Exception $e) {}
 }
 
 // Fetch Settings safely
@@ -116,8 +127,13 @@ if ($is_user_app) {
             <span class="text-[8px] font-black tracking-[0.2em] text-outline uppercase mt-1 opacity-70">Empowering Ecology</span>
         </div>
         <div class="flex items-center gap-3">
-            <div class="w-10 h-10 rounded-full bg-white border border-primary/5 shadow-sm p-0.5 flex items-center justify-center">
-                 <img src="https://ui-avatars.com/api/?name=<?php echo urlencode($_SESSION['user_name'] ?? 'User'); ?>&background=0f5238&color=fff" alt="User" class="w-full h-full rounded-full object-cover">
+            <div class="w-10 h-10 rounded-full bg-white border border-primary/5 shadow-sm p-0.5 flex items-center justify-center overflow-hidden">
+                 <?php 
+                 $avatar_path = $_SESSION['user_avatar'] ?? '';
+                 // Normalize existing paths and handle directories
+                 $display_avatar = ($avatar_path) ? $path_to_root . str_replace('../', '', $avatar_path) : "https://ui-avatars.com/api/?name=".urlencode($_SESSION['user_name'] ?? 'U')."&background=0f5238&color=fff";
+                 ?>
+                 <img src="<?php echo $display_avatar; ?>" alt="User" class="w-full h-full rounded-full object-cover">
             </div>
         </div>
     </header>

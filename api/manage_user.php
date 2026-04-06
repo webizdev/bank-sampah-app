@@ -34,14 +34,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         $upload_path = $target_dir . $new_filename;
 
         if (move_uploaded_file($_FILES['avatar']['tmp_name'], $upload_path)) {
-            // URL to be stored in DB (relative to site root if possible, or consistent)
-            $avatar_url = '../uploads/avatars/' . $new_filename;
+            // URL to be stored in DB (relative to site root)
+            $avatar_url = 'uploads/avatars/' . $new_filename;
             
             // Update DB
             $stmt = $pdo->prepare("UPDATE users SET avatar_url = ? WHERE id = ?");
             $stmt->execute([$avatar_url, $user_id]);
 
-            echo json_encode(['status' => 'success', 'url' => $avatar_url]);
+            // Sync with session for immediate header update
+            $_SESSION['user_avatar'] = $avatar_url;
+
+            echo json_encode(['status' => 'success', 'url' => '../' . $avatar_url]);
             exit;
         } else {
             $error = error_get_last();
