@@ -33,14 +33,8 @@ include 'includes/header.php';
             </div>
 
             <div>
-                <label for="email" class="block text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-2">Alamat Email</label>
-                <input id="email" name="email" type="email" required placeholder="your@email.com"
-                       class="w-full bg-surface-container border-none rounded-xl px-4 py-4 focus:ring-2 focus:ring-primary text-on-surface placeholder:text-outline/50 transition-all">
-            </div>
-
-            <div>
-                <label for="password" class="block text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-2">Password</label>
-                <input id="password" name="password" type="password" required placeholder="••••••••"
+                <label for="whatsapp" class="block text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-2">Nomor WhatsApp</label>
+                <input id="whatsapp" name="whatsapp" type="tel" required placeholder="081234567890"
                        class="w-full bg-surface-container border-none rounded-xl px-4 py-4 focus:ring-2 focus:ring-primary text-on-surface placeholder:text-outline/50 transition-all">
             </div>
 

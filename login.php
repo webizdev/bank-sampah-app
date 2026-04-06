@@ -27,25 +27,9 @@ include 'includes/header.php';
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-md">
         <form id="login-form" class="space-y-6">
             <div>
-                <label for="email" class="block text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-2">Email</label>
-                <input id="email" name="email" type="email" required placeholder="your@email.com"
+                <label for="whatsapp" class="block text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-2">Nomor WhatsApp</label>
+                <input id="whatsapp" name="whatsapp" type="tel" required placeholder="081234567890"
                        class="w-full bg-surface-container border-none rounded-xl px-4 py-4 focus:ring-2 focus:ring-primary text-on-surface transition-all">
-            </div>
-
-            <div>
-                <label for="password" class="block text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-2">Password</label>
-                <input id="password" name="password" type="password" required placeholder="••••••••"
-                       class="w-full bg-surface-container border-none rounded-xl px-4 py-4 focus:ring-2 focus:ring-primary text-on-surface transition-all">
-            </div>
-
-            <div class="flex items-center justify-between">
-                <div class="flex items-center">
-                    <input id="remember-me" name="remember-me" type="checkbox" class="h-4 w-4 text-primary focus:ring-primary border-outline rounded">
-                    <label for="remember-me" class="ml-2 block text-xs font-bold uppercase tracking-widest text-on-surface-variant">Ingat Saya</label>
-                </div>
-                <div class="text-xs">
-                    <a href="#" class="font-bold text-primary">Lupa Password?</a>
-                </div>
             </div>
 
             <div>

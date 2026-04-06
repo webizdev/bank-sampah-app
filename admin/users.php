@@ -14,8 +14,8 @@ include 'sidebar.php';
         <div class="flex items-center gap-4">
              <div class="relative">
                 <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-outline text-[18px]">search</span>
-                <input type="text" id="user-search" onkeyup="filterUsers()" placeholder="Cari nama atau email..." 
-                       class="bg-surface-container border-none rounded-xl pl-12 pr-4 py-3 text-xs font-bold focus:ring-2 focus:ring-primary w-64 transition-all">
+                <input type="text" id="user-search" onkeyup="filterUsers()" placeholder="Cari nama atau whatsapp..." 
+                        class="bg-surface-container border-none rounded-xl pl-12 pr-4 py-3 text-xs font-bold focus:ring-2 focus:ring-primary w-64 transition-all">
              </div>
         </div>
     </header>
@@ -60,8 +60,8 @@ include 'sidebar.php';
                            class="w-full bg-surface-container border-none rounded-xl px-4 py-4 focus:ring-2 focus:ring-primary font-bold">
                 </div>
                 <div class="col-span-2">
-                    <label class="block text-[10px] font-bold text-outline uppercase tracking-widest mb-2">Email</label>
-                    <input type="email" id="email" name="email" required
+                    <label class="block text-[10px] font-bold text-outline uppercase tracking-widest mb-2">WhatsApp</label>
+                    <input type="text" id="whatsapp" name="whatsapp" required
                            class="w-full bg-surface-container border-none rounded-xl px-4 py-4 focus:ring-2 focus:ring-primary font-bold">
                 </div>
                 <div>
@@ -139,7 +139,7 @@ function renderTable(dataList) {
                     </div>
                     <div>
                         <p class="font-black text-primary text-sm">${u.name}</p>
-                        <p class="text-[10px] text-outline font-medium">${u.email}</p>
+                        <p class="text-[10px] text-outline font-medium">WA: ${u.whatsapp || '-'}</p>
                     </div>
                 </div>
             </td>
@@ -175,7 +175,7 @@ function renderTable(dataList) {
 
 function filterUsers() {
     const q = document.getElementById('user-search').value.toLowerCase();
-    const filtered = users.filter(u => u.name.toLowerCase().includes(q) || u.email.toLowerCase().includes(q));
+    const filtered = users.filter(u => u.name.toLowerCase().includes(q) || (u.whatsapp && u.whatsapp.toLowerCase().includes(q)));
     renderTable(filtered);
 }
 
@@ -193,7 +193,7 @@ function editUser(id) {
     
     document.getElementById('user-id').value = u.id;
     document.getElementById('name').value = u.name;
-    document.getElementById('email').value = u.email;
+    document.getElementById('whatsapp').value = u.whatsapp || '';
     document.getElementById('role').value = u.role;
     document.getElementById('tier').value = u.tier;
     
