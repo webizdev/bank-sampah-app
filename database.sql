@@ -67,6 +67,8 @@ CREATE TABLE IF NOT EXISTS content (
     category ENUM('AGENDA', 'EDUKASI', 'KARIR') NOT NULL,
     image_url TEXT,
     event_date DATE,
+    location VARCHAR(255),
+    cta_link TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

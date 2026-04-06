@@ -1,7 +1,6 @@
 <?php
-require_once '../includes/db_connect.php';
-
 header('Content-Type: application/json');
+require_once '../includes/db_connect.php';
 
 // Security Check
 if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'ADMIN') {

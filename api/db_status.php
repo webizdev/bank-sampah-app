@@ -1,35 +1,22 @@
 <?php
-require_once 'includes/db_connect.php';
+require_once '../includes/db_connect.php';
 
 try {
-    // Check if waste_categories exists
-    $stmt = $pdo->query("SHOW TABLES LIKE 'waste_categories'");
-    $hasOld = $stmt->rowCount() > 0;
-    
-    // Check if categories exists
-    $stmt = $pdo->query("SHOW TABLES LIKE 'categories'");
-    $hasCat = $stmt->rowCount() > 0;
-    
-    // Check if products exists
-    $stmt = $pdo->query("SHOW TABLES LIKE 'products'");
-    $hasProd = $stmt->rowCount() > 0;
-    
-    echo "waste_categories exists: " . ($hasOld ? 'Yes' : 'No') . "\n";
-    echo "categories exists: " . ($hasCat ? 'Yes' : 'No') . "\n";
-    echo "products exists: " . ($hasProd ? 'Yes' : 'No') . "\n";
-    
-    if ($hasOld) {
-        $stmt = $pdo->query("SELECT * FROM waste_categories");
-        echo "\nwaste_categories data:\n";
-        print_r($stmt->fetchAll(PDO::FETCH_ASSOC));
+    // Check tables
+    $tables = ['waste_categories', 'categories', 'products', 'content', 'transactions'];
+    foreach ($tables as $t) {
+        $stmt = $pdo->query("SHOW TABLES LIKE '$t'");
+        echo "$t exists: " . ($stmt->rowCount() > 0 ? 'Yes' : 'No') . "\n";
     }
-    
-    if ($hasProd) {
-        $stmt = $pdo->query("SELECT * FROM products");
-        echo "\nproducts data:\n";
-        print_r($stmt->fetchAll(PDO::FETCH_ASSOC));
-    }
-    
+
+    // Check content table schema
+    echo "\nContent Table Schema:\n";
+    $stmt = $pdo->query("DESCRIBE content");
+    print_r($stmt->fetchAll(PDO::FETCH_ASSOC));
+
+    // Check content data count
+    echo "\nContent Count: " . $pdo->query("SELECT COUNT(*) FROM content")->fetchColumn() . "\n";
+
 } catch (Exception $e) {
     echo "Error: " . $e->getMessage();
 }

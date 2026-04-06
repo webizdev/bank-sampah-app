@@ -84,11 +84,22 @@ include '../includes/header.php';
 async function fetchArticles() {
     try {
         const res = await fetch('../api/get_articles.php?limit=5');
-        const result = await res.json();
+        const text = await res.text();
+        let result;
+        try {
+            result = JSON.parse(text);
+        } catch (e) {
+            console.error('API Parse Error:', text);
+            throw new Error('Data format error');
+        }
+
         if (result.status === 'success') {
             renderArticles(result.data);
         }
-    } catch (err) { console.error(err); }
+    } catch (err) { 
+        console.error('Sync Error:', err);
+        document.getElementById('article-grid').innerHTML = '<div class="px-6 py-10 text-outline text-xs italic font-medium">Gagal memuat data terbaru.</div>';
+    }
 }
 
 function renderArticles(data) {

@@ -101,7 +101,15 @@ let articles = [];
 async function fetchArticles() {
     try {
         const res = await fetch('../api/manage_admin.php?entity=articles');
-        const result = await res.json();
+        const text = await res.text();
+        let result;
+        try {
+            result = JSON.parse(text);
+        } catch (e) {
+            console.error('API Parse Error (Not JSON):', text);
+            throw new Error('Format data tidak valid');
+        }
+
         if (result.status === 'success') {
             articles = result.data;
             renderArticles(articles);

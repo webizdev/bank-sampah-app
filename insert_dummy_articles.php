@@ -35,26 +35,38 @@ $articles = [
 ];
 
 try {
-    // Clear existing content to avoid duplicates during this dummy insertion
+    // 1. Ensure Schema
+    echo "Checking schema...\n";
+    $colsToAdd = [
+        "location" => "ALTER TABLE content ADD COLUMN location VARCHAR(255) AFTER event_date",
+        "cta_link" => "ALTER TABLE content ADD COLUMN cta_link TEXT AFTER location"
+    ];
+    
+    foreach ($colsToAdd as $col => $sql) {
+        try {
+            $pdo->exec($sql);
+            echo "✔ Added column: $col\n";
+        } catch (Exception $e) {
+            echo "ℹ Column $col likely already exists.\n";
+        }
+    }
+
+    // 2. Clear existing content
     $pdo->exec("DELETE FROM content");
     
+    // 3. Insert dummies
     $stmt = $pdo->prepare("INSERT INTO content (title, subtitle, content, category, image_url, event_date, location, cta_link) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
     
     foreach ($articles as $a) {
         $stmt->execute([
-            $a['title'],
-            $a['subtitle'],
-            $a['content'],
-            $a['category'],
-            $a['image_url'],
-            $a['event_date'],
-            $a['location'],
-            $a['cta_link']
+            $a['title'], $a['subtitle'], $a['content'], 
+            $a['category'], $a['image_url'], $a['event_date'], 
+            $a['location'], $a['cta_link']
         ]);
-        echo "Inserted: " . $a['title'] . "\n";
+        echo "✔ Inserted: " . $a['title'] . "\n";
     }
     
-    echo "\nSuccess: 3 articles inserted.";
+    echo "\nSuccess! Data synchronized successfully.";
 } catch (PDOException $e) {
-    echo "Error: " . $e->getMessage();
+    echo "❌ Error: " . $e->getMessage();
 }
