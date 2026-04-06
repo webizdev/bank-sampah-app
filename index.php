@@ -37,7 +37,7 @@ include 'includes/header.php';
                         Modern</span>
                 </div>
                 <h1
-                    class="text-6xl lg:text-[7rem] font-black text-primary leading-[0.85] headline tracking-tighter animate-slide-up">
+                    class="text-5xl md:text-6xl lg:text-[7rem] font-black text-primary leading-[0.85] headline tracking-tighter animate-slide-up">
                     Waste Management<br>
                     <span class="text-outline-thin text-transparent"
                         style="-webkit-text-stroke: 2px #2D4F1E; opacity: 0.6;">Dumpster Rentals</span><br>
@@ -65,9 +65,9 @@ include 'includes/header.php';
                 </div>
                 <!-- Stats Overlays -->
                 <div
-                    class="absolute -bottom-10 -left-10 bg-white p-6 rounded-3xl shadow-2xl border border-primary/5 -rotate-3 hover:rotate-0 transition-all">
-                    <p class="text-4xl font-black text-primary headline tracking-tighter">98%</p>
-                    <p class="text-[10px] font-bold text-outline uppercase tracking-widest">Daur Ulang Berhasil</p>
+                    class="absolute -bottom-10 -left-6 md:-left-10 bg-white p-4 md:p-6 rounded-3xl shadow-2xl border border-primary/5 -rotate-3 hover:rotate-0 transition-all">
+                    <p class="text-3xl md:text-4xl font-black text-primary headline tracking-tighter">98%</p>
+                    <p class="text-[8px] md:text-[10px] font-bold text-outline uppercase tracking-widest">Daur Ulang Berhasil</p>
                 </div>
             </div>
         </div>
@@ -158,7 +158,7 @@ include 'includes/header.php';
                 for($i = 0; $i < 2; $i++):
                     foreach($mockups as $index => $m):
                 ?>
-                    <div class="shrink-0 w-[260px] md:w-[320px] hover:-translate-y-4 transition-transform duration-500 group relative">
+                    <div class="shrink-0 w-[180px] sm:w-[220px] md:w-[320px] hover:-translate-y-4 transition-transform duration-500 group relative">
                         <div class="absolute inset-0 bg-primary/30 blur-3xl rounded-full scale-90 -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                         <div class="bg-[#1a1a1a] rounded-[2.5rem] shadow-[0_20px_50px_-15px_rgba(0,0,0,0.3)] p-[10px] md:p-[14px] relative z-10 transition-shadow group-hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)]">
                             <div class="absolute top-0 left-1/2 -translate-x-1/2 w-1/3 h-5 bg-[#1a1a1a] rounded-b-[1rem] z-20"></div> <!-- Notch -->
@@ -187,8 +187,8 @@ include 'includes/header.php';
             </div>
         </div>
         <div class="space-y-8 order-1 md:order-2">
-            <h2 class="text-5xl font-black text-primary leading-tight headline tracking-tight">Tentang Kami</h2>
-            <h3 class="text-2xl font-bold text-on-surface-variant">We're Leader In Waste Management Services</h3>
+            <h2 class="text-4xl md:text-5xl font-black text-primary leading-tight headline tracking-tight">Tentang Kami</h2>
+            <h3 class="text-xl md:text-2xl font-bold text-on-surface-variant">We're Leader In Waste Management Services</h3>
             <p class="text-on-surface-variant leading-relaxed">
                 Sebagai pemimpin di industri, kami berkomitmen untuk menghadirkan teknologi pengelolaan limbah terbaru
                 guna meminimalkan dampak lingkungan. Kerja keras kami diakui secara global.
@@ -214,20 +214,20 @@ include 'includes/header.php';
     <section class="bg-primary py-24 px-8 overflow-hidden relative">
         <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-12 relative z-10">
             <div class="text-center space-y-2">
-                <h4 class="text-6xl font-black text-white headline tracking-tight">62K</h4>
-                <p class="text-white/60 text-[10px] font-bold uppercase tracking-[0.2em]">Pelanggan Puas</p>
+                <h4 class="text-4xl md:text-6xl font-black text-white headline tracking-tight">62K</h4>
+                <p class="text-white/60 text-[8px] md:text-[10px] font-bold uppercase tracking-[0.2em]">Pelanggan Puas</p>
             </div>
             <div class="text-center space-y-2">
-                <h4 class="text-6xl font-black text-white headline tracking-tight">150+</h4>
-                <p class="text-white/60 text-[10px] font-bold uppercase tracking-[0.2em]">Kemitraan Organisasi</p>
+                <h4 class="text-4xl md:text-6xl font-black text-white headline tracking-tight">150+</h4>
+                <p class="text-white/60 text-[8px] md:text-[10px] font-bold uppercase tracking-[0.2em]">Kemitraan Organisasi</p>
             </div>
             <div class="text-center space-y-2">
-                <h4 class="text-6xl font-black text-white headline tracking-tight">130</h4>
-                <p class="text-white/60 text-[10px] font-bold uppercase tracking-[0.2em]">Staf Lapangan</p>
+                <h4 class="text-4xl md:text-6xl font-black text-white headline tracking-tight">130</h4>
+                <p class="text-white/60 text-[8px] md:text-[10px] font-bold uppercase tracking-[0.2em]">Staf Lapangan</p>
             </div>
             <div class="text-center space-y-2">
-                <h4 class="text-6xl font-black text-white headline tracking-tight">32+</h4>
-                <p class="text-white/60 text-[10px] font-bold uppercase tracking-[0.2em]">Provinsi Tercover</p>
+                <h4 class="text-4xl md:text-6xl font-black text-white headline tracking-tight">32+</h4>
+                <p class="text-white/60 text-[8px] md:text-[10px] font-bold uppercase tracking-[0.2em]">Provinsi Tercover</p>
             </div>
         </div>
         <div class="absolute top-0 right-0 w-96 h-96 bg-white/5 blur-[120px] rounded-full"></div>
@@ -236,7 +236,7 @@ include 'includes/header.php';
     <!-- FAQ & Reviews -->
     <section class="px-8 py-32 max-w-7xl mx-auto">
         <div class="text-center max-w-2xl mx-auto mb-20 space-y-4">
-            <h2 class="text-4xl font-black text-primary headline tracking-tight">Apa Kata Mereka?</h2>
+            <h2 class="text-3xl md:text-4xl font-black text-primary headline tracking-tight">Apa Kata Mereka?</h2>
             <p class="text-on-surface-variant">Bergabunglah dengan ribuan orang lainnya yang telah berkontribusi menjaga
                 bumi tetap hijau.</p>
         </div>
