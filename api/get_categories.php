@@ -1,37 +1,33 @@
 <?php
-// API: Get Waste Categories
+// API: Get Waste Categories and Products (Unified list for admin UI)
 header('Content-Type: application/json');
 require_once '../includes/db_connect.php';
 
 try {
-    // Fetch all categories and products
-    $stmt = $pdo->query("SELECT * FROM waste_categories ORDER BY parent_id ASC, name ASC");
-    $all = $stmt->fetchAll();
-    
-    // Structure the data (Categories with their Products)
-    $categories = [];
-    $productsByParent = [];
-    
-    foreach ($all as $item) {
-        if ($item['parent_id'] === null) {
-            $categories[] = $item;
-        } else {
-            $productsByParent[$item['parent_id']][] = $item;
-        }
-    }
-    
+    // Fetch categories (top-level)
+    $catStmt = $pdo->query("SELECT id, name, slug, description, icon, NULL AS parent_id, NULL AS price_per_kg, is_popular FROM categories ORDER BY name ASC");
+    $categories = $catStmt->fetchAll(PDO::FETCH_ASSOC);
+
+    // Fetch products (children)
+    $prodStmt = $pdo->query("SELECT id, name, slug, description, icon, category_id AS parent_id, price_per_kg, is_popular FROM products ORDER BY name ASC");
+    $products = $prodStmt->fetchAll(PDO::FETCH_ASSOC);
+
+    // Merge into flat list with explicit typing
+    foreach ($categories as &$c) { $c['type'] = 'category'; }
+    foreach ($products as &$p) { $p['type'] = 'product'; }
+    $all = array_merge($categories, $products);
+
     echo json_encode([
         'status' => 'success',
         'categories' => $categories,
-        'products' => $productsByParent,
-        'all' => $all // Kept for backward compatibility if needed
+        'products' => $products,
+        'all' => $all
     ]);
-    
 } catch (PDOException $e) {
     http_response_code(500);
     echo json_encode([
         'status' => 'error',
-        'message' => 'Failed to fetch categories'
+        'message' => 'Failed to fetch categories: ' . $e->getMessage()
     ]);
 }
 ?>

@@ -19,6 +19,9 @@ try {
         case 'categories':
             handleCategories($pdo, $method, $action, $input);
             break;
+        case 'products':
+            handleProducts($pdo, $method, $action, $input);
+            break;
         case 'services':
             handleServices($pdo, $method, $action, $input);
             break;
@@ -37,20 +40,67 @@ try {
 
 function handleCategories($pdo, $method, $action, $data) {
     if ($method === 'GET') {
-        $stmt = $pdo->query("SELECT * FROM waste_categories ORDER BY parent_id ASC, name ASC");
+        $stmt = $pdo->query("SELECT * FROM categories ORDER BY name ASC");
         echo json_encode(['status' => 'success', 'data' => $stmt->fetchAll()]);
     } elseif ($method === 'POST') {
         if ($action === 'delete') {
-            $stmt = $pdo->prepare("DELETE FROM waste_categories WHERE id = ?");
+            $stmt = $pdo->prepare("DELETE FROM categories WHERE id = ?");
             $stmt->execute([$data['id']]);
         } elseif (isset($data['id']) && $data['id'] > 0) {
-            // Update
-            $stmt = $pdo->prepare("UPDATE waste_categories SET name=?, slug=?, description=?, price_per_kg=?, icon=?, is_popular=?, parent_id=? WHERE id=?");
-            $stmt->execute([$data['name'], $data['slug'], $data['description'], $data['price_per_kg'], $data['icon'], $data['is_popular'] ? 1 : 0, $data['parent_id'] ?: null, $data['id']]);
+            $stmt = $pdo->prepare("UPDATE categories SET name=?, slug=?, description=?, icon=?, is_popular=? WHERE id=?");
+            $stmt->execute([
+                $data['name'],
+                $data['slug'],
+                $data['description'],
+                $data['icon'],
+                $data['is_popular'] ? 1 : 0,
+                $data['id']
+            ]);
         } else {
-            // Create
-            $stmt = $pdo->prepare("INSERT INTO waste_categories (name, slug, description, price_per_kg, icon, is_popular, parent_id) VALUES (?, ?, ?, ?, ?, ?, ?)");
-            $stmt->execute([$data['name'], $data['slug'], $data['description'], $data['price_per_kg'], $data['icon'], $data['is_popular'] ? 1 : 0, $data['parent_id'] ?: null]);
+            $stmt = $pdo->prepare("INSERT INTO categories (name, slug, description, icon, is_popular) VALUES (?, ?, ?, ?, ?)");
+            $stmt->execute([
+                $data['name'],
+                $data['slug'],
+                $data['description'],
+                $data['icon'],
+                $data['is_popular'] ? 1 : 0
+            ]);
+        }
+        echo json_encode(['status' => 'success']);
+    }
+}
+
+function handleProducts($pdo, $method, $action, $data) {
+    if ($method === 'GET') {
+        $stmt = $pdo->query("SELECT * FROM products ORDER BY name ASC");
+        echo json_encode(['status' => 'success', 'data' => $stmt->fetchAll()]);
+    } elseif ($method === 'POST') {
+        if ($action === 'delete') {
+            $stmt = $pdo->prepare("DELETE FROM products WHERE id = ?");
+            $stmt->execute([$data['id']]);
+        } elseif (isset($data['id']) && $data['id'] > 0) {
+            $stmt = $pdo->prepare("UPDATE products SET name=?, slug=?, description=?, price_per_kg=?, icon=?, is_popular=?, category_id=? WHERE id=?");
+            $stmt->execute([
+                $data['name'],
+                $data['slug'],
+                $data['description'],
+                $data['price_per_kg'],
+                $data['icon'],
+                $data['is_popular'] ? 1 : 0,
+                $data['category_id'],
+                $data['id']
+            ]);
+        } else {
+            $stmt = $pdo->prepare("INSERT INTO products (name, slug, description, price_per_kg, icon, is_popular, category_id) VALUES (?, ?, ?, ?, ?, ?, ?)");
+            $stmt->execute([
+                $data['name'],
+                $data['slug'],
+                $data['description'],
+                $data['price_per_kg'],
+                $data['icon'],
+                $data['is_popular'] ? 1 : 0,
+                $data['category_id']
+            ]);
         }
         echo json_encode(['status' => 'success']);
     }
@@ -65,13 +115,22 @@ function handleServices($pdo, $method, $action, $data) {
             $stmt = $pdo->prepare("DELETE FROM services WHERE id = ?");
             $stmt->execute([$data['id']]);
         } elseif (isset($data['id']) && $data['id'] > 0) {
-            // Update
             $stmt = $pdo->prepare("UPDATE services SET name=?, description=?, type=?, is_active=? WHERE id=?");
-            $stmt->execute([$data['name'], $data['description'], $data['type'], $data['is_active'] ? 1 : 0, $data['id']]);
+            $stmt->execute([
+                $data['name'],
+                $data['description'],
+                $data['type'],
+                $data['is_active'] ? 1 : 0,
+                $data['id']
+            ]);
         } else {
-            // Create
             $stmt = $pdo->prepare("INSERT INTO services (name, description, type, is_active) VALUES (?, ?, ?, ?)");
-            $stmt->execute([$data['name'], $data['description'], $data['type'], $data['is_active'] ? 1 : 0]);
+            $stmt->execute([
+                $data['name'],
+                $data['description'],
+                $data['type'],
+                $data['is_active'] ? 1 : 0
+            ]);
         }
         echo json_encode(['status' => 'success']);
     }
@@ -89,9 +148,14 @@ function handleUsers($pdo, $method, $action, $data) {
             $stmt = $pdo->prepare("UPDATE users SET balance = ? WHERE id = ?");
             $stmt->execute([$data['balance'], $data['id']]);
         } elseif (isset($data['id']) && $data['id'] > 0) {
-            // Update role/tier
             $stmt = $pdo->prepare("UPDATE users SET name=?, email=?, role=?, tier=? WHERE id=?");
-            $stmt->execute([$data['name'], $data['email'], $data['role'], $data['tier'], $data['id']]);
+            $stmt->execute([
+                $data['name'],
+                $data['email'],
+                $data['role'],
+                $data['tier'],
+                $data['id']
+            ]);
         }
         echo json_encode(['status' => 'success']);
     }
@@ -99,10 +163,11 @@ function handleUsers($pdo, $method, $action, $data) {
 
 function handleTransactions($pdo, $method, $action, $data) {
     if ($method === 'GET') {
-        $query = "SELECT t.*, u.name as user_name, c.name as category_name 
+        $query = "SELECT t.*, u.name as user_name, p.name as product_name, c.name as category_name 
                   FROM transactions t 
                   JOIN users u ON t.user_id = u.id 
-                  JOIN waste_categories c ON t.category_id = c.id 
+                  JOIN products p ON t.category_id = p.id 
+                  JOIN categories c ON p.category_id = c.id 
                   ORDER BY t.created_at DESC";
         $stmt = $pdo->query($query);
         echo json_encode(['status' => 'success', 'data' => $stmt->fetchAll()]);

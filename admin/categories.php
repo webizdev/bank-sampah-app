@@ -56,6 +56,7 @@ include 'sidebar.php';
         
         <form id="category-form" class="space-y-6">
             <input type="hidden" id="category-id" name="id">
+            <input type="hidden" id="category-type" name="type">
             
             <div class="grid grid-cols-2 gap-4">
                 <div class="col-span-2">
@@ -164,10 +165,10 @@ function renderPills() {
                     <span class="leading-none mt-0.5">${cat.name}</span>
                 </button>
                 <div class="flex flex-col gap-px h-full">
-                    <button onclick="editCategory(${cat.id})" class="flex-1 px-2 rounded-tr-lg text-outline hover:bg-primary/10 hover:text-primary bg-surface-container transition-all flex items-center justify-center">
+                    <button onclick="editCategory(${cat.id}, 'category')" class="flex-1 px-2 rounded-tr-lg text-outline hover:bg-primary/10 hover:text-primary bg-surface-container transition-all flex items-center justify-center">
                         <span class="material-symbols-outlined text-[10px]">edit</span>
                     </button>
-                    <button onclick="deleteCategory(${cat.id})" class="flex-1 px-2 rounded-br-lg text-red-300 hover:bg-red-50 hover:text-red-500 bg-surface-container transition-all flex items-center justify-center">
+                    <button onclick="deleteCategory(${cat.id}, 'category')" class="flex-1 px-2 rounded-br-lg text-red-300 hover:bg-red-50 hover:text-red-500 bg-surface-container transition-all flex items-center justify-center">
                         <span class="material-symbols-outlined text-[10px]">delete</span>
                     </button>
                 </div>
@@ -230,10 +231,10 @@ function renderTable() {
                 </td>
                 <td class="px-8 py-4 text-right">
                     <div class="flex justify-end gap-2">
-                        <button onclick="editCategory(${prod.id})" class="w-8 h-8 rounded-lg bg-white border border-primary/10 flex items-center justify-center text-outline hover:text-primary hover:border-primary/30 transition-all">
+                        <button onclick="editCategory(${prod.id}, 'product')" class="w-8 h-8 rounded-lg bg-white border border-primary/10 flex items-center justify-center text-outline hover:text-primary hover:border-primary/30 transition-all">
                             <span class="material-symbols-outlined text-[16px]">edit</span>
                         </button>
-                        <button onclick="deleteCategory(${prod.id})" class="w-8 h-8 rounded-lg bg-white border border-red-50 flex items-center justify-center text-red-300 hover:text-red-500 hover:border-red-200 transition-all">
+                        <button onclick="deleteCategory(${prod.id}, 'product')" class="w-8 h-8 rounded-lg bg-white border border-red-50 flex items-center justify-center text-red-300 hover:text-red-500 hover:border-red-200 transition-all">
                             <span class="material-symbols-outlined text-[16px]">delete</span>
                         </button>
                     </div>
@@ -262,8 +263,8 @@ function renderTable() {
                     <td class="px-8 py-4 font-black text-sm text-red-500">IDR ${new Intl.NumberFormat('id-ID').format(prod.price_per_kg)}</td>
                     <td class="px-8 py-4 text-right">
                         <div class="flex justify-end gap-2">
-                            <button onclick="editCategory(${prod.id})" class="w-8 h-8 rounded-lg bg-white border border-red-100 flex items-center justify-center text-red-400 hover:text-red-500"><span class="material-symbols-outlined text-[16px]">edit</span></button>
-                            <button onclick="deleteCategory(${prod.id})" class="w-8 h-8 rounded-lg bg-white border border-red-100 flex items-center justify-center text-red-400 hover:text-red-600"><span class="material-symbols-outlined text-[16px]">delete</span></button>
+                            <button onclick="editCategory(${prod.id}, 'product')" class="w-8 h-8 rounded-lg bg-white border border-red-100 flex items-center justify-center text-red-400 hover:text-red-500"><span class="material-symbols-outlined text-[16px]">edit</span></button>
+                            <button onclick="deleteCategory(${prod.id}, 'product')" class="w-8 h-8 rounded-lg bg-white border border-red-100 flex items-center justify-center text-red-400 hover:text-red-600"><span class="material-symbols-outlined text-[16px]">delete</span></button>
                         </div>
                     </td>
                 </tr>
@@ -278,6 +279,7 @@ function openModal(id = null) {
     const form = document.getElementById('category-form');
     form.reset();
     document.getElementById('category-id').value = '';
+    document.getElementById('category-type').value = '';
     document.getElementById('modal-title').innerText = 'Tambah Data';
     document.getElementById('form-modal').classList.remove('hidden');
     updateParentDropdown();
@@ -288,11 +290,12 @@ function closeModal() {
     document.getElementById('form-modal').classList.add('hidden');
 }
 
-function editCategory(id) {
-    const cat = categories.find(c => c.id == id);
+function editCategory(id, type) {
+    const cat = categories.find(c => c.id == id && c.type == type);
     if (!cat) return;
 
     document.getElementById('category-id').value = cat.id;
+    document.getElementById('category-type').value = type;
     document.getElementById('name').value = cat.name;
     document.getElementById('slug').value = cat.slug;
     document.getElementById('parent_id').value = cat.parent_id || '';
@@ -306,11 +309,12 @@ function editCategory(id) {
     togglePriceInput();
 }
 
-async function deleteCategory(id) {
+async function deleteCategory(id, type) {
     if (!confirm('Apakah Anda yakin ingin menghapus data ini?')) return;
 
     try {
-        const res = await fetch('../api/manage_admin.php?entity=categories&action=delete', {
+        const entity = type === 'product' ? 'products' : 'categories';
+        const res = await fetch(`../api/manage_admin.php?entity=${entity}&action=delete`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ id })
@@ -327,7 +331,16 @@ document.getElementById('category-form').addEventListener('submit', async (e) =>
     e.preventDefault();
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData.entries());
-    data.entity = 'categories';
+    
+    // Determine entity using existence of parent_id, or hidden type field
+    const existType = document.getElementById('category-type').value;
+    if (data.parent_id !== '' || existType === 'product') {
+        data.entity = 'products';
+        data.category_id = data.parent_id;
+    } else {
+        data.entity = 'categories';
+    }
+    
     data.is_popular = document.getElementById('popular').checked;
 
     try {
