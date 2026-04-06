@@ -118,10 +118,16 @@ $lng = $u['longitude'] ?: 106.8272;
 
         <!-- Lokasi Jemput -->
         <div class="section-container bg-surface-container-lowest overflow-hidden">
-            <h3 class="headline font-black text-sm uppercase tracking-widest text-outline mb-6 flex items-center gap-2">
-                <span class="material-symbols-outlined text-[18px]">map</span>
-                Titik Jemput Akurat
-            </h3>
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="headline font-black text-sm uppercase tracking-widest text-outline flex items-center gap-2">
+                    <span class="material-symbols-outlined text-[18px]">map</span>
+                    Titik Jemput Akurat
+                </h3>
+                <button type="button" onclick="detectLocation()" class="text-primary text-[10px] font-black uppercase tracking-widest flex items-center gap-1 hover:underline group">
+                    <span class="material-symbols-outlined text-[16px] group-active:animate-ping">my_location</span>
+                    Deteksi Lokasi
+                </button>
+            </div>
             <div id="map" class="mb-4 shadow-inner"></div>
             <input type="hidden" id="latitude" name="latitude" value="<?php echo $lat; ?>">
             <input type="hidden" id="longitude" name="longitude" value="<?php echo $lng; ?>">
@@ -161,6 +167,48 @@ marker.on('dragend', function (e) {
     document.getElementById('latitude').value = latlng.lat.toFixed(8);
     document.getElementById('longitude').value = latlng.lng.toFixed(8);
 });
+
+// Detect Location via GPS
+async function detectLocation() {
+    if (!navigator.geolocation) {
+        alert("Geolocation tidak didukung oleh browser Anda.");
+        return;
+    }
+
+    const btn = event.currentTarget;
+    const originalText = btn.innerHTML;
+    btn.innerHTML = '<span class="material-symbols-outlined text-[16px] animate-spin">sync</span> Mendeteksi...';
+    btn.disabled = true;
+
+    navigator.geolocation.getCurrentPosition(async (position) => {
+        const { latitude, longitude } = position.coords;
+        const latlng = [latitude, longitude];
+        
+        map.setView(latlng, 17);
+        marker.setLatLng(latlng);
+        
+        document.getElementById('latitude').value = latitude.toFixed(8);
+        document.getElementById('longitude').value = longitude.toFixed(8);
+        
+        // Reverse Geocode via Nominatim
+        try {
+            const res = await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`);
+            const data = await res.json();
+            if (data.display_name) {
+                document.getElementsByName('address')[0].value = data.display_name;
+            }
+        } catch (err) {
+            console.error("Gagal mendapatkan alamat:", err);
+        } finally {
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+        }
+    }, (error) => {
+        alert("Gagal mendeteksi lokasi. Pastikan izin lokasi diberikan.");
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+    }, { enableHighAccuracy: true });
+}
 
 // Share App Link
 function shareApp() {
