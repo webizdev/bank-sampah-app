@@ -10,7 +10,7 @@ include 'includes/header.php';
             <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white">
                 <span class="material-symbols-outlined text-[24px]">recycling</span>
             </div>
-            <span class="text-2xl font-black text-primary tracking-tighter headline">Waste.</span>
+            <span class="text-2xl font-black text-primary tracking-tighter headline">Bank Sampah.</span>
         </div>
         <div class="hidden md:flex items-center gap-10 text-sm font-bold text-outline">
             <a href="#" class="hover:text-primary transition-all hover:scale-105 active:scale-95">Beranda</a>
@@ -256,7 +256,7 @@ include 'includes/header.php';
                 <div class="w-12 h-12 bg-primary rounded-2xl flex items-center justify-center text-white">
                     <span class="material-symbols-outlined text-[32px]">recycling</span>
                 </div>
-                <span class="text-4xl font-black text-white tracking-tighter headline">Waste.</span>
+                <span class="text-4xl font-black text-white tracking-tighter headline">Bank Sampah.</span>
             </div>
             <p class="max-w-xl mx-auto text-white/50 text-sm mb-12">
                 Bergabunglah bersama kami untuk menciptakan lingkungan yang lebih bersih. Waste. adalah jembatan antara
