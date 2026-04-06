@@ -1,6 +1,6 @@
 <?php
 // Jual Sampah (Marketplace Catalog)
-include 'includes/header.php';
+include '../includes/header.php';
 ?>
 
 <!-- Header / Search -->
@@ -39,5 +39,5 @@ include 'includes/header.php';
     <div class="card-container animate-pulse h-64 bg-surface-container-low"></div>
 </section>
 
-<script src="js/app.js"></script>
-<?php include 'includes/footer.php'; ?>
+
+<?php include '../includes/footer.php'; ?>

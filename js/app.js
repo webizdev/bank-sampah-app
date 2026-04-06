@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 async function fetchUserData() {
     try {
-        const response = await fetch('api/get_user_data.php');
+        const response = await fetch(API_BASE + 'get_user_data.php');
         const result = await response.json();
 
         if (result.status === 'success') {
@@ -101,7 +101,7 @@ async function openSellModal(id, name, price) {
     const weight = prompt(`Berapa kg ${name} yang ingin Anda jual?`, "1.0");
     if (weight && !isNaN(weight)) {
         try {
-            const response = await fetch('api/submit_transaction.php', {
+            const response = await fetch(API_BASE + 'submit_transaction.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

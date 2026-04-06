@@ -1,13 +1,30 @@
 <?php
-require_once 'includes/db_connect.php';
+require_once __DIR__ . '/db_connect.php';
 
 // Authentication Check
 $current_page = basename($_SERVER['PHP_SELF']);
-$public_pages = ['login.php', 'register.php'];
+$current_dir = basename(dirname($_SERVER['PHP_SELF']));
+$public_pages = ['login.php', 'register.php', 'index.php'];
+
+// Base URL detection for assets
+$path_to_root = ($current_dir == 'user' || $current_dir == 'admin') ? '../' : './';
 
 if (!isset($_SESSION['user_id']) && !in_array($current_page, $public_pages)) {
-    header('Location: login.php');
+    header('Location: ' . $path_to_root . 'login.php');
     exit;
+}
+
+// Role-based protection
+if (isset($_SESSION['user_id'])) {
+    $role = $_SESSION['user_role'] ?? 'USER';
+    if ($current_dir == 'admin' && $role !== 'ADMIN') {
+        header('Location: ' . $path_to_root . 'user/dashboard.php');
+        exit;
+    }
+    if ($current_dir == 'user' && $role == 'ADMIN') {
+        header('Location: ' . $path_to_root . 'admin/dashboard.php');
+        exit;
+    }
 }
 
 // Variables for layout
@@ -28,7 +45,7 @@ $is_authenticated = isset($_SESSION['user_id']);
     
     <!-- Tailwind CSS (CDN for Dev) -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="<?php echo $path_to_root; ?>css/style.css">
     
     <script>
         tailwind.config = {
@@ -56,6 +73,7 @@ $is_authenticated = isset($_SESSION['user_id']);
             }
           }
         }
+        const API_BASE = '<?php echo $path_to_root; ?>api/';
     </script>
 </head>
 <body class="bg-surface selection:bg-primary-container selection:text-primary font-sans text-on-surface">

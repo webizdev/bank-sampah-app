@@ -1,6 +1,6 @@
 <?php
 // Layanan (Services) Page
-include 'includes/header.php';
+include '../includes/header.php';
 ?>
 
 <!-- Hero Section -->
@@ -86,4 +86,4 @@ include 'includes/header.php';
     </div>
 </div>
 
-<?php include 'includes/footer.php'; ?>
+<?php include '../includes/footer.php'; ?>

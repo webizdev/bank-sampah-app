@@ -5,7 +5,8 @@ require_once 'includes/db_connect.php';
 
 // Redirect if already logged in
 if (isset($_SESSION['user_id'])) {
-    header('Location: index.php');
+    $role = $_SESSION['user_role'] ?? 'USER';
+    header('Location: ' . ($role === 'ADMIN' ? 'admin/dashboard.php' : 'user/dashboard.php'));
     exit;
 }
 
@@ -76,7 +77,7 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
 
         const result = await response.json();
         if (result.status === 'success') {
-            window.location.href = 'index.php';
+            window.location.href = result.role === 'ADMIN' ? 'admin/dashboard.php' : 'user/dashboard.php';
         } else {
             alert(result.message);
         }

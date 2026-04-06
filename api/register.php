@@ -24,7 +24,7 @@ try {
     $hashed_password = password_hash($data['password'], PASSWORD_DEFAULT);
 
     // 3. Insert User
-    $stmt = $pdo->prepare("INSERT INTO users (name, email, password, balance, total_kg, tier, created_at) VALUES (?, ?, ?, 0, 0.0, 'Bronze', NOW())");
+    $stmt = $pdo->prepare("INSERT INTO users (name, email, password, role, balance, total_kg, tier, created_at) VALUES (?, ?, ?, 'USER', 0, 0.0, 'Bronze', NOW())");
     $stmt->execute([
         $data['name'],
         $data['email'],

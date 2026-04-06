@@ -5,7 +5,8 @@ require_once 'includes/db_connect.php';
 
 // Redirect if already logged in
 if (isset($_SESSION['user_id'])) {
-    header('Location: index.php');
+    $role = $_SESSION['user_role'] ?? 'USER';
+    header('Location: ' . ($role === 'ADMIN' ? 'admin/dashboard.php' : 'user/dashboard.php'));
     exit;
 }
 

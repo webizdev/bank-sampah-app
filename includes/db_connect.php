@@ -1,5 +1,6 @@
 <?php
 session_start();
+define('BASE_PATH', dirname(__DIR__));
 // Database Configuration
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'alilogis_banksampah');

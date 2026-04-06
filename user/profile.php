@@ -1,6 +1,6 @@
 <?php
 // Profile & History Page
-include 'includes/header.php';
+include '../includes/header.php';
 ?>
 
 <!-- Profile Header -->
@@ -13,7 +13,7 @@ include 'includes/header.php';
     
     <div class="mt-6 flex gap-4">
         <button class="section-container py-2 px-6 text-xs font-bold uppercase tracking-widest text-primary border border-primary/10">Edit Profil</button>
-        <a href="logout.php" class="section-container py-2 px-6 text-xs font-bold uppercase tracking-widest text-error border border-error/10">Keluar</a>
+        <a href="../logout.php" class="section-container py-2 px-6 text-xs font-bold uppercase tracking-widest text-error border border-error/10">Keluar</a>
     </div>
 </section>
 
@@ -39,5 +39,5 @@ include 'includes/header.php';
     </div>
 </section>
 
-<script src="js/app.js"></script>
-<?php include 'includes/footer.php'; ?>
+
+<?php include '../includes/footer.php'; ?>

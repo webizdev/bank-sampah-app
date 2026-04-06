@@ -22,11 +22,16 @@ try {
         // Successful login
         $_SESSION['user_id'] = $user['id'];
         $_SESSION['user_name'] = $user['name'];
+        $_SESSION['user_role'] = $user['role'];
         
         // Regenerate session ID for security
         session_regenerate_id(true);
 
-        echo json_encode(['status' => 'success', 'message' => 'Login successful']);
+        echo json_encode([
+            'status' => 'success', 
+            'message' => 'Login successful',
+            'role' => $user['role']
+        ]);
     } else {
         // Failed login
         echo json_encode(['status' => 'error', 'message' => 'Invalid email or password']);
