@@ -168,18 +168,20 @@ function renderArticles(data) {
                 <h4 class="headline font-black text-primary mb-2 line-clamp-1">${a.title}</h4>
                 <p class="text-[11px] text-outline font-bold leading-relaxed line-clamp-2 mb-4">${a.subtitle}</p>
                 <div class="flex flex-col gap-2">
-                    ${a.location ? \`<div class="flex items-center gap-2 text-on-surface-variant text-[10px] font-bold uppercase tracking-widest">
+                    ${a.location ? `
+                    <div class="flex items-center gap-2 text-on-surface-variant text-[10px] font-bold uppercase tracking-widest">
                         <span class="material-symbols-outlined text-[14px]">location_on</span>
-                        \${a.location}
-                    </div>\` : ''}
-                    \${a.event_date ? \`<div class="flex items-center gap-2 text-on-surface-variant text-[10px] font-bold uppercase tracking-widest">
+                        ${a.location}
+                    </div>` : ''}
+                    ${a.event_date ? `
+                    <div class="flex items-center gap-2 text-on-surface-variant text-[10px] font-bold uppercase tracking-widest">
                         <span class="material-symbols-outlined text-[14px]">calendar_today</span>
-                        \${new Date(a.event_date).toLocaleDateString('id-ID', {day: 'numeric', month: 'short', year: 'numeric'})}
-                    </div>\` : ''}
+                        ${new Date(a.event_date).toLocaleDateString('id-ID', {day: 'numeric', month: 'short', year: 'numeric'})}
+                    </div>` : ''}
                 </div>
             </div>
         </div>
-    \`).join('');
+    `).join('');
 }
 
 function openModal() {

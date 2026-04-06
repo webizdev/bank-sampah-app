@@ -1,4 +1,6 @@
-const API_BASE = '../api/';
+if (typeof API_BASE === 'undefined') {
+    const API_BASE = '../api/';
+}
 
 document.addEventListener('DOMContentLoaded', () => {
     // Page detection
