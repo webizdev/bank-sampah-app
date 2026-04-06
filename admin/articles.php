@@ -100,8 +100,8 @@ let articles = [];
 
 async function fetchArticles() {
     try {
-        // Use API_BASE defined in header.php for more consistent pathing
-        const res = await fetch(API_BASE + 'manage_admin.php?entity=articles');
+        // Use a simpler, dedicated fetch URL that bypasses complex admin routing
+        const res = await fetch(API_BASE + 'get_articles.php?admin=true');
         const text = await res.text();
         
         let result;
