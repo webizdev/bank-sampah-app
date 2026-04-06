@@ -39,55 +39,54 @@ $lng = $u['longitude'] ?: 106.8272;
 </style>
 
 <!-- Profile Header -->
-<section class="mb-10 flex flex-col items-center text-center relative px-2 animate-fade-in">
+<section class="mb-6 flex flex-col items-center text-center relative px-2 animate-fade-in">
     <form id="avatar-form" enctype="multipart/form-data" class="relative">
-        <label for="avatar-input" class="profile-avatar-wrapper group block w-32 h-32 rounded-full border-4 border-white shadow-2xl overflow-hidden mb-6 bg-surface-container-highest">
+        <label for="avatar-input" class="profile-avatar-wrapper group block w-24 h-24 rounded-full border-4 border-white shadow-2xl overflow-hidden mb-4 bg-surface-container-highest">
             <img id="avatar-preview" src="<?php echo $u['avatar_url'] ?: 'https://ui-avatars.com/api/?name='.urlencode($u['name']).'&background=0f5238&color=fff&size=128'; ?>" 
                  alt="Profile" class="w-full h-full object-cover">
             <div class="overlay">
-                <span class="material-symbols-outlined text-white text-3xl">photo_camera</span>
+                <span class="material-symbols-outlined text-white text-2xl">photo_camera</span>
             </div>
             <input type="file" id="avatar-input" name="avatar" class="hidden" accept="image/*" onchange="uploadAvatar()">
         </label>
     </form>
     
-    <div class="space-y-2">
-        <h2 class="headline text-2xl font-black text-on-surface tracking-tight leading-none"><?php echo htmlspecialchars($u['name']); ?></h2>
+    <div class="space-y-1">
+        <h2 class="headline text-xl font-black text-on-surface tracking-tight leading-none"><?php echo htmlspecialchars($u['name']); ?></h2>
         <div class="flex items-center justify-center gap-2">
-            <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest"><?php echo $u['tier']; ?> Member</span>
+            <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest"><?php echo $u['tier']; ?></span>
             <?php if ($u['organization']): ?>
-                <span class="bg-secondary text-white px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest shadow-lg shadow-secondary/20"><?php echo htmlspecialchars($u['organization']); ?></span>
+                <span class="bg-secondary text-white px-3 py-1 rounded-full text-[9px] font-black uppercase tracking-widest shadow-lg shadow-secondary/20"><?php echo htmlspecialchars($u['organization']); ?></span>
             <?php endif; ?>
         </div>
     </div>
 </section>
 
 <!-- Premium Balance Card -->
-<section class="mb-10 animate-slide-up" style="animation-delay: 0.1s">
-    <div class="bg-primary rounded-[2.5rem] p-9 shadow-2xl shadow-primary/30 relative overflow-hidden text-white">
+<section class="mb-6 animate-slide-up" style="animation-delay: 0.1s">
+    <div class="bg-primary rounded-3xl p-6 shadow-2xl shadow-primary/30 relative overflow-hidden text-white">
         <!-- Abstract Background -->
-        <div class="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full -mr-16 -mt-16 blur-3xl"></div>
-        <div class="absolute bottom-0 left-0 w-32 h-32 bg-secondary/20 rounded-full -ml-16 -mb-16 blur-2xl"></div>
+        <div class="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full -mr-20 -mt-20 blur-3xl"></div>
         
-        <div class="relative z-10 space-y-8">
+        <div class="relative z-10 space-y-6">
             <div class="flex justify-between items-start">
                 <div>
-                    <span class="text-[10px] font-black uppercase tracking-[0.25em] opacity-60">Saldo Terverifikasi</span>
-                    <h3 class="headline text-4xl font-black tracking-tighter mt-2">Rp <?php echo number_format($u['balance'], 0, ',', '.'); ?></h3>
+                    <span class="text-[9px] font-black uppercase tracking-[0.25em] opacity-60">Verified Balance</span>
+                    <h3 class="headline text-3xl font-black tracking-tighter mt-1">Rp <?php echo number_format($u['balance'], 0, ',', '.'); ?></h3>
                 </div>
-                <div class="w-14 h-14 rounded-[1.25rem] bg-white/15 backdrop-blur-lg border border-white/10 flex items-center justify-center">
-                    <span class="material-symbols-outlined text-2xl">account_balance_wallet</span>
+                <div class="w-12 h-12 rounded-xl bg-white/15 backdrop-blur-lg border border-white/10 flex items-center justify-center">
+                    <span class="material-symbols-outlined text-xl">account_balance_wallet</span>
                 </div>
             </div>
             
-            <div class="pt-8 border-t border-white/10 grid grid-cols-2 gap-4">
+            <div class="pt-6 border-t border-white/10 grid grid-cols-2 gap-4">
                 <div>
-                    <span class="text-[9px] font-black uppercase tracking-[0.2em] opacity-60 mb-1 block">Saldo Pending</span>
-                    <p class="font-bold text-xl tracking-tight">Rp <?php echo number_format($saldo_pending, 0, ',', '.'); ?></p>
+                    <span class="text-[8px] font-black uppercase tracking-[0.2em] opacity-60 mb-0.5 block">Pending</span>
+                    <p class="font-bold text-lg tracking-tight">Rp <?php echo number_format($saldo_pending, 0, ',', '.'); ?></p>
                 </div>
                 <div class="text-right border-l border-white/10 pl-4">
-                    <span class="text-[9px] font-black uppercase tracking-[0.2em] opacity-60 mb-1 block">Kontribusi</span>
-                    <p class="font-bold text-xl tracking-tight"><?php echo number_format($u['total_kg'], 1); ?> <span class="text-xs opacity-50 font-normal">kg</span></p>
+                    <span class="text-[8px] font-black uppercase tracking-[0.2em] opacity-60 mb-0.5 block">Kontribusi</span>
+                    <p class="font-bold text-lg tracking-tight"><?php echo number_format($u['total_kg'], 1); ?> <span class="text-xs opacity-50 font-normal">kg</span></p>
                 </div>
             </div>
         </div>
@@ -95,26 +94,26 @@ $lng = $u['longitude'] ?: 106.8272;
 </section>
 
 <!-- Action Buttons -->
-<div class="grid grid-cols-2 gap-4 animate-slide-up" style="animation-delay: 0.2s">
-    <button onclick="shareApp()" class="flex flex-col items-center justify-center gap-3 bg-white p-6 rounded-[2rem] border border-primary/5 shadow-lg shadow-black/5 active:scale-95 transition-all">
-        <div class="w-12 h-12 bg-primary/10 rounded-2xl flex items-center justify-center text-primary">
-            <span class="material-symbols-outlined font-bold">share</span>
+<div class="grid grid-cols-2 gap-3 animate-slide-up" style="animation-delay: 0.2s">
+    <button onclick="shareApp()" class="flex flex-col items-center justify-center gap-2 bg-white p-4 rounded-3xl border border-primary/5 shadow-lg shadow-black/5 active:scale-95 transition-all">
+        <div class="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center text-primary">
+            <span class="material-symbols-outlined text-[20px] font-bold">share</span>
         </div>
-        <span class="text-[10px] font-black uppercase tracking-widest text-outline">Bagikan</span>
+        <span class="text-[9px] font-black uppercase tracking-widest text-outline">Bagikan</span>
     </button>
-    <a href="../logout.php" class="flex flex-col items-center justify-center gap-3 bg-red-50 p-6 rounded-[2rem] border border-red-100 shadow-lg shadow-red-500/5 active:scale-95 transition-all no-underline">
-        <div class="w-12 h-12 bg-red-500/10 rounded-2xl flex items-center justify-center text-red-500">
-            <span class="material-symbols-outlined font-bold">logout</span>
+    <a href="../logout.php" class="flex flex-col items-center justify-center gap-2 bg-red-50 p-4 rounded-3xl border border-red-100 shadow-lg shadow-red-500/5 active:scale-95 transition-all no-underline">
+        <div class="w-10 h-10 bg-red-500/10 rounded-xl flex items-center justify-center text-red-500">
+            <span class="material-symbols-outlined text-[20px] font-bold">logout</span>
         </div>
-        <span class="text-[10px] font-black uppercase tracking-widest text-red-500/60">Keluar</span>
+        <span class="text-[9px] font-black uppercase tracking-widest text-red-500/60">Keluar</span>
     </a>
 </div>
 
 <!-- Account Settings Section -->
-<section class="mt-12 animate-slide-up" style="animation-delay: 0.3s">
-    <div class="flex items-center justify-between mb-6 px-2">
-        <h3 class="headline text-lg font-black text-primary">Informasi Akun</h3>
-        <span class="material-symbols-outlined text-outline">settings</span>
+<section class="mt-8 animate-slide-up" style="animation-delay: 0.3s">
+    <div class="flex items-center justify-between mb-4 px-2">
+        <h3 class="headline text-base font-black text-primary">Informasi Akun</h3>
+        <span class="material-symbols-outlined text-outline text-[20px]">settings</span>
     </div>
     
     <div class="space-y-4">

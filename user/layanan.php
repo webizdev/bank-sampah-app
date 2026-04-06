@@ -15,10 +15,10 @@ $icons = [
 ?>
 
 <!-- Hero Section -->
-<section class="mb-12 px-2 animate-slide-up">
-    <span class="text-secondary font-black tracking-[0.25em] text-[10px] uppercase mb-3 block headline opacity-70">Eco-System Services</span>
-    <h2 class="text-4xl font-black text-on-surface tracking-tighter mb-5 leading-none headline">Solusi <br><span class="text-primary">Berkelanjutan.</span></h2>
-    <p class="text-on-surface-variant text-sm font-bold leading-relaxed">Pilih layanan pengelolaan limbah premium yang dirancang untuk mendukung gaya hidup ramah lingkungan Anda.</p>
+<section class="mb-8 px-2 animate-slide-up">
+    <span class="text-secondary font-black tracking-[0.25em] text-[9px] uppercase mb-2 block headline opacity-70">Eco-System Services</span>
+    <h2 class="text-3xl font-black text-on-surface tracking-tighter mb-4 leading-none headline">Solusi <br><span class="text-primary">Berkelanjutan.</span></h2>
+    <p class="text-on-surface-variant text-xs font-bold leading-relaxed">Layanan pengelolaan limbah premium untuk gaya hidup ramah lingkungan.</p>
 </section>
 
 <!-- Services Grid -->
@@ -32,31 +32,31 @@ $icons = [
         <?php foreach ($services as $srv): 
             $style = $icons[$srv['type']] ?? ['icon' => 'category', 'bg' => 'bg-surface-container', 'text' => 'text-outline'];
         ?>
-            <div class="bg-white p-8 rounded-[2.5rem] border border-primary/5 shadow-xl hover:shadow-2xl transition-all group flex flex-col relative overflow-hidden">
+            <div class="bg-white p-5 rounded-3xl border border-primary/5 shadow-xl hover:shadow-2xl transition-all group flex flex-col relative overflow-hidden">
                 <!-- Abstract corner element -->
-                <div class="absolute -right-8 -top-8 w-24 h-24 bg-primary/5 rounded-full blur-2xl"></div>
+                <div class="absolute -right-8 -top-8 w-20 h-20 bg-primary/5 rounded-full blur-2xl"></div>
 
-                <div class="flex justify-between items-start mb-8 relative z-10">
-                    <div class="w-16 h-16 <?php echo $style['bg']; ?> <?php echo $style['text']; ?> rounded-2xl flex items-center justify-center transition-transform group-hover:scale-110 duration-500">
-                        <span class="material-symbols-outlined text-3xl font-bold"><?php echo $style['icon']; ?></span>
+                <div class="flex justify-between items-start mb-6 relative z-10">
+                    <div class="w-12 h-12 <?php echo $style['bg']; ?> <?php echo $style['text']; ?> rounded-xl flex items-center justify-center transition-transform group-hover:scale-110 duration-500">
+                        <span class="material-symbols-outlined text-2xl font-bold"><?php echo $style['icon']; ?></span>
                     </div>
-                    <span class="px-4 py-1.5 bg-surface-container-highest text-[9px] font-black text-outline rounded-full uppercase tracking-widest"><?php echo $srv['type']; ?></span>
+                    <span class="px-3 py-1 bg-surface-container-highest text-[8px] font-black text-outline rounded-full uppercase tracking-widest"><?php echo $srv['type']; ?></span>
                 </div>
                 
-                <h3 class="text-2xl font-black text-on-surface mb-3 headline tracking-tight leading-tight relative z-10"><?php echo htmlspecialchars($srv['name']); ?></h3>
-                <p class="text-on-surface-variant text-sm font-bold leading-relaxed mb-10 flex-grow relative z-10 opacity-80">
-                    <?php echo htmlspecialchars($srv['description'] ?: 'Nikmati layanan profesional kami untuk pengelolaan lingkungan yang lebih baik.'); ?>
+                <h3 class="text-xl font-black text-on-surface mb-2 headline tracking-tight leading-tight relative z-10"><?php echo htmlspecialchars($srv['name']); ?></h3>
+                <p class="text-on-surface-variant text-xs font-bold leading-relaxed mb-6 flex-grow relative z-10 opacity-80">
+                    <?php echo htmlspecialchars($srv['description'] ?: 'Layanan profesional untuk lingkungan yang lebih baik.'); ?>
                 </p>
 
-                <div class="pt-8 border-t border-primary/5 mt-auto relative z-10">
+                <div class="pt-6 border-t border-primary/5 mt-auto relative z-10">
                     <?php 
                     $raw_wa = $global_settings['wa_cs_number'] ?? '6281234567890';
                     $clean_wa = preg_replace('/[^0-9]/', '', $raw_wa);
                     ?>
                     <a href="https://wa.me/<?php echo $clean_wa; ?>?text=Halo, saya ingin tanya tentang layanan <?php echo urlencode($srv['name']); ?>" 
                        target="_blank"
-                       class="btn-premium w-full no-underline !shadow-none hover:!shadow-lg transition-all">
-                        <span class="material-symbols-outlined font-black text-[18px]">chat</span>
+                       class="btn-premium w-full no-underline !shadow-none hover:!shadow-lg transition-all !h-12 !text-xs">
+                        <span class="material-symbols-outlined font-black text-[16px]">chat</span>
                          Hubungi Admin
                     </a>
                 </div>
