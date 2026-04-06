@@ -20,7 +20,9 @@ include 'includes/header.php';
         </div>
         <div class="flex items-center gap-4">
             <a href="login.php" class="text-primary font-bold text-sm hover:underline">Masuk</a>
-            <a href="register.php" class="bg-primary text-white font-bold px-6 py-3 rounded-xl hover:shadow-xl hover:shadow-primary/20 transition-all active:scale-95">Mulai Sekarang</a>
+            <a href="register.php"
+                class="bg-primary text-white font-bold px-6 py-3 rounded-xl hover:shadow-xl hover:shadow-primary/20 transition-all active:scale-95">Mulai
+                Sekarang</a>
         </div>
     </nav>
 
@@ -28,33 +30,42 @@ include 'includes/header.php';
     <section class="relative px-8 py-20 max-w-7xl mx-auto overflow-hidden">
         <div class="grid md:grid-cols-2 gap-12 items-center relative z-10">
             <div class="space-y-8">
-                <div class="inline-flex items-center gap-2 px-4 py-2 bg-primary/5 border border-primary/10 rounded-full">
+                <div
+                    class="inline-flex items-center gap-2 px-4 py-2 bg-primary/5 border border-primary/10 rounded-full">
                     <span class="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
-                    <span class="text-[10px] font-black uppercase tracking-widest text-primary">Solusi Limbah Modern</span>
+                    <span class="text-[10px] font-black uppercase tracking-widest text-primary">Solusi Limbah
+                        Modern</span>
                 </div>
-                <h1 class="text-6xl lg:text-[7rem] font-black text-primary leading-[0.85] headline tracking-tighter animate-slide-up">
+                <h1
+                    class="text-6xl lg:text-[7rem] font-black text-primary leading-[0.85] headline tracking-tighter animate-slide-up">
                     Waste Management<br>
-                    <span class="text-outline-thin text-transparent" style="-webkit-text-stroke: 2px #2D4F1E; opacity: 0.6;">Dumpster Rentals</span><br>
+                    <span class="text-outline-thin text-transparent"
+                        style="-webkit-text-stroke: 2px #2D4F1E; opacity: 0.6;">Dumpster Rentals</span><br>
                     Garbage Pickup.
                 </h1>
                 <p class="text-lg text-on-surface-variant max-w-md leading-relaxed">
-                    Ubah sampah menjadi berkah. Platform pengelolaan limbah premium untuk rumah tangga dan bisnis Anda. Dapatkan saldo dari setiap sampah yang Anda daur ulang.
+                    Ubah sampah menjadi berkah. Platform pengelolaan limbah premium untuk rumah tangga dan bisnis Anda.
+                    Dapatkan saldo dari setiap sampah yang Anda daur ulang.
                 </p>
                 <div class="flex flex-wrap gap-4">
-                    <a href="register.php" class="bg-primary text-white font-bold px-8 py-4 rounded-2xl flex items-center gap-2 hover:shadow-2xl hover:shadow-primary/30 transition-all group">
+                    <a href="register.php"
+                        class="bg-primary text-white font-bold px-8 py-4 rounded-2xl flex items-center gap-2 hover:shadow-2xl hover:shadow-primary/30 transition-all group">
                         Mulai Sekarang
-                        <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                        <span
+                            class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
                     </a>
                 </div>
             </div>
             <div class="relative">
-                <div class="aspect-[4/5] rounded-[2rem] overflow-hidden shadow-2xl rotate-3 scale-95 hover:rotate-0 transition-transform duration-700 bg-surface-container-low group">
-                    <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=800" 
-                         alt="Waste Management" 
-                         class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000">
+                <div
+                    class="aspect-[4/5] rounded-[2rem] overflow-hidden shadow-2xl rotate-3 scale-95 hover:rotate-0 transition-transform duration-700 bg-surface-container-low group">
+                    <img src="https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?auto=format&fit=crop&q=80&w=800"
+                        alt="Waste Management"
+                        class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000">
                 </div>
                 <!-- Stats Overlays -->
-                <div class="absolute -bottom-10 -left-10 bg-white p-6 rounded-3xl shadow-2xl border border-primary/5 -rotate-3 hover:rotate-0 transition-all">
+                <div
+                    class="absolute -bottom-10 -left-10 bg-white p-6 rounded-3xl shadow-2xl border border-primary/5 -rotate-3 hover:rotate-0 transition-all">
                     <p class="text-4xl font-black text-primary headline tracking-tighter">98%</p>
                     <p class="text-[10px] font-bold text-outline uppercase tracking-widest">Daur Ulang Berhasil</p>
                 </div>
@@ -68,20 +79,26 @@ include 'includes/header.php';
     <!-- Floating Cards -->
     <section class="px-8 -mt-20 relative z-20 max-w-7xl mx-auto">
         <div class="grid md:grid-cols-3 gap-6">
-            <div class="bg-white/90 backdrop-blur-xl p-8 rounded-[2rem] shadow-xl border border-primary/5 hover:-translate-y-2 transition-transform">
+            <div
+                class="bg-white/90 backdrop-blur-xl p-8 rounded-[2rem] shadow-xl border border-primary/5 hover:-translate-y-2 transition-transform">
                 <span class="material-symbols-outlined text-4xl text-primary mb-4">delete_sweep</span>
                 <h3 class="font-bold text-xl mb-4 headline text-primary leading-none">Dumpster Sizes</h3>
-                <p class="text-sm text-outline leading-relaxed">Berbagai ukuran kontainer sesuai kebutuhan volume sampah Anda.</p>
+                <p class="text-sm text-outline leading-relaxed">Berbagai ukuran kontainer sesuai kebutuhan volume sampah
+                    Anda.</p>
             </div>
-            <div class="bg-white/90 backdrop-blur-xl p-8 rounded-[2rem] shadow-xl border border-primary/5 hover:-translate-y-2 transition-transform">
+            <div
+                class="bg-white/90 backdrop-blur-xl p-8 rounded-[2rem] shadow-xl border border-primary/5 hover:-translate-y-2 transition-transform">
                 <span class="material-symbols-outlined text-4xl text-primary mb-4">local_shipping</span>
                 <h3 class="font-bold text-xl mb-4 headline text-primary leading-none">Waste Collection</h3>
-                <p class="text-sm text-outline leading-relaxed">Penjemputan rutin dan terjadwal secara profesional dan tepat waktu.</p>
+                <p class="text-sm text-outline leading-relaxed">Penjemputan rutin dan terjadwal secara profesional dan
+                    tepat waktu.</p>
             </div>
-            <div class="bg-white/90 backdrop-blur-xl p-8 rounded-[2rem] shadow-xl border border-primary/5 hover:-translate-y-2 transition-transform">
+            <div
+                class="bg-white/90 backdrop-blur-xl p-8 rounded-[2rem] shadow-xl border border-primary/5 hover:-translate-y-2 transition-transform">
                 <span class="material-symbols-outlined text-4xl text-primary mb-4">calendar_month</span>
                 <h3 class="font-bold text-xl mb-4 headline text-primary leading-none">Pickup Schedule</h3>
-                <p class="text-sm text-outline leading-relaxed">Kelola jadwal penjemputan Anda dengan mudah melalui aplikasi.</p>
+                <p class="text-sm text-outline leading-relaxed">Kelola jadwal penjemputan Anda dengan mudah melalui
+                    aplikasi.</p>
             </div>
         </div>
     </section>
@@ -90,18 +107,19 @@ include 'includes/header.php';
     <section class="px-8 py-32 max-w-7xl mx-auto grid md:grid-cols-2 gap-20 items-center">
         <div class="relative order-2 md:order-1">
             <div class="aspect-square rounded-[3rem] overflow-hidden bg-primary/5 relative">
-                <img src="https://images.unsplash.com/photo-1595273670150-db0a3bf3cb0c?auto=format&fit=crop&q=80&w=800" 
-                     alt="Our Team" 
-                     class="w-full h-full object-cover">
+                <img src="https://awsimages.detik.net.id/community/media/visual/2025/08/07/bank-sampah-pemprov-dki-1754538072437.jpeg?w=600&q=90?auto=format&fit=crop&q=80&w=800"
+                    alt="Our Team" class="w-full h-full object-cover">
             </div>
             <div class="absolute -top-10 -right-10 bg-white p-8 rounded-full shadow-2xl border border-primary/5">
                 <span class="material-symbols-outlined text-4xl text-primary">eco</span>
             </div>
         </div>
         <div class="space-y-8 order-1 md:order-2">
-            <h2 class="text-5xl font-black text-primary leading-tight headline tracking-tight">We're Leader In Waste Management Services</h2>
+            <h2 class="text-5xl font-black text-primary leading-tight headline tracking-tight">We're Leader In Waste
+                Management Services</h2>
             <p class="text-on-surface-variant leading-relaxed">
-                Sebagai pemimpin di industri, kami berkomitmen untuk menghadirkan teknologi pengelolaan limbah terbaru guna meminimalkan dampak lingkungan. Kerja keras kami diakui secara global.
+                Sebagai pemimpin di industri, kami berkomitmen untuk menghadirkan teknologi pengelolaan limbah terbaru
+                guna meminimalkan dampak lingkungan. Kerja keras kami diakui secara global.
             </p>
             <div class="space-y-4">
                 <div class="flex justify-between items-center mb-2">
@@ -114,7 +132,8 @@ include 'includes/header.php';
             </div>
             <a href="#" class="inline-flex items-center gap-2 group font-bold text-primary">
                 Learn More About Us
-                <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_right_alt</span>
+                <span
+                    class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_right_alt</span>
             </a>
         </div>
     </section>
@@ -146,21 +165,24 @@ include 'includes/header.php';
     <section class="px-8 py-32 max-w-7xl mx-auto">
         <div class="text-center max-w-2xl mx-auto mb-20 space-y-4">
             <h2 class="text-4xl font-black text-primary headline tracking-tight">Apa Kata Mereka?</h2>
-            <p class="text-on-surface-variant">Bergabunglah dengan ribuan orang lainnya yang telah berkontribusi menjaga bumi tetap hijau.</p>
+            <p class="text-on-surface-variant">Bergabunglah dengan ribuan orang lainnya yang telah berkontribusi menjaga
+                bumi tetap hijau.</p>
         </div>
-        
+
         <div class="grid md:grid-cols-3 gap-8">
             <!-- Review Card 1 -->
-            <div class="bg-white p-10 rounded-[2.5rem] border border-primary/5 shadow-xl relative overflow-hidden group">
+            <div
+                class="bg-white p-10 rounded-[2.5rem] border border-primary/5 shadow-xl relative overflow-hidden group">
                 <div class="mb-8 font-medium">
-                   <div class="flex gap-1 text-primary mb-4 text-xs">
+                    <div class="flex gap-1 text-primary mb-4 text-xs">
                         <span class="material-symbols-outlined text-[16px]">star</span>
                         <span class="material-symbols-outlined text-[16px]">star</span>
                         <span class="material-symbols-outlined text-[16px]">star</span>
                         <span class="material-symbols-outlined text-[16px]">star</span>
                         <span class="material-symbols-outlined text-[16px]">star</span>
-                   </div>
-                   <p class="italic text-on-surface-variant leading-relaxed">"Mudah sekali menjual sampah di sini. Saldo langsung masuk dan tim penjemput sangat ramah."</p>
+                    </div>
+                    <p class="italic text-on-surface-variant leading-relaxed">"Mudah sekali menjual sampah di sini.
+                        Saldo langsung masuk dan tim penjemput sangat ramah."</p>
                 </div>
                 <div class="flex items-center gap-4 border-t border-primary/5 pt-8">
                     <div class="w-12 h-12 rounded-full overflow-hidden bg-primary/10">
@@ -174,20 +196,23 @@ include 'includes/header.php';
             </div>
 
             <!-- Review Card 2 (Featured) -->
-            <div class="bg-primary p-10 rounded-[2.5rem] shadow-2xl relative overflow-hidden group scale-105 border-4 border-white/10">
+            <div
+                class="bg-primary p-10 rounded-[2.5rem] shadow-2xl relative overflow-hidden group scale-105 border-4 border-white/10">
                 <div class="mb-8 font-medium">
-                   <div class="flex gap-1 text-white mb-4 text-xs">
+                    <div class="flex gap-1 text-white mb-4 text-xs">
                         <span class="material-symbols-outlined text-[16px]">star</span>
                         <span class="material-symbols-outlined text-[16px]">star</span>
                         <span class="material-symbols-outlined text-[16px]">star</span>
                         <span class="material-symbols-outlined text-[16px]">star</span>
                         <span class="material-symbols-outlined text-[16px]">star</span>
-                   </div>
-                   <p class="italic text-white leading-relaxed">"Aplikasi paling inovatif untuk pengelolaan bank sampah. Tampilannya sangat premium dan modern!"</p>
+                    </div>
+                    <p class="italic text-white leading-relaxed">"Aplikasi paling inovatif untuk pengelolaan bank
+                        sampah. Tampilannya sangat premium dan modern!"</p>
                 </div>
                 <div class="flex items-center gap-4 border-t border-white/10 pt-8">
                     <div class="w-12 h-12 rounded-full overflow-hidden bg-white/20">
-                        <img src="https://ui-avatars.com/api/?name=Huzein+Akbar&background=fff&color=2D4F1E" alt="Huzein Akbar">
+                        <img src="https://ui-avatars.com/api/?name=Huzein+Akbar&background=fff&color=2D4F1E"
+                            alt="Huzein Akbar">
                     </div>
                     <div>
                         <h5 class="font-bold text-white headline">Huzein Akbar</h5>
@@ -197,20 +222,23 @@ include 'includes/header.php';
             </div>
 
             <!-- Review Card 3 -->
-            <div class="bg-white p-10 rounded-[2.5rem] border border-primary/5 shadow-xl relative overflow-hidden group">
+            <div
+                class="bg-white p-10 rounded-[2.5rem] border border-primary/5 shadow-xl relative overflow-hidden group">
                 <div class="mb-8 font-medium">
-                   <div class="flex gap-1 text-primary mb-4 text-xs">
+                    <div class="flex gap-1 text-primary mb-4 text-xs">
                         <span class="material-symbols-outlined text-[16px]">star</span>
                         <span class="material-symbols-outlined text-[16px]">star</span>
                         <span class="material-symbols-outlined text-[16px]">star</span>
                         <span class="material-symbols-outlined text-[16px]">star</span>
                         <span class="material-symbols-outlined text-[16px]">star</span>
-                   </div>
-                   <p class="italic text-on-surface-variant leading-relaxed">"Sangat terbantu untuk mengelola sampah kantor. Proses administrasinya sangat transparan dan akurat."</p>
+                    </div>
+                    <p class="italic text-on-surface-variant leading-relaxed">"Sangat terbantu untuk mengelola sampah
+                        kantor. Proses administrasinya sangat transparan dan akurat."</p>
                 </div>
                 <div class="flex items-center gap-4 border-t border-primary/5 pt-8">
                     <div class="w-12 h-12 rounded-full overflow-hidden bg-primary/10">
-                        <img src="https://ui-avatars.com/api/?name=Abdul+Zein&background=2D4F1E&color=fff" alt="Abdul Zein">
+                        <img src="https://ui-avatars.com/api/?name=Abdul+Zein&background=2D4F1E&color=fff"
+                            alt="Abdul Zein">
                     </div>
                     <div>
                         <h5 class="font-bold text-primary headline">Abdul Zein</h5>
@@ -224,14 +252,15 @@ include 'includes/header.php';
     <!-- Footer -->
     <footer class="bg-[#1A2E12] text-white py-20 px-8">
         <div class="max-w-7xl mx-auto text-center">
-             <div class="flex items-center justify-center gap-2 mb-8">
+            <div class="flex items-center justify-center gap-2 mb-8">
                 <div class="w-12 h-12 bg-primary rounded-2xl flex items-center justify-center text-white">
                     <span class="material-symbols-outlined text-[32px]">recycling</span>
                 </div>
                 <span class="text-4xl font-black text-white tracking-tighter headline">Waste.</span>
             </div>
             <p class="max-w-xl mx-auto text-white/50 text-sm mb-12">
-                Bergabunglah bersama kami untuk menciptakan lingkungan yang lebih bersih. Waste. adalah jembatan antara sampah yang tak bernilai menjadi manfaat ekonomi bagi Anda.
+                Bergabunglah bersama kami untuk menciptakan lingkungan yang lebih bersih. Waste. adalah jembatan antara
+                sampah yang tak bernilai menjadi manfaat ekonomi bagi Anda.
             </p>
             <div class="flex flex-wrap justify-center gap-8 mb-16 font-bold uppercase tracking-[0.3em] text-[10px]">
                 <a href="#" class="hover:text-primary transition-colors">Home</a>
@@ -246,7 +275,7 @@ include 'includes/header.php';
     </footer>
 </div>
 
-<?php 
+<?php
 $hide_nav = true;
-include 'includes/footer.php'; 
+include 'includes/footer.php';
 ?>
