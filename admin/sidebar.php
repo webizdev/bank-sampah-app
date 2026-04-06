@@ -7,7 +7,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
             <span class="material-symbols-outlined">recycling</span>
         </div>
         <div>
-            <h1 class="text-lg font-black text-primary headline tracking-tight leading-none">Organic</h1>
+            <h1 class="text-lg font-black text-primary headline tracking-tight leading-none"><?php echo htmlspecialchars($app_name); ?></h1>
             <p class="text-[9px] font-bold text-outline uppercase tracking-widest mt-1">Admin Panel</p>
         </div>
     </div>

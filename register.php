@@ -20,7 +20,7 @@ include 'includes/header.php';
                 <span class="material-symbols-outlined text-4xl">eco</span>
             </div>
         </div>
-        <h2 class="text-center text-3xl font-extrabold text-on-surface headline tracking-tight">Bergabung dengan <br><span class="text-primary italic">The Organic Breath</span></h2>
+        <h2 class="text-center text-3xl font-extrabold text-on-surface headline tracking-tight">Bergabung dengan <br><span class="text-primary italic"><?php echo htmlspecialchars($app_name); ?></span></h2>
         <p class="mt-2 text-center text-sm text-on-surface-variant font-medium">Mulailah langkah kecil untuk bumi yang lebih hijau.</p>
     </div>
 

@@ -10,7 +10,7 @@ include 'includes/header.php';
             <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white">
                 <span class="material-symbols-outlined text-[24px]">recycling</span>
             </div>
-            <span class="text-2xl font-black text-primary tracking-tighter headline">Bank Sampah.</span>
+            <span class="text-2xl font-black text-primary tracking-tighter headline"><?php echo htmlspecialchars($app_name); ?>.</span>
         </div>
         <div class="hidden md:flex items-center gap-10 text-sm font-bold text-outline">
             <a href="#" class="hover:text-primary transition-all hover:scale-105 active:scale-95">Beranda</a>
@@ -256,10 +256,10 @@ include 'includes/header.php';
                 <div class="w-12 h-12 bg-primary rounded-2xl flex items-center justify-center text-white">
                     <span class="material-symbols-outlined text-[32px]">recycling</span>
                 </div>
-                <span class="text-4xl font-black text-white tracking-tighter headline">Bank Sampah.</span>
+                <span class="text-4xl font-black text-white tracking-tighter headline"><?php echo htmlspecialchars($app_name); ?>.</span>
             </div>
             <p class="max-w-xl mx-auto text-white/50 text-sm mb-12">
-                Bergabunglah bersama kami untuk menciptakan lingkungan yang lebih bersih. Waste. adalah jembatan antara
+                Bergabunglah bersama kami untuk menciptakan lingkungan yang lebih bersih. <?php echo htmlspecialchars($app_name); ?> adalah jembatan antara
                 sampah yang tak bernilai menjadi manfaat ekonomi bagi Anda.
             </p>
             <div class="flex flex-wrap justify-center gap-8 mb-16 font-bold uppercase tracking-[0.3em] text-[10px]">
@@ -269,7 +269,7 @@ include 'includes/header.php';
                 <a href="#" class="hover:text-primary transition-colors">Contact</a>
             </div>
             <p class="text-white/20 text-[9px] font-black uppercase tracking-widest border-t border-white/5 pt-12">
-                © 2026 The Organic Breath. All Rights Reserved. Designed for the Future.
+                © <?php echo date('Y'); ?> <?php echo htmlspecialchars($app_name); ?>. All Rights Reserved. Designed for the Future.
             </p>
         </div>
     </footer>
