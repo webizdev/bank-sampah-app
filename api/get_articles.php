@@ -11,5 +11,5 @@ try {
     
     echo json_encode(['status' => 'success', 'data' => $articles]);
 } catch (PDOException $e) {
-    echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
+    echo json_encode(['status' => 'error', 'message' => 'DB Error: ' . $e->getMessage()]);
 }

@@ -53,7 +53,7 @@ try {
             echo json_encode(['status' => 'error', 'message' => 'Invalid entity']);
     }
 } catch (Exception $e) {
-    echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
+    echo json_encode(['status' => 'error', 'message' => 'DB Error: ' . $e->getMessage()]);
 }
 
 function handleCategories($pdo, $method, $action, $data) {

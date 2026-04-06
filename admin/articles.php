@@ -114,12 +114,21 @@ async function fetchArticles() {
             articles = result.data;
             renderArticles(articles);
         } else {
-            console.error('API Error:', result.message);
-            document.getElementById('article-list').innerHTML = `
+            const errorHTML = `
                 <div class="col-span-full py-20 text-center">
-                    <p class="text-red-500 font-bold mb-2">Gagal memuat data</p>
-                    <p class="text-outline text-xs">${result.message || 'Unknown error'}</p>
+                    <span class="material-symbols-outlined text-4xl text-red-500 mb-4 animate-bounce">database_alert</span>
+                    <p class="text-red-500 font-black mb-2 headline text-xl">Sinkronisasi Database Gagal</p>
+                    <p class="text-outline text-xs max-w-lg mx-auto p-4 bg-red-50 rounded-2xl border border-red-100 font-mono shadow-inner">${result.message || 'Unknown error'}</p>
+                    <div class="mt-8 p-6 bg-primary/5 rounded-[2rem] border border-primary/10 max-w-md mx-auto">
+                        <p class="text-[10px] text-primary uppercase tracking-widest font-black mb-4">Solusi Cepat</p>
+                        <p class="text-xs text-outline leading-relaxed mb-4">Pastikan tabel <b>'content'</b> sudah memiliki kolom terbaru (location, cta_link).</p>
+                        <a href="../ready_sync.php" target="_blank" class="inline-flex items-center gap-2 bg-primary text-white px-6 py-3 rounded-xl text-[10px] font-black uppercase tracking-widest hover:shadow-lg transition-all">
+                            <span class="material-symbols-outlined text-[16px]">sync_alt</span>
+                            Jalankan Sync Tool
+                        </a>
+                    </div>
                 </div>`;
+            document.getElementById('article-list').innerHTML = errorHTML;
         }
     } catch (err) {
         console.error('Fetch Error:', err);

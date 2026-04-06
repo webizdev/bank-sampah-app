@@ -98,7 +98,16 @@ async function fetchArticles() {
         }
     } catch (err) { 
         console.error('Sync Error:', err);
-        document.getElementById('article-grid').innerHTML = '<div class="px-6 py-10 text-outline text-xs italic font-medium">Gagal memuat data terbaru.</div>';
+        const errorMsg = err.message || 'Gagal memuat data terbaru.';
+        document.getElementById('article-grid').innerHTML = `
+            <div class="px-6 py-10 w-full">
+                <div class="bg-red-50 border border-red-100 rounded-2xl p-6 text-center shadow-sm">
+                    <span class="material-symbols-outlined text-red-400 text-3xl mb-2">database_off</span>
+                    <p class="text-red-600 font-bold text-sm mb-1">Koneksi Artikel Bermasalah</p>
+                    <p class="text-red-400 text-[10px] italic font-mono mb-4">${errorMsg}</p>
+                    <p class="text-outline text-[10px] leading-relaxed">Admin sedang melakukan sinkronisasi data. Silakan muat ulang halaman dalam beberapa saat.</p>
+                </div>
+            </div>`;
     }
 }
 
