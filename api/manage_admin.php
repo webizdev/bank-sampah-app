@@ -5,11 +5,15 @@ header('Content-Type: application/json');
 
 // Security Check
 if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'ADMIN') {
-    echo json_encode(['status' => 'error', 'message' => 'Unauthorized access']);
+    http_response_code(401);
+    echo json_encode(['status' => 'error', 'message' => 'Sesi admin berakhir. Silakan login kembali.']);
     exit;
 }
 
-$input = json_decode(file_get_contents('php://input'), true) ?: $_POST;
+$input = $_POST;
+if (empty($input)) {
+    $input = json_decode(file_get_contents('php://input'), true) ?? [];
+}
 $method = $_SERVER['REQUEST_METHOD'];
 $entity = $_GET['entity'] ?? $input['entity'] ?? '';
 $action = $_GET['action'] ?? $input['action'] ?? '';

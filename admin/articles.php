@@ -193,17 +193,32 @@ async function deleteArticle(id) {
     if (!confirm('Hapus artikel ini?')) return;
     
     try {
-        const res = await fetch('../api/manage_admin.php?entity=articles&action=delete', {
+        const formData = new FormData();
+        formData.append('entity', 'articles');
+        formData.append('action', 'delete');
+        formData.append('id', id);
+
+        const res = await fetch('../api/manage_admin.php', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ id })
+            body: formData
         });
-        if ((await res.json()).status === 'success') fetchArticles();
+        const result = await res.json();
+        if (result.status === 'success') {
+            fetchArticles();
+        } else {
+            alert('Gagal menghapus: ' + result.message);
+        }
     } catch (err) { console.error(err); }
 }
 
 document.getElementById('article-form').addEventListener('submit', async (e) => {
     e.preventDefault();
+    const saveBtn = e.target.querySelector('button[type="submit"]');
+    const originalText = saveBtn.innerText;
+    
+    saveBtn.innerText = 'Menyimpan...';
+    saveBtn.disabled = true;
+
     const formData = new FormData(e.target);
     formData.append('entity', 'articles');
 
@@ -219,7 +234,13 @@ document.getElementById('article-form').addEventListener('submit', async (e) => 
         } else {
             alert('Error: ' + result.message);
         }
-    } catch (err) { console.error(err); }
+    } catch (err) { 
+        console.error(err);
+        alert('Terjadi kesalahan sistem saat menyimpan.');
+    } finally {
+        saveBtn.innerText = originalText;
+        saveBtn.disabled = false;
+    }
 });
 
 document.addEventListener('DOMContentLoaded', fetchArticles);
