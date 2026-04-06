@@ -1,7 +1,10 @@
 <?php
 $current_page = basename($_SERVER['PHP_SELF']);
 ?>
-<aside class="fixed left-0 top-0 h-screen w-64 bg-white border-r border-primary/5 shadow-xl z-[60] flex flex-col">
+<!-- Mobile Overlay -->
+<div id="admin-overlay" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-[55] hidden md:hidden transition-opacity opacity-0" onclick="toggleSidebar()"></div>
+
+<aside id="admin-sidebar" class="fixed left-0 top-0 h-screen w-64 bg-white border-r border-primary/5 shadow-2xl z-[60] flex flex-col transform -translate-x-full md:translate-x-0 transition-transform duration-300">
     <div class="px-8 py-8 flex items-center gap-3 border-b border-primary/5">
         <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white shadow-lg shadow-primary/20">
             <span class="material-symbols-outlined">recycling</span>
@@ -70,3 +73,61 @@ $current_page = basename($_SERVER['PHP_SELF']);
         </div>
     </div>
 </aside>
+
+<script>
+function toggleSidebar() {
+    const sidebar = document.getElementById('admin-sidebar');
+    const overlay = document.getElementById('admin-overlay');
+    
+    if (sidebar.classList.contains('-translate-x-full')) {
+        // Show
+        sidebar.classList.remove('-translate-x-full');
+        overlay.classList.remove('hidden');
+        // Small delay to allow display:block to apply before opacity transition
+        setTimeout(() => overlay.classList.remove('opacity-0'), 10);
+    } else {
+        // Hide
+        sidebar.classList.add('-translate-x-full');
+        overlay.classList.add('opacity-0');
+        setTimeout(() => overlay.classList.add('hidden'), 300);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Inject Hamburger Menu
+    const headers = document.querySelectorAll('header');
+    headers.forEach(header => {
+        let wrapper = header.querySelector('div');
+        
+        // If there's no wrapper div, but there is an h1 directly inside header (like inventory.php or sales.php)
+        if (!wrapper && header.querySelector('h1')) {
+            wrapper = document.createElement('div');
+            // Move title inside
+            const h1 = header.querySelector('h1');
+            header.insertBefore(wrapper, h1);
+            wrapper.appendChild(h1);
+            
+            // Also append paragraph if exists
+            const p = header.querySelector('p');
+            if (p) wrapper.appendChild(p);
+        }
+
+        if (wrapper && !document.querySelector('.admin-hamburger')) {
+            wrapper.classList.add('flex', 'items-start', 'md:items-center', 'gap-3');
+            
+            const btn = document.createElement('button');
+            btn.innerHTML = '<span class="material-symbols-outlined shrink-0 text-[1.25rem]">menu</span>';
+            btn.className = 'admin-hamburger md:hidden p-2 -ml-2 bg-primary/5 text-primary rounded-xl flex items-center justify-center hover:bg-primary/10 transition-colors shadow-sm shrink-0 leading-none h-fit';
+            btn.onclick = toggleSidebar;
+            
+            // Create a sub wrapper for the text
+            const textWrapperInner = document.createElement('div');
+            while (wrapper.firstChild) {
+                textWrapperInner.appendChild(wrapper.firstChild);
+            }
+            wrapper.appendChild(btn);
+            wrapper.appendChild(textWrapperInner);
+        }
+    });
+});
+</script>

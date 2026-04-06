@@ -4,28 +4,28 @@ include '../includes/header.php';
 include 'sidebar.php';
 ?>
 
-<div class="ml-64 bg-surface min-h-screen pb-20">
+<div class="md:ml-64 transition-all duration-300 w-full md:w-auto bg-surface min-h-screen pb-20">
     <!-- Header -->
-    <header class="bg-white px-8 py-6 flex justify-between items-center border-b border-primary/5 shadow-sm sticky top-0 z-50">
+    <header class="bg-white px-4 md:px-8 py-4 md:py-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-primary/5 shadow-sm sticky top-0 z-50">
         <div>
-            <h1 class="text-xl font-black text-primary headline tracking-tight leading-none">Layanan Eco-System</h1>
-            <p class="text-[10px] font-bold text-outline uppercase tracking-widest mt-1">Kelola program dan jasa penjemputan</p>
+            <h1 class="text-lg md:text-xl font-black text-primary headline tracking-tight leading-none">Layanan Eco-System</h1>
+            <p class="text-xs font-bold text-outline uppercase tracking-widest mt-1">Kelola program dan jasa penjemputan</p>
         </div>
         <button onclick="openModal()" class="bg-primary text-white text-[10px] font-black uppercase tracking-widest px-6 py-3 rounded-xl shadow-lg shadow-primary/20 hover:scale-105 transition-all flex items-center gap-2">
             <span class="material-symbols-outlined text-[16px]">add_circle</span> Tambah Layanan
         </button>
     </header>
 
-    <main class="max-w-7xl mx-auto px-8 py-10">
+    <main class="max-w-7xl mx-auto px-4 md:px-8 py-6 md:py-10">
         <div class="bg-white rounded-[2.5rem] border border-primary/5 shadow-2xl overflow-hidden">
             <div class="overflow-x-auto">
                 <table class="w-full text-left">
                     <thead>
-                        <tr class="bg-surface-container-low text-[10px] font-black uppercase tracking-[0.2em] text-outline">
-                            <th class="px-8 py-6">Layanan</th>
-                            <th class="px-8 py-6 text-center">Tipe</th>
-                            <th class="px-8 py-6">Status</th>
-                            <th class="px-8 py-6 text-right">Aksi</th>
+                        <tr class="bg-surface-container-low text-xs font-black uppercase tracking-[0.2em] text-outline">
+                            <th class="px-6 md:px-4 md:px-8 py-3 md:py-4 text-xs md:text-sm whitespace-nowrap md:whitespace-normal md:py-6">Layanan</th>
+                            <th class="px-6 md:px-4 md:px-8 py-3 md:py-4 text-xs md:text-sm whitespace-nowrap md:whitespace-normal md:py-6 text-center">Tipe</th>
+                            <th class="px-6 md:px-4 md:px-8 py-3 md:py-4 text-xs md:text-sm whitespace-nowrap md:whitespace-normal md:py-6">Status</th>
+                            <th class="px-6 md:px-4 md:px-8 py-3 md:py-4 text-xs md:text-sm whitespace-nowrap md:whitespace-normal md:py-6 text-right">Aksi</th>
                         </tr>
                     </thead>
                     <tbody id="service-table" class="divide-y divide-primary/5">
@@ -42,32 +42,28 @@ include 'sidebar.php';
 <!-- Modal Form -->
 <div id="form-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] hidden flex items-center justify-center p-6">
     <div class="bg-white w-full max-w-lg rounded-[2.5rem] p-10 shadow-2xl">
-        <h3 id="modal-title" class="text-2xl font-black text-primary headline tracking-tight mb-2">Tambah Layanan</h3>
+        <h3 id="modal-title" class="text-lg md:text-2xl font-black text-primary headline tracking-tight mb-2">Tambah Layanan</h3>
         <p class="text-sm text-on-surface-variant mb-8 font-medium">Informasi detail mengenai layanan baru.</p>
         
         <form id="service-form" class="space-y-6">
             <input type="hidden" id="service-id" name="id">
             
             <div>
-                <label class="block text-[10px] font-bold text-outline uppercase tracking-widest mb-2">Nama Layanan</label>
+                <label class="block text-xs font-bold text-outline uppercase tracking-widest mb-2">Nama Layanan</label>
                 <input type="text" id="name" name="name" required 
                        class="w-full bg-surface-container border-none rounded-xl px-4 py-4 focus:ring-2 focus:ring-primary font-bold">
             </div>
 
             <div>
-                <label class="block text-[10px] font-bold text-outline uppercase tracking-widest mb-2">Tipe Layanan</label>
-                <select id="type" name="type" required class="w-full bg-surface-container border-none rounded-xl px-4 py-4 focus:ring-2 focus:ring-primary font-bold">
-                    <option value="PICKUP">PICKUP (Penjemputan)</option>
-                    <option value="CONSULT">CONSULT (Konsultasi)</option>
-                    <option value="TRAINING">TRAINING (Pelatihan)</option>
-                    <option value="COMPOST">COMPOST (Pupuk Kompos)</option>
-                </select>
+                <label class="block text-xs font-bold text-outline uppercase tracking-widest mb-2">Tipe Layanan</label>
+                <input type="text" id="type" name="type" required placeholder="Contoh: INFO, PICKUP, EDUKASI..." 
+                       class="w-full bg-surface-container border-none rounded-xl px-4 py-4 focus:ring-2 focus:ring-primary font-bold uppercase">
             </div>
 
             <div>
-                <label class="block text-[10px] font-bold text-outline uppercase tracking-widest mb-2">Deskripsi Singkat</label>
+                <label class="block text-xs font-bold text-outline uppercase tracking-widest mb-2">Deskripsi Singkat</label>
                 <textarea id="description" name="description" rows="3"
-                          class="w-full bg-surface-container border-none rounded-xl px-4 py-4 focus:ring-2 focus:ring-primary font-medium"></textarea>
+                          class="w-full bg-surface-container border-none rounded-xl px-4 py-4 focus:ring-2 focus:ring-primary font-medium text-base"></textarea>
             </div>
 
             <div class="flex items-center gap-3">
@@ -104,19 +100,19 @@ function renderTable() {
 
     tbody.innerHTML = services.map(srv => `
         <tr class="hover:bg-primary/5 transition-colors">
-            <td class="px-8 py-6">
+            <td class="px-6 md:px-4 md:px-8 py-3 md:py-4 text-xs md:text-sm whitespace-nowrap md:whitespace-normal md:py-6">
                 <p class="font-black text-primary text-sm">${srv.name}</p>
-                <p class="text-[10px] text-outline font-medium max-w-xs truncate">${srv.description || '-'}</p>
+                <p class="text-xs text-outline font-medium max-w-xs truncate">${srv.description || '-'}</p>
             </td>
-            <td class="px-8 py-6 text-center">
-                <span class="px-3 py-1 bg-surface-container text-[9px] font-black text-outline rounded-full uppercase tracking-tighter">${srv.type}</span>
+            <td class="px-6 md:px-4 md:px-8 py-3 md:py-4 text-xs md:text-sm whitespace-nowrap md:whitespace-normal md:py-6 text-center">
+                <span class="px-3 py-1 bg-surface-container text-xs font-black text-outline rounded-full uppercase tracking-tighter">${srv.type}</span>
             </td>
-            <td class="px-8 py-6">
+            <td class="px-6 md:px-4 md:px-8 py-3 md:py-4 text-xs md:text-sm whitespace-nowrap md:whitespace-normal md:py-6">
                 ${srv.is_active ? 
                     '<span class="flex items-center gap-2 text-xs font-bold text-green-600"><span class="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span> Aktif</span>' : 
                     '<span class="flex items-center gap-2 text-xs font-bold text-outline"><span class="w-2 h-2 rounded-full bg-outline/30"></span> Nonaktif</span>'}
             </td>
-            <td class="px-8 py-6 text-right">
+            <td class="px-6 md:px-4 md:px-8 py-3 md:py-4 text-xs md:text-sm whitespace-nowrap md:whitespace-normal md:py-6 text-right">
                 <div class="flex justify-end gap-2">
                     <button onclick="editService(${srv.id})" class="w-8 h-8 rounded-lg bg-surface-container flex items-center justify-center text-outline hover:text-primary transition-all">
                         <span class="material-symbols-outlined text-[18px]">edit_square</span>

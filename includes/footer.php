@@ -44,6 +44,55 @@
     </a>
     <?php endif; ?>
 
+    <!-- Global Toast Notification System -->
+    <div id="toast-container" class="fixed top-4 left-1/2 -translate-x-1/2 z-[9999] flex flex-col gap-2 w-full max-w-sm px-4 pointer-events-none"></div>
+
+    <script>
+    window.showToast = function(message, type = 'success') {
+        const container = document.getElementById('toast-container');
+        const toast = document.createElement('div');
+        
+        // Premium styling based on type
+        const bgColor = type === 'success' ? 'bg-primary' : (type === 'error' ? 'bg-red-600' : 'bg-surface-container-highest');
+        const textColor = type === 'success' ? 'text-white' : (type === 'error' ? 'text-white' : 'text-on-surface');
+        const icon = type === 'success' ? 'check_circle' : (type === 'error' ? 'error' : 'info');
+        
+        toast.className = `flex items-center gap-3 p-4 rounded-2xl shadow-2xl ${bgColor} ${textColor} transform transition-all duration-500 translate-y-[-150%] opacity-0 pointer-events-auto border border-white/10`;
+        
+        toast.innerHTML = `
+            <span class="material-symbols-outlined font-black">${icon}</span>
+            <p class="text-[11px] font-bold flex-1 leading-relaxed tracking-wide">${message}</p>
+            <button onclick="this.parentElement.remove()" class="w-6 h-6 flex items-center justify-center rounded-full hover:bg-white/20 transition-colors">
+                <span class="material-symbols-outlined text-[14px]">close</span>
+            </button>
+        `;
+        
+        container.appendChild(toast);
+        
+        // Animate in
+        requestAnimationFrame(() => {
+            toast.classList.remove('translate-y-[-150%]', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+        });
+        
+        // Auto remove after 4 seconds
+        setTimeout(() => {
+            if (toast.parentElement) {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-[-150%]', 'opacity-0');
+                setTimeout(() => toast.remove(), 500); // Wait for transition
+            }
+        }, 4000);
+    };
+
+    // Override browser's default alert
+    window.alert = function(message) {
+        const isError = message.toLowerCase().includes('gagal') || message.includes('❌');
+        const cleanMessage = message.replace(/✔|❌/g, '').trim();
+        showToast(cleanMessage, isError ? 'error' : 'success');
+    };
+    </script>
+
     <script src="<?php echo $path_to_root; ?>js/app.js"></script>
 </body>
 </html>

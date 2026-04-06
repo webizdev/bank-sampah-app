@@ -10,16 +10,16 @@ include '../includes/header.php';
 <div class="flex min-h-screen bg-surface">
     <?php include 'sidebar.php'; ?>
     
-    <div class="flex-1 ml-64 p-8">
-        <header class="mb-12">
-            <h1 class="text-4xl font-black text-primary headline tracking-tight mb-2">Pengaturan Organisasi</h1>
+    <div class="flex-1 md:ml-64 p-4 md:p-8 transition-all duration-300 w-full md:w-auto">
+        <header class="mb-4 md:mb-6 md:mb-12">
+            <h1 class="text-lg md:text-2xl md:text-4xl font-black text-primary headline tracking-tight mb-2">Pengaturan Organisasi</h1>
             <p class="text-on-surface-variant font-medium">Atur profil Bank Sampah Anda, level poin nasabah, dan sistem utama.</p>
         </header>
         
         <div class="max-w-3xl space-y-8">
             <!-- Organization Settings -->
-            <section class="bg-white p-8 rounded-[2rem] shadow-xl shadow-primary/5 border border-primary/10">
-                <h2 class="text-xl font-bold headline mb-6 text-primary flex items-center gap-2">
+            <section class="bg-white p-4 md:p-8 rounded-2xl md:rounded-[2rem] shadow-xl shadow-primary/5 border border-primary/10">
+                <h2 class="text-sm md:text-lg lg:text-xl font-bold !leading-tight headline mb-4 md:mb-6 text-primary flex items-center gap-2">
                     <span class="material-symbols-outlined">business</span> Profil & Kontak
                 </h2>
                 <form id="settings-form" class="space-y-6">
@@ -42,7 +42,7 @@ include '../includes/header.php';
                     <h2 class="text-lg font-bold headline mb-4 text-primary flex items-center gap-2 mt-6">
                         <span class="material-symbols-outlined">share</span> Link Media Sosial
                     </h2>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-6">
                         <div>
                             <label class="block text-[10px] font-bold text-outline uppercase tracking-widest mb-2">Instagram (URL)</label>
                             <input type="url" id="social_instagram" name="social_instagram" placeholder="https://instagram.com/..."
@@ -62,10 +62,10 @@ include '../includes/header.php';
 
                     <hr class="border-outline/10 my-6">
 
-                    <h2 class="text-xl font-bold headline mb-6 text-primary flex items-center gap-2">
+                    <h2 class="text-sm md:text-lg lg:text-xl font-bold !leading-tight headline mb-4 md:mb-6 text-primary flex items-center gap-2">
                         <span class="material-symbols-outlined">military_tech</span> Konfigurasi Peringkat (Tier)
                     </h2>
-                    <div class="grid grid-cols-3 gap-4">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <div>
                             <label class="block text-[10px] font-bold text-outline uppercase tracking-widest mb-2">Bronze (Min. kg)</label>
                             <input type="number" id="tier_bronze_min" name="tier_bronze_min" required value="0" readonly
@@ -84,19 +84,19 @@ include '../includes/header.php';
                     </div>
 
                     <div class="pt-4 flex justify-end">
-                        <button type="submit" class="bg-primary text-white px-8 py-4 font-bold rounded-2xl shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all">Simpan Pengaturan</button>
+                        <button type="submit" class="bg-primary text-white px-4 md:px-8 py-3 md:py-4 text-xs md:text-sm whitespace-nowrap md:whitespace-normal font-bold rounded-2xl shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all">Simpan Pengaturan</button>
                     </div>
                 </form>
             </section>
 
             <!-- Danger Zone -->
-            <section class="bg-red-50 p-8 rounded-[2rem] border border-red-200">
-                <h2 class="text-xl font-bold headline mb-2 text-red-600 flex items-center gap-2">
+            <section class="bg-red-50 p-4 md:p-8 rounded-2xl md:rounded-[2rem] border border-red-200">
+                <h2 class="text-sm md:text-lg lg:text-xl font-bold !leading-tight headline mb-2 text-red-600 flex items-center gap-2">
                     <span class="material-symbols-outlined">warning</span> Danger Zone
                 </h2>
-                <p class="text-sm font-medium text-red-500 mb-6">Aksi di bawah ini tidak dapat dibatalkan. Pastikan Anda berhati-hati.</p>
+                <p class="text-sm font-medium text-red-500 mb-4 md:mb-6">Aksi di bawah ini tidak dapat dibatalkan. Pastikan Anda berhati-hati.</p>
                 
-                <div class="flex items-center justify-between p-6 bg-white rounded-2xl border border-red-100">
+                <div class="flex flex-col md:flex-row md:items-center justify-between p-4 md:p-6 bg-white rounded-2xl border border-red-100 gap-4">
                     <div>
                         <h3 class="font-bold text-on-surface">Reset Inventori & Transaksi</h3>
                         <p class="text-[12px] text-on-surface-variant max-w-sm mt-1">Menghapus semua qty produk (kosongkan stok), menghapus riwayat transaksi, menghapus riwayat penjualan. <strong>Data nama dan whatsapp member tetap aman.</strong> Saldo member jadi 0.</p>

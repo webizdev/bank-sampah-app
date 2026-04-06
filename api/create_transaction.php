@@ -12,31 +12,32 @@ if (!isset($_SESSION['user_id'])) {
 $user_id = $_SESSION['user_id'];
 $input = json_decode(file_get_contents('php://input'), true);
 
-if (!$input || !isset($input['category_id']) || !isset($input['weight_est'])) {
+if (!$input || !isset($input['product_id']) || !isset($input['weight_est'])) {
     http_response_code(400);
     echo json_encode(['status' => 'error', 'message' => 'Missing required data']);
     exit;
 }
 
-$category_id = $input['category_id'];
+$product_id = $input['product_id'];
 $weight_est = (float)$input['weight_est'];
 
 try {
-    // Fetch product price
-    $stmt_price = $pdo->prepare("SELECT price_per_kg FROM waste_categories WHERE id = ?");
-    $stmt_price->execute([$category_id]);
+    // 1. Fetch product price from the new 'products' table
+    $stmt_price = $pdo->prepare("SELECT price_per_kg FROM products WHERE id = ?");
+    $stmt_price->execute([$product_id]);
     $product = $stmt_price->fetch();
 
     if (!$product) {
-        throw new Exception("Produk tidak ditemukan");
+        throw new Exception("Produk tidak ditemukan (ID: $product_id)");
     }
 
     $price_per_kg = $product['price_per_kg'];
     $total_payout = $weight_est * $price_per_kg;
 
-    // Create pending transaction
-    $stmt = $pdo->prepare("INSERT INTO transactions (user_id, category_id, weight_est, total_payout, status, type) VALUES (?, ?, ?, ?, 'PENDING', 'DROPOFF')");
-    $stmt->execute([$user_id, $category_id, $weight_est, $total_payout]);
+    // 2. Create pending transaction in the new 'transactions' table
+    // Note: We use product_id as defined in our new schema
+    $stmt = $pdo->prepare("INSERT INTO transactions (user_id, product_id, weight_est, total_payout, status, type) VALUES (?, ?, ?, ?, 'PENDING', 'DROPOFF')");
+    $stmt->execute([$user_id, $product_id, $weight_est, $total_payout]);
 
     echo json_encode([
         'status' => 'success',

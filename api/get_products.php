@@ -4,19 +4,21 @@ require_once '../includes/db_connect.php';
 header('Content-Type: application/json');
 
 try {
-    // Fetch all products (sub-categories) with their parent names
-    $query = "SELECT c1.*, c2.name as parent_name 
-              FROM waste_categories c1 
-              LEFT JOIN waste_categories c2 ON c1.parent_id = c2.id 
-              WHERE c1.parent_id IS NOT NULL AND c1.parent_id != 0 AND c1.parent_id != ''
-              ORDER BY c2.name, c1.name ASC";
-    
-    $stmt = $pdo->query($query);
-    $products = $stmt->fetchAll();
+    // 1. Fetch all products with their parent categories (using JOIN)
+    $stmt = $pdo->query("
+        SELECT 
+            p.*, 
+            c.name as parent_name,
+            p.category_id as parent_id
+        FROM products p
+        LEFT JOIN categories c ON p.category_id = c.id
+        ORDER BY c.name, p.name ASC
+    ");
+    $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // Fetch all categories (parents) for filtering
-    $stmt_cats = $pdo->query("SELECT * FROM waste_categories WHERE parent_id IS NULL OR parent_id = 0 OR parent_id = '' ORDER BY name ASC");
-    $categories = $stmt_cats->fetchAll();
+    // 2. Fetch all categories (parents) for filtering in Jual UI
+    $stmt_cats = $pdo->query("SELECT id, name, slug, description, icon FROM categories ORDER BY name ASC");
+    $categories = $stmt_cats->fetchAll(PDO::FETCH_ASSOC);
 
     echo json_encode([
         'status' => 'success',

@@ -4,23 +4,28 @@ include '../includes/header.php';
 include 'sidebar.php';
 ?>
 
-<div class="ml-64 bg-surface min-h-screen pb-20">
+<div class="md:ml-64 transition-all duration-300 w-full md:w-auto bg-surface min-h-screen pb-20">
     <!-- Header -->
-    <header class="bg-white px-8 py-6 flex justify-between items-center border-b border-primary/5 shadow-sm sticky top-0 z-50">
+    <header class="bg-white px-4 md:px-8 py-4 md:py-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-primary/5 shadow-sm sticky top-0 z-50">
         <div>
-            <h1 class="text-xl font-black text-primary headline tracking-tight leading-none">Manajemen Produk</h1>
-            <p class="text-[10px] font-bold text-outline uppercase tracking-widest mt-1">Kelola data sampah dan harga beli</p>
+            <h1 class="text-lg md:text-xl font-black text-primary headline tracking-tight leading-none">Manajemen Produk</h1>
+            <p class="text-[9px] md:text-[10px] font-bold text-outline uppercase tracking-widest mt-1">Kelola data sampah dan harga beli</p>
         </div>
-        <button onclick="openModal()" class="bg-primary text-white text-[10px] font-black uppercase tracking-widest px-6 py-3 rounded-xl shadow-lg shadow-primary/20 hover:scale-105 transition-all flex items-center gap-2">
-            <span class="material-symbols-outlined text-[16px]">add</span> Tambah Data
-        </button>
+        <div class="flex gap-3">
+            <button onclick="openModal('category')" class="bg-surface-container text-primary text-[10px] font-black uppercase tracking-widest px-6 py-3 rounded-xl shadow-lg hover:bg-primary/5 transition-all flex items-center gap-2">
+                <span class="material-symbols-outlined text-[16px]">category</span> Tambah Kategori
+            </button>
+            <button onclick="openModal('product')" class="bg-primary text-white text-[10px] font-black uppercase tracking-widest px-6 py-3 rounded-xl shadow-lg shadow-primary/20 hover:scale-105 transition-all flex items-center gap-2">
+                <span class="material-symbols-outlined text-[16px]">add</span> Tambah Produk
+            </button>
+        </div>
     </header>
 
-    <main class="max-w-7xl mx-auto px-8 py-10 space-y-6">
+    <main class="max-w-7xl mx-auto px-4 md:px-8 py-6 md:py-10 space-y-6">
         
         <!-- Category Pills -->
         <div class="flex flex-col gap-2">
-            <p class="text-[10px] font-bold text-outline uppercase tracking-widest">Filter Kategori :</p>
+            <p class="text-[9px] md:text-[10px] font-bold text-outline uppercase tracking-widest">Filter Kategori :</p>
             <div id="category-pills" class="flex flex-wrap items-center gap-3">
                 <div class="px-6 py-2 rounded-full bg-surface-container text-outline text-[10px] font-bold italic animate-pulse">Memuat kategori...</div>
             </div>
@@ -31,10 +36,10 @@ include 'sidebar.php';
                 <table class="w-full text-left">
                     <thead>
                         <tr class="bg-surface-container-low text-[10px] font-black uppercase tracking-[0.2em] text-outline">
-                            <th class="px-8 py-6">Produk</th>
-                            <th class="px-8 py-6">Kategori</th>
-                            <th class="px-8 py-6">Harga / kg</th>
-                            <th class="px-8 py-6 text-right">Aksi</th>
+                            <th class="px-6 md:px-4 md:px-8 py-3 md:py-4 text-xs md:text-sm whitespace-nowrap md:whitespace-normal md:py-6">Produk</th>
+                            <th class="px-6 md:px-4 md:px-8 py-3 md:py-4 text-xs md:text-sm whitespace-nowrap md:whitespace-normal md:py-6">Kategori</th>
+                            <th class="px-6 md:px-4 md:px-8 py-3 md:py-4 text-xs md:text-sm whitespace-nowrap md:whitespace-normal md:py-6">Harga / kg</th>
+                            <th class="px-6 md:px-4 md:px-8 py-3 md:py-4 text-xs md:text-sm whitespace-nowrap md:whitespace-normal md:py-6 text-right">Aksi</th>
                         </tr>
                     </thead>
                     <tbody id="category-table" class="divide-y divide-primary/5">
@@ -51,7 +56,7 @@ include 'sidebar.php';
 <!-- Modal Form -->
 <div id="form-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] hidden flex items-center justify-center p-6">
     <div class="bg-white w-full max-w-lg rounded-[2.5rem] p-10 shadow-2xl overflow-y-auto max-h-[90vh]">
-        <h3 id="modal-title" class="text-2xl font-black text-primary headline tracking-tight mb-2">Tambah Kategori</h3>
+        <h3 id="modal-title" class="text-lg md:text-2xl font-black text-primary headline tracking-tight mb-2">Tambah Kategori</h3>
         <p class="text-sm text-on-surface-variant mb-8 font-medium">Lengkapi detail kategori sampah di bawah ini.</p>
         
         <form id="category-form" class="space-y-6">
@@ -59,11 +64,11 @@ include 'sidebar.php';
             <input type="hidden" id="category-type" name="type">
             
             <div class="grid grid-cols-2 gap-4">
-                <div class="col-span-2">
-                    <label class="block text-[10px] font-bold text-outline uppercase tracking-widest mb-2">Jenis Data</label>
-                    <select id="parent_id" name="parent_id" onchange="togglePriceInput()"
+                <div class="col-span-2" id="parent-id-wrapper">
+                    <label class="block text-[10px] font-bold text-outline uppercase tracking-widest mb-2">Pilih Kategori Induk</label>
+                    <select id="parent_id" name="parent_id"
                             class="w-full bg-surface-container border-none rounded-xl px-4 py-4 focus:ring-2 focus:ring-primary font-bold">
-                        <option value="">-- Tanpa Parent (Ini Kategori) --</option>
+                        <option value="">-- Pilih Kategori --</option>
                     </select>
                 </div>
                 <div class="col-span-2">
@@ -123,7 +128,9 @@ include 'sidebar.php';
 
 <script>
 let categories = [];
+let products = [];
 let currentCategoryFilter = 'all';
+
 function generateSlug() {
     const name = document.getElementById('name').value;
     const slug = name.toLowerCase()
@@ -133,29 +140,33 @@ function generateSlug() {
 }
 
 async function fetchCategories() {
-    const res = await fetch('../api/get_categories.php');
-    const result = await res.json();
-    if (result.status === 'success') {
-        categories = result.all;
-        renderPills();
-        renderTable();
-        updateParentDropdown();
+    try {
+        const res = await fetch('../api/get_categories.php');
+        const result = await res.json();
+        if (result.status === 'success') {
+            categories = result.categories || [];
+            products = result.products || [];
+            renderPills();
+            renderTable();
+            updateParentDropdown();
+        }
+    } catch (err) {
+        console.error('Fetch error:', err);
     }
 }
 
 function updateParentDropdown() {
     const parentSelect = document.getElementById('parent_id');
-    // Mencari kategori utama (parent_id null, 0, atau empty string)
-    const mainCats = categories.filter(c => !c.parent_id || c.parent_id == 0 || c.parent_id === '');
-    parentSelect.innerHTML = '<option value="">-- Tanpa Parent (Ini Kategori) --</option>' + 
-        mainCats.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
+    parentSelect.innerHTML = '<option value="">-- Pilih Kategori --</option>' + 
+        categories.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
 }
 
-function togglePriceInput() {
-    const parentId = document.getElementById('parent_id').value;
+function togglePriceInput(forcedType = null) {
+    const type = forcedType || document.getElementById('category-type').value;
     const priceGroup = document.getElementById('price-group');
     const imageGroup = document.getElementById('image-upload-group');
-    if (parentId) {
+    
+    if (type === 'product') {
         priceGroup.classList.remove('opacity-30', 'pointer-events-none');
         imageGroup.classList.remove('hidden');
         document.getElementById('price').required = true;
@@ -168,13 +179,12 @@ function togglePriceInput() {
 }
 
 function renderPills() {
-    const mainCats = categories.filter(c => !c.parent_id || c.parent_id == 0 || c.parent_id === '');
     let html = `
         <button onclick="filterCategory('all')" class="px-6 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all ${currentCategoryFilter === 'all' ? 'bg-primary text-white shadow-md shadow-primary/20' : 'bg-surface-container hover:bg-primary/5 text-outline'}">
             Semua Produk
         </button>
     `;
-    mainCats.forEach(cat => {
+    categories.forEach(cat => {
         const isActive = currentCategoryFilter == cat.id;
         html += `
             <div class="flex items-center gap-0.5 group">
@@ -186,7 +196,7 @@ function renderPills() {
                     <button onclick="editCategory(${cat.id}, 'category')" class="flex-1 px-2 rounded-tr-lg text-outline hover:bg-primary/10 hover:text-primary bg-surface-container transition-all flex items-center justify-center">
                         <span class="material-symbols-outlined text-[10px]">edit</span>
                     </button>
-                    <button onclick="deleteCategory(${cat.id}, 'category')" class="flex-1 px-2 rounded-br-lg text-red-300 hover:bg-red-50 hover:text-red-500 bg-surface-container transition-all flex items-center justify-center">
+                    <button onclick="deleteCategory(${cat.id}, 'category')" class="flex-1 px-2 rounded-br-lg text-outline hover:bg-red-50 hover:text-red-500 bg-surface-container transition-all flex items-center justify-center">
                         <span class="material-symbols-outlined text-[10px]">delete</span>
                     </button>
                 </div>
@@ -204,36 +214,27 @@ function filterCategory(id) {
 
 function renderTable() {
     const tbody = document.getElementById('category-table');
-    // Kategori Utama
-    const mainCats = categories.filter(c => !c.parent_id || c.parent_id == 0 || c.parent_id === '');
-    // Produk (yang punya parent_id valid)
-    const allProducts = categories.filter(c => c.parent_id && c.parent_id != 0 && c.parent_id !== '');
-
-    // Temukan produk yang parent-nya tidak ada di list mainCats (Data Corrupt/Orphan)
-    const orphans = allProducts.filter(p => !mainCats.find(c => c.id == p.parent_id));
-
+    
     let filteredProducts = [];
     if (currentCategoryFilter === 'all') {
-        filteredProducts = allProducts;
+        filteredProducts = products;
     } else {
-        // Gunakan == untuk menangani string vs number dari ID
-        filteredProducts = allProducts.filter(p => p.parent_id == currentCategoryFilter);
+        filteredProducts = products.filter(p => p.category_id == currentCategoryFilter);
     }
 
-    if (filteredProducts.length === 0 && (currentCategoryFilter !== 'all' || orphans.length === 0)) {
+    if (filteredProducts.length === 0) {
         tbody.innerHTML = '<tr><td colspan="4" class="px-8 py-20 text-center text-outline italic">Belum ada data produk di kategori ini.</td></tr>';
         return;
     }
 
     let html = '';
-
     filteredProducts.forEach(prod => {
-        const parent = mainCats.find(c => c.id == prod.parent_id);
+        const parent = categories.find(c => c.id == prod.category_id);
         const parentName = parent ? parent.name : 'Unknown';
         
         html += `
             <tr class="hover:bg-primary/[0.02] transition-colors">
-                <td class="px-8 py-4">
+                <td class="px-4 md:px-8 py-3 md:py-4 text-xs md:text-sm whitespace-nowrap md:whitespace-normal">
                     <div class="flex items-center gap-4">
                         <div class="w-10 h-10 rounded-xl bg-surface-container flex items-center justify-center text-primary overflow-hidden shadow-sm">
                             ${prod.image_url ? `<img src="${prod.image_url}" class="w-full h-full object-cover">` : `<span class="material-symbols-outlined text-[20px]">inventory_2</span>`}
@@ -244,14 +245,14 @@ function renderTable() {
                         </div>
                     </div>
                 </td>
-                <td class="px-8 py-4">
+                <td class="px-4 md:px-8 py-3 md:py-4 text-xs md:text-sm whitespace-nowrap md:whitespace-normal">
                     <span class="px-3 py-1.5 bg-surface-container-high rounded-lg text-[10px] font-bold text-on-surface-variant uppercase tracking-widest">${parentName}</span>
                     ${prod.is_popular ? '<span class="px-3 py-1.5 bg-secondary/10 text-secondary text-[10px] font-bold rounded-lg ml-1 uppercase tracking-widest">POPULER</span>' : ''}
                 </td>
-                <td class="px-8 py-4 font-black text-sm text-primary">
+                <td class="px-4 md:px-8 py-3 md:py-4 text-xs md:text-sm whitespace-nowrap md:whitespace-normal font-black text-sm text-primary">
                     IDR ${new Intl.NumberFormat('id-ID').format(prod.price_per_kg)}
                 </td>
-                <td class="px-8 py-4 text-right">
+                <td class="px-4 md:px-8 py-3 md:py-4 text-xs md:text-sm whitespace-nowrap md:whitespace-normal text-right">
                     <div class="flex justify-end gap-2">
                         <button onclick="editCategory(${prod.id}, 'product')" class="w-8 h-8 rounded-lg bg-white border border-primary/10 flex items-center justify-center text-outline hover:text-primary hover:border-primary/30 transition-all">
                             <span class="material-symbols-outlined text-[16px]">edit</span>
@@ -265,47 +266,33 @@ function renderTable() {
         `;
     });
 
-    if (currentCategoryFilter === 'all' && orphans.length > 0) {
-        html += `<tr class="bg-red-50/50"><td colspan="4" class="px-8 py-3 text-[10px] font-bold text-red-500 uppercase tracking-widest">Produk Tanpa Kategori</td></tr>`;
-        orphans.forEach(prod => {
-             html += `
-                <tr class="hover:bg-red-50 transition-colors">
-                    <td class="px-8 py-4">
-                        <div class="flex items-center gap-4">
-                            <div class="w-10 h-10 rounded-xl bg-red-100/50 text-red-400 flex items-center justify-center">
-                                <span class="material-symbols-outlined text-[20px]">warning</span>
-                            </div>
-                            <div>
-                                <p class="font-bold text-red-500 text-sm">${prod.name}</p>
-                                <p class="text-[10px] text-red-400/70 truncate max-w-[200px]">${prod.description || '-'}</p>
-                            </div>
-                        </div>
-                    </td>
-                    <td class="px-8 py-4"><span class="px-3 py-1.5 bg-red-100 text-red-500 rounded-lg text-[10px] font-bold uppercase tracking-widest">Orphan</span></td>
-                    <td class="px-8 py-4 font-black text-sm text-red-500">IDR ${new Intl.NumberFormat('id-ID').format(prod.price_per_kg)}</td>
-                    <td class="px-8 py-4 text-right">
-                        <div class="flex justify-end gap-2">
-                            <button onclick="editCategory(${prod.id}, 'product')" class="w-8 h-8 rounded-lg bg-white border border-red-100 flex items-center justify-center text-red-400 hover:text-red-500"><span class="material-symbols-outlined text-[16px]">edit</span></button>
-                            <button onclick="deleteCategory(${prod.id}, 'product')" class="w-8 h-8 rounded-lg bg-white border border-red-100 flex items-center justify-center text-red-400 hover:text-red-600"><span class="material-symbols-outlined text-[16px]">delete</span></button>
-                        </div>
-                    </td>
-                </tr>
-            `;
-        });
-    }
-
     tbody.innerHTML = html;
 }
 
-function openModal(id = null) {
+function openModal(type = 'category') {
     const form = document.getElementById('category-form');
     form.reset();
     document.getElementById('category-id').value = '';
-    document.getElementById('category-type').value = '';
-    document.getElementById('modal-title').innerText = 'Tambah Data';
-    document.getElementById('form-modal').classList.remove('hidden');
+    document.getElementById('category-type').value = type;
+    
     updateParentDropdown();
-    togglePriceInput();
+    
+    const parentWrapper = document.getElementById('parent-id-wrapper');
+    const parentSelect = document.getElementById('parent_id');
+    
+    if (type === 'category') {
+        document.getElementById('modal-title').innerText = 'Tambah Kategori';
+        parentWrapper.classList.add('hidden');
+        parentSelect.removeAttribute('required');
+        parentSelect.value = '';
+    } else {
+        document.getElementById('modal-title').innerText = 'Tambah Produk';
+        parentWrapper.classList.remove('hidden');
+        parentSelect.setAttribute('required', 'true');
+    }
+    
+    document.getElementById('form-modal').classList.remove('hidden');
+    togglePriceInput(type);
 }
 
 function closeModal() {
@@ -313,31 +300,50 @@ function closeModal() {
 }
 
 function editCategory(id, type) {
-    const cat = categories.find(c => c.id == id && c.type == type);
-    if (!cat) return;
+    let item;
+    if (type === 'category') {
+        item = categories.find(c => c.id == id);
+    } else {
+        item = products.find(p => p.id == id);
+    }
+    
+    if (!item) return;
 
-    document.getElementById('category-id').value = cat.id;
+    document.getElementById('category-id').value = item.id;
     document.getElementById('category-type').value = type;
-    document.getElementById('name').value = cat.name;
-    document.getElementById('slug').value = cat.slug;
-    document.getElementById('parent_id').value = cat.parent_id || '';
-    document.getElementById('price').value = cat.price_per_kg;
-    document.getElementById('icon').value = cat.icon;
-    document.getElementById('description').value = cat.description;
-    document.getElementById('popular').checked = parseInt(cat.is_popular) === 1;
+    document.getElementById('name').value = item.name;
+    document.getElementById('slug').value = item.slug;
+    document.getElementById('price').value = item.price_per_kg || 0;
+    document.getElementById('icon').value = item.icon || '';
+    document.getElementById('description').value = item.description || '';
+    document.getElementById('popular').checked = parseInt(item.is_popular) === 1;
 
-    document.getElementById('modal-title').innerText = 'Edit Data';
+    const parentWrapper = document.getElementById('parent-id-wrapper');
+    const parentSelect = document.getElementById('parent_id');
+
+    if (type === 'product') {
+        document.getElementById('modal-title').innerText = 'Edit Produk';
+        parentWrapper.classList.remove('hidden');
+        parentSelect.setAttribute('required', 'true');
+        document.getElementById('parent_id').value = item.category_id || '';
+    } else {
+        document.getElementById('modal-title').innerText = 'Edit Kategori';
+        parentWrapper.classList.add('hidden');
+        parentSelect.removeAttribute('required');
+        document.getElementById('parent_id').value = '';
+    }
+
     document.getElementById('form-modal').classList.remove('hidden');
     
     // Preview Image if exists
     const preview = document.getElementById('image-preview');
-    if (cat.image_url) {
-        preview.innerHTML = `<img src="${cat.image_url}" class="w-full h-full object-cover">`;
+    if (item.image_url) {
+        preview.innerHTML = `<img src="${item.image_url}" class="w-full h-full object-cover">`;
     } else {
         preview.innerHTML = `<span class="material-symbols-outlined text-outline">image</span>`;
     }
 
-    togglePriceInput();
+    togglePriceInput(type);
 }
 
 async function deleteCategory(id, type) {
@@ -351,8 +357,11 @@ async function deleteCategory(id, type) {
             body: JSON.stringify({ id })
         });
         const result = await res.json();
-        if (result.status === 'success') fetchCategories();
-        else alert(result.message);
+        if (result.status === 'success') {
+            fetchCategories();
+        } else {
+            alert(result.message);
+        }
     } catch (err) {
         console.error(err);
     }
@@ -362,12 +371,10 @@ document.getElementById('category-form').addEventListener('submit', async (e) =>
     e.preventDefault();
     const formData = new FormData(e.target);
     
-    const parentId = document.getElementById('parent_id').value;
-    const existType = document.getElementById('category-type').value;
+    const type = document.getElementById('category-type').value;
 
-    if (parentId !== '' || existType === 'product') {
+    if (type === 'product') {
         formData.append('entity', 'products');
-        formData.append('parent_id', parentId);
     } else {
         formData.append('entity', 'categories');
     }
@@ -391,7 +398,6 @@ document.getElementById('category-form').addEventListener('submit', async (e) =>
     }
 });
 
-// Image Preview for upload
 document.getElementById('product-image').addEventListener('change', function(e) {
     if (this.files && this.files[0]) {
         const reader = new FileReader();
@@ -402,7 +408,6 @@ document.getElementById('product-image').addEventListener('change', function(e) 
     }
 });
 
-// Initial load
 document.addEventListener('DOMContentLoaded', fetchCategories);
 </script>
 

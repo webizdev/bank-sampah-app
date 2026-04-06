@@ -4,21 +4,21 @@ include '../includes/header.php';
 include 'sidebar.php';
 ?>
 
-<div class="ml-64 bg-surface min-h-screen pb-20">
+<div class="md:ml-64 transition-all duration-300 w-full md:w-auto bg-surface min-h-screen pb-20">
     <!-- Header -->
-    <header class="bg-white px-8 py-6 flex justify-between items-center border-b border-primary/5 shadow-sm sticky top-0 z-50">
+    <header class="bg-white px-4 md:px-8 py-4 md:py-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-primary/5 shadow-sm sticky top-0 z-50">
         <div>
-            <h1 class="text-xl font-black text-primary headline tracking-tight leading-none">Katalog Craft</h1>
-            <p class="text-[10px] font-bold text-outline uppercase tracking-widest mt-1">Kelola produk kreatif daur ulang</p>
+            <h1 class="text-lg md:text-xl font-black text-primary headline tracking-tight leading-none">Katalog Craft</h1>
+            <p class="text-[9px] md:text-[10px] font-bold text-outline uppercase tracking-widest mt-1">Kelola produk kreatif daur ulang</p>
         </div>
-        <button onclick="openModal()" class="bg-primary text-white px-6 py-3 rounded-xl font-bold text-xs flex items-center gap-2 shadow-lg shadow-primary/20 hover:scale-105 active:scale-95 transition-all">
-            <span class="material-symbols-outlined text-[18px]">add_circle</span>
+        <button onclick="openModal()" class="w-full sm:w-auto bg-primary text-white px-4 py-2.5 md:px-6 md:py-3 rounded-xl font-bold text-[11px] md:text-xs flex items-center justify-center sm:justify-start gap-2 shadow-lg shadow-primary/20 hover:scale-105 active:scale-95 transition-all">
+            <span class="material-symbols-outlined text-[16px] md:text-[18px]">add_circle</span>
             Tambah Produk
         </button>
     </header>
 
-    <main class="max-w-7xl mx-auto px-8 py-10">
-        <div id="craft-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <main class="max-w-7xl mx-auto px-4 md:px-8 py-6 md:py-10">
+        <div id="craft-list" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6">
             <!-- Loaded by JS -->
             <div class="animate-pulse bg-white/50 h-64 rounded-[2rem]"></div>
         </div>
@@ -28,7 +28,7 @@ include 'sidebar.php';
 <!-- Modal Form -->
 <div id="form-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] hidden flex items-center justify-center p-6">
     <div class="bg-white w-full max-w-lg rounded-[2.5rem] p-10 shadow-2xl overflow-y-auto max-h-[90vh]">
-        <h3 id="modal-title" class="text-2xl font-black text-primary headline tracking-tight mb-2">Tambah Produk Craft</h3>
+        <h3 id="modal-title" class="text-lg md:text-2xl font-black text-primary headline tracking-tight mb-2">Tambah Produk Craft</h3>
         <p class="text-sm text-on-surface-variant mb-8 font-medium">Isi detail produk untuk ditampilkan di katalog user.</p>
         
         <form id="craft-form" class="space-y-6">
@@ -94,25 +94,25 @@ function renderCrafts(data) {
     }
 
     container.innerHTML = data.map(c => `
-        <div class="bg-white rounded-[2rem] border border-primary/5 shadow-xl overflow-hidden group">
-            <div class="h-48 relative overflow-hidden bg-surface-container">
+        <div class="bg-white rounded-2xl md:rounded-[2rem] border border-primary/5 shadow-xl overflow-hidden group">
+            <div class="h-32 md:h-48 relative overflow-hidden bg-surface-container">
                 <img src="${c.image_url || 'https://via.placeholder.com/400x300?text=No+Image'}" 
                      class="w-full h-full object-cover">
-                <div class="absolute top-4 right-4 flex gap-2">
-                    <button onclick="editCraft(${c.id})" class="w-8 h-8 rounded-full bg-white/90 shadow-lg text-primary flex items-center justify-center hover:bg-primary hover:text-white transition-all">
-                        <span class="material-symbols-outlined text-[18px]">edit</span>
+                <div class="absolute top-2 right-2 md:top-4 md:right-4 flex gap-1 md:gap-2">
+                    <button onclick="editCraft(${c.id})" class="w-6 h-6 md:w-8 md:h-8 rounded-full bg-white/90 shadow-lg text-primary flex items-center justify-center hover:bg-primary hover:text-white transition-all">
+                        <span class="material-symbols-outlined text-[14px] md:text-[18px]">edit</span>
                     </button>
-                    <button onclick="deleteCraft(${c.id})" class="w-8 h-8 rounded-full bg-white/90 shadow-lg text-red-500 flex items-center justify-center hover:bg-red-500 hover:text-white transition-all">
-                        <span class="material-symbols-outlined text-[18px]">delete</span>
+                    <button onclick="deleteCraft(${c.id})" class="w-6 h-6 md:w-8 md:h-8 rounded-full bg-white/90 shadow-lg text-red-500 flex items-center justify-center hover:bg-red-500 hover:text-white transition-all">
+                        <span class="material-symbols-outlined text-[14px] md:text-[18px]">delete</span>
                     </button>
                 </div>
             </div>
-            <div class="p-6">
-                <div class="flex justify-between items-start mb-2">
-                    <h4 class="headline font-black text-primary">${c.title}</h4>
-                    <span class="text-xs font-black text-secondary">IDR ${new Intl.NumberFormat('id-ID').format(c.price)}</span>
+            <div class="p-3 md:p-6">
+                <div class="flex flex-col md:flex-row justify-between items-start mb-2 gap-1 md:gap-0">
+                    <h4 class="text-xs md:text-base headline font-black text-primary line-clamp-2 md:line-clamp-none">${c.title}</h4>
+                    <span class="text-[10px] md:text-xs font-black text-secondary">IDR ${new Intl.NumberFormat('id-ID').format(c.price)}</span>
                 </div>
-                <p class="text-[10px] text-outline font-medium line-clamp-2 mb-4">${c.description}</p>
+                <p class="text-[8px] md:text-[10px] text-outline font-medium line-clamp-2 mb-3 md:mb-4">${c.description}</p>
                 <div class="flex items-center gap-2 text-[9px] font-black text-primary uppercase bg-primary/5 p-2 rounded-lg">
                     <span class="material-symbols-outlined text-[14px]">link</span>
                     <span class="truncate">${c.cta_link}</span>

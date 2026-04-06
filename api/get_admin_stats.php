@@ -25,15 +25,15 @@ try {
 
     // 4. Pending Transactions
     $stmt = $pdo->query("
-        SELECT t.*, u.name as user_name, c.name as category_name, c.icon as category_icon, c.price_per_kg
+        SELECT t.*, u.name as user_name, p.name as category_name, p.icon as category_icon, p.price_per_kg
         FROM transactions t
         JOIN users u ON t.user_id = u.id
-        JOIN waste_categories c ON t.category_id = c.id
+        JOIN products p ON t.product_id = p.id
         WHERE t.status = 'PENDING'
         ORDER BY t.created_at DESC
         LIMIT 10
     ");
-    $pending_transactions = $stmt->fetchAll();
+    $pending_transactions = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     echo json_encode([
         'status' => 'success',

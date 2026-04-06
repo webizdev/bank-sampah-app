@@ -7,10 +7,10 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'ADMIN') {
 }
 
 $query = "SELECT t.id, t.created_at, u.name as user_name, u.email as user_email, 
-                 c.name as category_name, t.weight_est, t.weight_actual, t.total_payout, t.status, t.type
+                 p.name as category_name, t.weight_est, t.weight_actual, t.total_payout, t.status, t.type
           FROM transactions t 
           JOIN users u ON t.user_id = u.id 
-          JOIN waste_categories c ON t.category_id = c.id 
+          JOIN products p ON t.product_id = p.id 
           ORDER BY t.created_at DESC";
 
 $stmt = $pdo->query($query);

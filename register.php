@@ -67,6 +67,7 @@ document.getElementById('register-form').addEventListener('submit', async (e) =>
 
         const result = await response.json();
         if (result.status === 'success') {
+            localStorage.setItem('show_pwa_prompt', 'true');
             alert('Pendaftaran berhasil! Silakan masuk.');
             window.location.href = 'login.php';
         } else {

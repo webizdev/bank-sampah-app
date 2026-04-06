@@ -1,0 +1,28 @@
+{
+  "name": "banksampah-local",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Local test for Bank Sampah App",
+  "main": "index.js",
+  "scripts": {
+    "db:push": "npx drizzle-kit push",
+    "db:studio": "npx drizzle-kit studio",
+    "build:css": "npx tailwindcss -i ./css/input.css -o ./css/output.css --minify",
+    "watch:css": "npx tailwindcss -i ./css/input.css -o ./css/output.css --watch"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "drizzle-orm": "^0.30.7",
+    "mysql2": "^3.9.4"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.2.2",
+    "@types/node": "^20.12.12",
+    "autoprefixer": "^10.4.27",
+    "drizzle-kit": "^0.21.0",
+    "postcss": "^8.5.8",
+    "tailwindcss": "^4.2.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  }
+}

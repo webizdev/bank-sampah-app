@@ -58,14 +58,14 @@ try {
 
 function handleCategories($pdo, $method, $action, $data) {
     if ($method === 'GET') {
-        $stmt = $pdo->query("SELECT * FROM waste_categories WHERE parent_id IS NULL ORDER BY name ASC");
+        $stmt = $pdo->query("SELECT * FROM categories ORDER BY name ASC");
         echo json_encode(['status' => 'success', 'data' => $stmt->fetchAll()]);
     } elseif ($method === 'POST') {
         if ($action === 'delete') {
-            $stmt = $pdo->prepare("DELETE FROM waste_categories WHERE id = ?");
+            $stmt = $pdo->prepare("DELETE FROM categories WHERE id = ?");
             $stmt->execute([$data['id']]);
         } elseif (isset($data['id']) && $data['id'] > 0) {
-            $stmt = $pdo->prepare("UPDATE waste_categories SET name=?, slug=?, description=?, icon=?, is_popular=? WHERE id=?");
+            $stmt = $pdo->prepare("UPDATE categories SET name=?, slug=?, description=?, icon=?, is_popular=? WHERE id=?");
             $stmt->execute([
                 $data['name'],
                 $data['slug'],
@@ -75,7 +75,7 @@ function handleCategories($pdo, $method, $action, $data) {
                 $data['id']
             ]);
         } else {
-            $stmt = $pdo->prepare("INSERT INTO waste_categories (name, slug, description, icon, is_popular) VALUES (?, ?, ?, ?, ?)");
+            $stmt = $pdo->prepare("INSERT INTO categories (name, slug, description, icon, is_popular) VALUES (?, ?, ?, ?, ?)");
             $stmt->execute([
                 $data['name'],
                 $data['slug'],
@@ -90,11 +90,11 @@ function handleCategories($pdo, $method, $action, $data) {
 
 function handleProducts($pdo, $method, $action, $data) {
     if ($method === 'GET') {
-        $stmt = $pdo->query("SELECT * FROM waste_categories WHERE parent_id IS NOT NULL ORDER BY name ASC");
+        $stmt = $pdo->query("SELECT * FROM products ORDER BY name ASC");
         echo json_encode(['status' => 'success', 'data' => $stmt->fetchAll()]);
     } elseif ($method === 'POST') {
         if ($action === 'delete') {
-            $stmt = $pdo->prepare("DELETE FROM waste_categories WHERE id = ?");
+            $stmt = $pdo->prepare("DELETE FROM products WHERE id = ?");
             $stmt->execute([$data['id']]);
         } else {
             // Handle Product Image Upload
@@ -109,12 +109,12 @@ function handleProducts($pdo, $method, $action, $data) {
                 }
             }
 
-            // Normalisasi parent_id: Jika kosong atau 0, ubah jadi NULL
-            $parent_id = (!isset($data['parent_id']) || $data['parent_id'] === '' || $data['parent_id'] == 0) ? null : $data['parent_id'];
+            // category_id: Jika kosong atau 0, ubah jadi NULL
+            $category_id = (!isset($data['parent_id']) || $data['parent_id'] === '' || $data['parent_id'] == 0) ? null : $data['parent_id'];
 
             if (isset($data['id']) && $data['id'] > 0) {
                 if ($image_url) {
-                    $stmt = $pdo->prepare("UPDATE waste_categories SET name=?, slug=?, description=?, price_per_kg=?, icon=?, is_popular=?, parent_id=?, image_url=? WHERE id=?");
+                    $stmt = $pdo->prepare("UPDATE products SET name=?, slug=?, description=?, price_per_kg=?, icon=?, is_popular=?, category_id=?, image_url=? WHERE id=?");
                     $stmt->execute([
                         $data['name'],
                         $data['slug'],
@@ -122,12 +122,12 @@ function handleProducts($pdo, $method, $action, $data) {
                         $data['price_per_kg'],
                         $data['icon'],
                         $data['is_popular'] ? 1 : 0,
-                        $parent_id,
+                        $category_id,
                         $image_url,
                         $data['id']
                     ]);
                 } else {
-                    $stmt = $pdo->prepare("UPDATE waste_categories SET name=?, slug=?, description=?, price_per_kg=?, icon=?, is_popular=?, parent_id=? WHERE id=?");
+                    $stmt = $pdo->prepare("UPDATE products SET name=?, slug=?, description=?, price_per_kg=?, icon=?, is_popular=?, category_id=? WHERE id=?");
                     $stmt->execute([
                         $data['name'],
                         $data['slug'],
@@ -135,12 +135,12 @@ function handleProducts($pdo, $method, $action, $data) {
                         $data['price_per_kg'],
                         $data['icon'],
                         $data['is_popular'] ? 1 : 0,
-                        $parent_id,
+                        $category_id,
                         $data['id']
                     ]);
                 }
             } else {
-                $stmt = $pdo->prepare("INSERT INTO waste_categories (name, slug, description, price_per_kg, icon, is_popular, parent_id, image_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+                $stmt = $pdo->prepare("INSERT INTO products (name, slug, description, price_per_kg, icon, is_popular, category_id, image_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
                 $stmt->execute([
                     $data['name'],
                     $data['slug'],
@@ -148,7 +148,7 @@ function handleProducts($pdo, $method, $action, $data) {
                     $data['price_per_kg'],
                     $data['icon'],
                     $data['is_popular'] ? 1 : 0,
-                    $parent_id,
+                    $category_id,
                     $image_url
                 ]);
             }
@@ -207,6 +207,24 @@ function handleUsers($pdo, $method, $action, $data) {
                 $data['tier'],
                 $data['id']
             ]);
+        } else {
+            // Create New Member with default password
+            $stmt_check = $pdo->prepare("SELECT id FROM users WHERE whatsapp = ?");
+            $stmt_check->execute([$data['whatsapp']]);
+            if ($stmt_check->fetch()) {
+                echo json_encode(['status' => 'error', 'message' => 'Nomor WhatsApp sudah terdaftar.']);
+                exit;
+            }
+            
+            $default_password = password_hash('123456', PASSWORD_DEFAULT);
+            $stmt = $pdo->prepare("INSERT INTO users (name, whatsapp, role, tier, password) VALUES (?, ?, ?, ?, ?)");
+            $stmt->execute([
+                $data['name'],
+                $data['whatsapp'],
+                $data['role'],
+                $data['tier'],
+                $default_password
+            ]);
         }
         echo json_encode(['status' => 'success']);
     }
@@ -217,7 +235,7 @@ function handleTransactions($pdo, $method, $action, $data) {
         $query = "SELECT t.*, u.name as user_name, p.name as category_name 
                   FROM transactions t 
                   JOIN users u ON t.user_id = u.id 
-                  JOIN waste_categories p ON t.category_id = p.id 
+                  JOIN products p ON t.product_id = p.id 
                   ORDER BY t.created_at DESC";
         $stmt = $pdo->query($query);
         echo json_encode(['status' => 'success', 'data' => $stmt->fetchAll()]);
@@ -225,8 +243,8 @@ function handleTransactions($pdo, $method, $action, $data) {
         if ($action === 'verify') {
             $pdo->beginTransaction();
             try {
-                // Fetch transaction details
-                $stmt_tx = $pdo->prepare("SELECT t.*, c.price_per_kg FROM transactions t JOIN waste_categories c ON t.category_id = c.id WHERE t.id = ?");
+                // Fetch transaction details (joining with the new products table)
+                $stmt_tx = $pdo->prepare("SELECT t.*, p.price_per_kg FROM transactions t JOIN products p ON t.product_id = p.id WHERE t.id = ?");
                 $stmt_tx->execute([$data['id']]);
                 $tx = $stmt_tx->fetch();
 

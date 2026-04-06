@@ -24,9 +24,9 @@ try {
 
     // 1. Get transaction details to calculate payout and find user
     $stmt = $pdo->prepare("
-        SELECT t.*, c.price_per_kg 
+        SELECT t.*, p.price_per_kg 
         FROM transactions t 
-        JOIN waste_categories c ON t.category_id = c.id 
+        JOIN products p ON t.product_id = p.id 
         WHERE t.id = ? AND t.status = 'PENDING'
         FOR UPDATE
     ");

@@ -13,17 +13,17 @@ try {
             IFNULL(s.stock_out, 0) as stock_out,
             (IFNULL(t.stock_in, 0) - IFNULL(s.stock_out, 0)) as current_stock
         FROM products p
-        JOIN categories c ON p.category_id = c.id
+        LEFT JOIN categories c ON p.category_id = c.id
         LEFT JOIN (
-            SELECT category_id, SUM(weight_actual) as stock_in 
+            SELECT product_id, SUM(weight_actual) as stock_in 
             FROM transactions 
-            WHERE status = 'VERIFIED' 
-            GROUP BY category_id
-        ) t ON p.id = t.category_id
+            WHERE status IN ('VERIFIED', 'COMPLETED')
+            GROUP BY product_id
+        ) t ON p.id = t.product_id
         LEFT JOIN (
             SELECT product_id, SUM(weight_sold) as stock_out 
             FROM sales 
-            WHERE status = 'COMPLETED' 
+            WHERE status IN ('COMPLETED', 'VERIFIED')
             GROUP BY product_id
         ) s ON p.id = s.product_id
         ORDER BY c.name ASC, p.name ASC

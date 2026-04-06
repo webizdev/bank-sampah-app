@@ -4,21 +4,21 @@ include '../includes/header.php';
 include 'sidebar.php';
 ?>
 
-<div class="ml-64 bg-surface min-h-screen pb-20">
+<div class="md:ml-64 transition-all duration-300 w-full md:w-auto bg-surface min-h-screen pb-20">
     <!-- Header -->
-    <header class="bg-white px-8 py-6 flex justify-between items-center border-b border-primary/5 shadow-sm sticky top-0 z-50">
+    <header class="bg-white px-4 md:px-8 py-4 md:py-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-primary/5 shadow-sm sticky top-0 z-50">
         <div>
-            <h1 class="text-xl font-black text-primary headline tracking-tight leading-none">Artikel & Event</h1>
-            <p class="text-[10px] font-bold text-outline uppercase tracking-widest mt-1">Eksplorasi Lingkungan & Edukasi</p>
+            <h1 class="text-lg md:text-xl font-black text-primary headline tracking-tight leading-none">Artikel & Event</h1>
+            <p class="text-[9px] md:text-[10px] font-bold text-outline uppercase tracking-widest mt-1">Eksplorasi Lingkungan & Edukasi</p>
         </div>
-        <button onclick="openModal()" class="bg-primary text-white px-6 py-3 rounded-xl font-bold text-xs flex items-center gap-2 shadow-lg shadow-primary/20 hover:scale-105 active:scale-95 transition-all">
+        <button onclick="openModal()" class="w-full sm:w-auto bg-primary text-white px-4 py-2.5 md:px-6 md:py-3 rounded-xl font-bold text-[11px] md:text-xs flex items-center justify-center sm:justify-start gap-2 shadow-lg shadow-primary/20 hover:scale-105 active:scale-95 transition-all">
             <span class="material-symbols-outlined text-[18px]">add_circle</span>
             Tambah Artikel
         </button>
     </header>
 
-    <main class="max-w-7xl mx-auto px-8 py-10">
-        <div id="article-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <main class="max-w-7xl mx-auto px-4 md:px-8 py-6 md:py-10">
+        <div id="article-list" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-6">
             <!-- Loaded by JS -->
             <div class="animate-pulse bg-white/50 h-64 rounded-[2rem]"></div>
         </div>
@@ -28,7 +28,7 @@ include 'sidebar.php';
 <!-- Modal Form -->
 <div id="form-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] hidden flex items-center justify-center p-6">
     <div class="bg-white w-full max-w-lg rounded-[2.5rem] p-10 shadow-2xl overflow-y-auto max-h-[90vh]">
-        <h3 id="modal-title" class="text-2xl font-black text-primary headline tracking-tight mb-2">Tambah Artikel</h3>
+        <h3 id="modal-title" class="text-lg md:text-2xl font-black text-primary headline tracking-tight mb-2">Tambah Artikel</h3>
         <p class="text-sm text-on-surface-variant mb-8 font-medium">Isi detail konten untuk ditampilkan di Eksplorasi Lingkungan.</p>
         
         <form id="article-form" class="space-y-4">
@@ -120,7 +120,7 @@ async function fetchArticles() {
         } else {
             const errorHTML = `
                 <div class="col-span-full py-20 text-center">
-                    <span class="material-symbols-outlined text-4xl text-red-500 mb-4 animate-bounce">database_alert</span>
+                    <span class="material-symbols-outlined text-lg md:text-2xl md:text-4xl text-red-500 mb-4 animate-bounce">database_alert</span>
                     <p class="text-red-500 font-black mb-2 headline text-xl">Sinkronisasi Database Gagal</p>
                     <p class="text-outline text-xs max-w-lg mx-auto p-4 bg-red-50 rounded-2xl border border-red-100 font-mono shadow-inner">${result.message || 'Unknown error'}</p>
                     <div class="mt-8 p-6 bg-primary/5 rounded-[2rem] border border-primary/10 max-w-md mx-auto">
@@ -148,26 +148,26 @@ function renderArticles(data) {
     }
 
     container.innerHTML = data.map(a => `
-        <div class="bg-white rounded-[2rem] border border-primary/5 shadow-xl overflow-hidden group">
-            <div class="h-44 relative overflow-hidden bg-surface-container">
+        <div class="bg-white rounded-2xl md:rounded-[2rem] border border-primary/5 shadow-xl overflow-hidden group flex flex-col">
+            <div class="h-32 md:h-44 relative overflow-hidden bg-surface-container shrink-0">
                 <img src="${a.image_url || 'https://via.placeholder.com/600x400?text=No+Preview'}" 
                      class="w-full h-full object-cover">
-                <div class="absolute top-4 left-4 bg-primary/90 text-white px-3 py-1 rounded-full text-[8px] font-black uppercase tracking-widest">
+                <div class="absolute top-2 left-2 md:top-4 md:left-4 bg-primary/90 text-white px-2 py-0.5 md:px-3 md:py-1 rounded-full text-[6px] md:text-[8px] font-black uppercase tracking-widest">
                     ${a.category}
                 </div>
-                <div class="absolute top-4 right-4 flex gap-2">
-                    <button onclick="editArticle(${a.id})" class="w-8 h-8 rounded-full bg-white/90 shadow-lg text-primary flex items-center justify-center hover:bg-primary hover:text-white transition-all">
-                        <span class="material-symbols-outlined text-[18px]">edit</span>
+                <div class="absolute top-2 right-2 md:top-4 md:right-4 flex gap-1 md:gap-2">
+                    <button onclick="editArticle(${a.id})" class="w-6 h-6 md:w-8 md:h-8 rounded-full bg-white/90 shadow-lg text-primary flex items-center justify-center hover:bg-primary hover:text-white transition-all">
+                        <span class="material-symbols-outlined text-[14px] md:text-[18px]">edit</span>
                     </button>
-                    <button onclick="deleteArticle(${a.id})" class="w-8 h-8 rounded-full bg-white/90 shadow-lg text-red-500 flex items-center justify-center hover:bg-red-500 hover:text-white transition-all">
-                        <span class="material-symbols-outlined text-[18px]">delete</span>
+                    <button onclick="deleteArticle(${a.id})" class="w-6 h-6 md:w-8 md:h-8 rounded-full bg-white/90 shadow-lg text-red-500 flex items-center justify-center hover:bg-red-500 hover:text-white transition-all">
+                        <span class="material-symbols-outlined text-[14px] md:text-[18px]">delete</span>
                     </button>
                 </div>
             </div>
-            <div class="p-6">
-                <h4 class="headline font-black text-primary mb-2 line-clamp-1">${a.title}</h4>
-                <p class="text-[11px] text-outline font-bold leading-relaxed line-clamp-2 mb-4">${a.subtitle}</p>
-                <div class="flex flex-col gap-2">
+            <div class="p-3 md:p-6 flex flex-col grow">
+                <h4 class="text-xs md:text-base headline font-black text-primary mb-1 md:mb-2 line-clamp-2 md:line-clamp-1 leading-tight">${a.title}</h4>
+                <p class="text-[8px] md:text-[11px] text-outline font-bold leading-relaxed line-clamp-2 mb-2 md:mb-4">${a.subtitle}</p>
+                <div class="flex flex-col gap-1 md:gap-2 mt-auto">
                     ${a.location ? `
                     <div class="flex items-center gap-2 text-on-surface-variant text-[10px] font-bold uppercase tracking-widest">
                         <span class="material-symbols-outlined text-[14px]">location_on</span>

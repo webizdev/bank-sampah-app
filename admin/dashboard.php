@@ -4,52 +4,52 @@ include '../includes/header.php';
 include 'sidebar.php';
 ?>
 
-<div class="ml-64 bg-surface min-h-screen pb-20">
+<div class="md:ml-64 transition-all duration-300 w-full md:w-auto bg-surface min-h-screen pb-20">
     <!-- Admin Top Header -->
-    <header class="bg-white px-8 py-6 flex justify-between items-center border-b border-primary/5 shadow-sm sticky top-0 z-50">
+    <header class="bg-white px-4 md:px-8 py-4 md:py-6 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-primary/5 shadow-sm sticky top-0 z-50">
         <div>
-            <h1 class="text-xl font-black text-primary headline tracking-tight leading-none">Dashboard Overview</h1>
-            <p class="text-[10px] font-bold text-outline uppercase tracking-widest mt-1">Sistem Pengelolaan Bank Sampah</p>
+            <h1 class="text-lg md:text-xl font-black text-primary headline tracking-tight leading-none">Dashboard Overview</h1>
+            <p class="text-[9px] md:text-[10px] font-bold text-outline uppercase tracking-widest mt-1">Sistem Pengelolaan Bank Sampah</p>
         </div>
         <div class="flex items-center gap-4 text-xs font-bold text-outline">
             <span class="px-3 py-1 bg-surface-container rounded-full"><?php echo date('d M Y'); ?></span>
         </div>
     </header>
 
-    <main class="max-w-7xl mx-auto px-8 py-10 space-y-12">
+    <main class="max-w-7xl mx-auto px-4 md:px-8 py-6 md:py-10 space-y-12">
         <!-- Stats Grid -->
-        <section class="grid md:grid-cols-3 gap-8">
-            <div class="bg-white p-8 rounded-[2rem] border border-primary/5 shadow-xl shadow-primary/5">
-                <div class="flex justify-between items-center mb-6">
-                    <span class="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
-                        <span class="material-symbols-outlined">group</span>
+        <section class="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-8">
+            <div class="bg-white p-4 md:p-8 rounded-2xl md:rounded-[2rem] border border-primary/5 shadow-xl shadow-primary/5 flex flex-col">
+                <div class="flex xl:items-center justify-between xl:flex-row flex-col-reverse gap-2 mb-4 md:mb-6">
+                    <span class="w-8 h-8 md:w-12 md:h-12 rounded-xl md:rounded-2xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
+                        <span class="material-symbols-outlined text-[1rem] md:text-[1.5rem]">group</span>
                     </span>
-                    <span class="text-xs font-black text-outline uppercase tracking-widest">Total Member</span>
+                    <span class="text-[8px] md:text-xs font-black text-outline uppercase tracking-widest text-right xl:text-left">Total Member</span>
                 </div>
-                <h3 id="stat-users" class="text-5xl font-black text-primary headline tracking-tighter">0</h3>
-                <p class="text-xs text-on-surface-variant font-medium mt-4">Warga aktif terdaftar</p>
+                <h3 id="stat-users" class="text-3xl md:text-5xl font-black text-primary headline tracking-tighter leading-none mt-auto">0</h3>
+                <p class="text-[9px] md:text-xs text-on-surface-variant font-medium mt-1 md:mt-4">Warga aktif terdaftar</p>
             </div>
             
-            <div class="bg-white p-8 rounded-[2rem] border border-primary/5 shadow-xl shadow-primary/5">
-                <div class="flex justify-between items-center mb-6">
-                    <span class="w-12 h-12 rounded-2xl bg-secondary/10 flex items-center justify-center text-secondary">
-                        <span class="material-symbols-outlined">eco</span>
+            <div class="bg-white p-4 md:p-8 rounded-2xl md:rounded-[2rem] border border-primary/5 shadow-xl shadow-primary/5 flex flex-col">
+                <div class="flex xl:items-center justify-between xl:flex-row flex-col-reverse gap-2 mb-4 md:mb-6">
+                    <span class="w-8 h-8 md:w-12 md:h-12 rounded-xl md:rounded-2xl bg-secondary/10 flex items-center justify-center text-secondary shrink-0">
+                        <span class="material-symbols-outlined text-[1rem] md:text-[1.5rem]">eco</span>
                     </span>
-                    <span class="text-xs font-black text-outline uppercase tracking-widest">Total Sampah</span>
+                    <span class="text-[8px] md:text-xs font-black text-outline uppercase tracking-widest text-right xl:text-left">Total Sampah</span>
                 </div>
-                <h3 id="stat-waste" class="text-5xl font-black text-secondary headline tracking-tighter">0 <span class="text-xl">kg</span></h3>
-                <p class="text-xs text-on-surface-variant font-medium mt-4">Berat aktual terverifikasi</p>
+                <h3 id="stat-waste" class="text-3xl md:text-5xl font-black text-secondary headline tracking-tighter leading-none mt-auto">0 <span class="text-base md:text-xl">kg</span></h3>
+                <p class="text-[9px] md:text-xs text-on-surface-variant font-medium mt-1 md:mt-4">Berat aktual terverifikasi</p>
             </div>
 
-            <div class="bg-white p-8 rounded-[2rem] border border-primary/5 shadow-xl shadow-primary/5">
-                <div class="flex justify-between items-center mb-6">
-                    <span class="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
-                        <span class="material-symbols-outlined">payments</span>
+            <div class="bg-white p-4 md:p-8 rounded-2xl md:rounded-[2rem] border border-primary/5 shadow-xl shadow-primary/5 flex flex-col col-span-2 md:col-span-1">
+                <div class="flex items-center justify-between gap-2 mb-4 md:mb-6">
+                    <span class="w-8 h-8 md:w-12 md:h-12 rounded-xl md:rounded-2xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
+                        <span class="material-symbols-outlined text-[1rem] md:text-[1.5rem]">payments</span>
                     </span>
-                    <span class="text-xs font-black text-outline uppercase tracking-widest">Total Payout</span>
+                    <span class="text-[8px] md:text-xs font-black text-outline uppercase tracking-widest">Total Payout</span>
                 </div>
-                <h3 id="stat-payout" class="text-4xl font-black text-primary headline tracking-tighter">IDR 0</h3>
-                <p class="text-xs text-on-surface-variant font-medium mt-4">Total dana cair ke member</p>
+                <h3 id="stat-payout" class="text-2xl md:text-4xl font-black text-primary headline tracking-tighter leading-none mt-auto">IDR 0</h3>
+                <p class="text-[9px] md:text-xs text-on-surface-variant font-medium mt-1 md:mt-4">Total dana cair ke member</p>
             </div>
         </section>
 
@@ -57,7 +57,7 @@ include 'sidebar.php';
         <section class="space-y-8">
             <div class="flex justify-between items-end">
                 <div>
-                    <h2 class="text-3xl font-black text-primary headline tracking-tight">Menunggu Verifikasi</h2>
+                    <h2 class="text-xl md:text-3xl font-black text-primary headline tracking-tight">Menunggu Verifikasi</h2>
                     <p class="text-sm text-on-surface-variant font-medium">Antrian penjemputan sampah warga.</p>
                 </div>
                 <button onclick="fetchAdminData()" class="flex items-center gap-2 text-xs font-bold text-primary uppercase tracking-widest border-b border-primary/20 pb-1 hover:border-primary">
@@ -70,12 +70,12 @@ include 'sidebar.php';
                     <table class="w-full text-left">
                         <thead>
                             <tr class="bg-surface-container-low text-[10px] font-black uppercase tracking-[0.2em] text-outline">
-                                <th class="px-8 py-6">ID Transaksi</th>
-                                <th class="px-8 py-6">Member</th>
-                                <th class="px-8 py-6">Kategori</th>
-                                <th class="px-8 py-6 text-center">Estimasi (kg)</th>
-                                <th class="px-8 py-6">Waktu Request</th>
-                                <th class="px-8 py-6 text-right">Aksi</th>
+                                <th class="px-6 md:px-4 md:px-8 py-3 md:py-4 text-xs md:text-sm whitespace-nowrap md:whitespace-normal md:py-6">ID Transaksi</th>
+                                <th class="px-6 md:px-4 md:px-8 py-3 md:py-4 text-xs md:text-sm whitespace-nowrap md:whitespace-normal md:py-6">Member</th>
+                                <th class="px-6 md:px-4 md:px-8 py-3 md:py-4 text-xs md:text-sm whitespace-nowrap md:whitespace-normal md:py-6">Kategori</th>
+                                <th class="px-6 md:px-4 md:px-8 py-3 md:py-4 text-xs md:text-sm whitespace-nowrap md:whitespace-normal md:py-6 text-center">Estimasi (kg)</th>
+                                <th class="px-6 md:px-4 md:px-8 py-3 md:py-4 text-xs md:text-sm whitespace-nowrap md:whitespace-normal md:py-6">Waktu Request</th>
+                                <th class="px-6 md:px-4 md:px-8 py-3 md:py-4 text-xs md:text-sm whitespace-nowrap md:whitespace-normal md:py-6 text-right">Aksi</th>
                             </tr>
                         </thead>
                         <tbody id="admin-pending-table" class="divide-y divide-primary/5">
@@ -94,7 +94,7 @@ include 'sidebar.php';
 <!-- Modal Verifikasi -->
 <div id="verify-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] hidden flex items-center justify-center p-6">
     <div class="bg-white w-full max-w-sm rounded-[2.5rem] p-10 shadow-2xl">
-        <h3 class="text-2xl font-black text-primary headline tracking-tight mb-2">Verifikasi Sampah</h3>
+        <h3 class="text-lg md:text-2xl font-black text-primary headline tracking-tight mb-2">Verifikasi Sampah</h3>
         <p class="text-sm text-on-surface-variant mb-8 font-medium">Masukkan berat aktual yang timbangan catat.</p>
         
         <form id="verify-form" class="space-y-6">
@@ -109,7 +109,7 @@ include 'sidebar.php';
             <div id="weight-input-container">
                 <label class="block text-[10px] font-bold text-outline uppercase tracking-widest mb-2">Berat Aktual (kg)</label>
                 <input type="number" step="0.01" id="weight_actual" name="weight_actual" required 
-                       class="w-full bg-surface-container border-none rounded-xl px-4 py-4 focus:ring-2 focus:ring-primary text-2xl font-black text-primary">
+                       class="w-full bg-surface-container border-none rounded-xl px-4 py-4 focus:ring-2 focus:ring-primary text-lg md:text-2xl font-black text-primary">
             </div>
 
             <div class="flex gap-4 pt-4">
@@ -147,8 +147,8 @@ function renderPendingQueue(pending) {
 
     table.innerHTML = pending.map(item => `
         <tr class="hover:bg-primary/5 transition-colors group">
-            <td class="px-8 py-6 font-bold text-xs text-primary">#TR-${item.id}</td>
-            <td class="px-8 py-6">
+            <td class="px-6 md:px-4 md:px-8 py-3 md:py-4 text-xs md:text-sm whitespace-nowrap md:whitespace-normal md:py-6 font-bold text-xs text-primary">#TR-${item.id}</td>
+            <td class="px-6 md:px-4 md:px-8 py-3 md:py-4 text-xs md:text-sm whitespace-nowrap md:whitespace-normal md:py-6">
                 <div class="flex items-center gap-3">
                     <div class="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-[10px] font-bold text-primary">
                         ${item.user_name.charAt(0)}
@@ -156,14 +156,14 @@ function renderPendingQueue(pending) {
                     <span class="text-xs font-bold text-on-surface">${item.user_name}</span>
                 </div>
             </td>
-            <td class="px-8 py-6">
+            <td class="px-6 md:px-4 md:px-8 py-3 md:py-4 text-xs md:text-sm whitespace-nowrap md:whitespace-normal md:py-6">
                 <span class="px-3 py-1 bg-surface-container text-[10px] font-bold text-outline rounded-full">${item.category_name}</span>
             </td>
-            <td class="px-8 py-6 text-center font-black text-xs text-on-surface">${item.weight_est} kg</td>
-            <td class="px-8 py-6 text-[11px] text-on-surface-variant font-medium">
+            <td class="px-6 md:px-4 md:px-8 py-3 md:py-4 text-xs md:text-sm whitespace-nowrap md:whitespace-normal md:py-6 text-center font-black text-xs text-on-surface">${item.weight_est} kg</td>
+            <td class="px-6 md:px-4 md:px-8 py-3 md:py-4 text-xs md:text-sm whitespace-nowrap md:whitespace-normal md:py-6 text-[11px] text-on-surface-variant font-medium">
                 ${new Date(item.created_at).toLocaleDateString('id-ID', {day:'2-digit', month:'short', hour:'2-digit', minute:'2-digit'})}
             </td>
-            <td class="px-8 py-6 text-right">
+            <td class="px-6 md:px-4 md:px-8 py-3 md:py-4 text-xs md:text-sm whitespace-nowrap md:whitespace-normal md:py-6 text-right">
                 <button onclick="openVerifyModal(${item.id}, ${item.weight_est})" class="bg-primary text-white text-[10px] font-black uppercase tracking-widest px-6 py-2 rounded-xl shadow-lg shadow-primary/10 hover:shadow-primary/30 transition-all">
                     Verify
                 </button>

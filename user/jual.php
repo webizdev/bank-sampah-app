@@ -24,60 +24,59 @@ include '../includes/header.php';
 <!-- Category Horizontal Filter -->
 <div id="category-filter" class="flex gap-3 overflow-x-auto pb-8 hide-scrollbar mb-4 px-2 animate-slide-up" style="animation-delay: 0.1s">
     <!-- Categories will be loaded here -->
-    <div class="animate-pulse bg-surface-container-highest w-28 h-12 rounded-full"></div>
-    <div class="animate-pulse bg-surface-container-highest w-28 h-12 rounded-full"></div>
+    <div class="animate-pulse bg-surface-container-highest w-24 h-9 rounded-full"></div>
+    <div class="animate-pulse bg-surface-container-highest w-24 h-9 rounded-full"></div>
 </div>
 
 <!-- Product Bento Grid -->
-<section id="catalog-grid" class="grid grid-cols-2 gap-5 pb-40 px-2 animate-slide-up" style="animation-delay: 0.2s">
+<section id="catalog-grid" class="grid grid-cols-2 gap-4 pb-40 px-2 animate-slide-up" style="animation-delay: 0.2s">
     <!-- Skeleton cards -->
     <div class="animate-pulse bg-white border border-primary/5 h-64 rounded-[2.25rem]"></div>
     <div class="animate-pulse bg-white border border-primary/5 h-64 rounded-[2.25rem]"></div>
 </section>
 
-<!-- Sell Modal (Bottom Sheet style on Mobile) -->
-<div id="sell-modal" class="fixed inset-0 bg-black/70 backdrop-blur-md z-[1000] hidden flex items-end justify-center p-0">
-    <div class="bg-surface w-full max-w-md rounded-t-[3rem] p-9 shadow-2xl animate-slide-up relative">
-        <div class="w-12 h-1.5 bg-outline-variant/30 rounded-full mx-auto mb-8"></div>
+<!-- Sell Modal (Centered Floating) -->
+<div id="sell-modal" class="fixed inset-0 bg-black/70 backdrop-blur-md z-[1000] hidden flex items-center justify-center p-6 pb-24">
+    <div class="bg-surface w-full max-w-md rounded-[2.5rem] p-6 shadow-2xl animate-slide-up relative">
         
-        <div class="flex justify-between items-start mb-8">
+        <div class="flex justify-between items-start mb-5">
             <div>
-                <h3 id="modal-title" class="text-3xl font-black text-primary headline tracking-tighter leading-none">Setor Sampah</h3>
-                <p id="modal-subtitle" class="text-[10px] font-black text-outline uppercase tracking-[0.2em] mt-3">Estimasi Payout Digital</p>
+                <h3 id="modal-title" class="text-2xl font-black text-primary headline tracking-tighter leading-none">Setor Sampah</h3>
+                <p id="modal-subtitle" class="text-[9px] font-black text-outline uppercase tracking-[0.2em] mt-2">Estimasi Payout Digital</p>
             </div>
-            <button onclick="closeModal()" class="w-12 h-12 rounded-2xl bg-surface-container-highest flex items-center justify-center text-primary active:scale-90 transition-transform">
-                <span class="material-symbols-outlined font-bold">close</span>
+            <button onclick="closeModal()" class="w-10 h-10 rounded-xl bg-surface-container-highest flex items-center justify-center text-primary active:scale-90 transition-transform">
+                <span class="material-symbols-outlined font-bold text-sm">close</span>
             </button>
         </div>
 
-        <form id="sell-form" class="space-y-8">
-            <input type="hidden" id="modal-product-id" name="category_id">
+        <form id="sell-form" class="space-y-4">
+            <input type="hidden" id="modal-product-id" name="product_id">
             
-            <div class="bg-white p-7 rounded-[2.5rem] border border-primary/5 shadow-inner">
-                <div class="flex justify-between items-center mb-6">
-                    <span id="display-product-name" class="font-black text-primary text-sm uppercase tracking-widest">Botol PET</span>
-                    <span id="display-product-price" class="text-[10px] font-black text-secondary bg-secondary/10 px-4 py-1.5 rounded-full">Rp0 / kg</span>
+            <div class="bg-white p-5 rounded-[2rem] border border-primary/5 shadow-inner">
+                <div class="flex justify-between items-center mb-4">
+                    <span id="display-product-name" class="font-black text-primary text-xs uppercase tracking-widest leading-tight w-2/3">Botol PET</span>
+                    <span id="display-product-price" class="text-[9px] font-black text-secondary bg-secondary/10 px-3 py-1 rounded-full whitespace-nowrap">Rp0 / kg</span>
                 </div>
                 
                 <div class="relative flex flex-col items-center">
                     <input type="number" id="weight-input" name="weight_est" step="0.1" required
                            oninput="updateEstimate()"
-                           class="w-full bg-transparent border-none text-center text-6xl font-black text-primary focus:ring-0 p-0 placeholder:text-primary/5" 
+                           class="w-full bg-transparent border-none text-center text-5xl font-black text-primary focus:ring-0 p-0 placeholder:text-primary/5 h-16" 
                            placeholder="0.0">
-                    <span class="text-[10px] font-black text-outline uppercase tracking-[0.3em] mt-2">KILOGRAM (KG)</span>
+                    <span class="text-[9px] font-black text-outline uppercase tracking-[0.3em] mt-1">KILOGRAM (KG)</span>
                 </div>
             </div>
 
-            <div class="flex justify-between items-center px-4 bg-secondary/5 p-5 rounded-2xl border border-secondary/10">
-                <span class="text-[10px] font-black text-secondary uppercase tracking-[0.2em]">Estimasi Saldo</span>
-                <span id="estimated-payout" class="text-2xl font-black text-secondary tracking-tighter">Rp 0</span>
+            <div class="flex justify-between items-center px-4 bg-secondary/5 p-4 rounded-[1rem] border border-secondary/10">
+                <span class="text-[9px] font-black text-secondary uppercase tracking-[0.2em]">Estimasi Saldo</span>
+                <span id="estimated-payout" class="text-xl font-black text-secondary tracking-tighter">Rp 0</span>
             </div>
 
-            <button type="submit" class="btn-premium w-full !h-16 !text-lg !rounded-[1.5rem]">
-                <span class="material-symbols-outlined font-bold">send</span>
+            <button type="submit" class="bg-primary text-white font-black w-full py-4 rounded-[1.25rem] shadow-xl shadow-primary/20 active:scale-[0.98] transition-transform flex items-center justify-center gap-2 text-base">
+                <span class="material-symbols-outlined font-bold text-lg">send</span>
                 Kirim Laporan
             </button>
-            <p class="text-[10px] text-center text-outline font-bold leading-relaxed px-4">Setelah dikirim, silakan bawa sampah Anda ke pos terdekat untuk verifikasi timbangan.</p>
+            <p class="text-[9px] text-center text-outline font-bold leading-relaxed px-2">Silakan bawa sampah ke pos untuk verifikasi timbangan.</p>
         </form>
     </div>
 </div>
@@ -104,9 +103,9 @@ async function loadData() {
 function renderCategories(categories) {
     const container = document.getElementById('category-filter');
     container.innerHTML = `
-        <button onclick="setFilter('')" class="filter-btn active flex-none bg-primary text-white text-[11px] font-black uppercase tracking-widest px-8 py-4 rounded-full shadow-xl shadow-primary/20 transition-all">Semua</button>
+        <button onclick="setFilter('')" class="filter-btn active flex-none bg-primary text-white text-[11px] font-black uppercase tracking-widest px-5 py-2.5 rounded-full shadow-xl shadow-primary/20 transition-all">Semua</button>
         ${categories.map(c => `
-            <button onclick="setFilter('${c.id}')" data-id="${c.id}" class="filter-btn flex-none bg-white text-outline border border-primary/5 text-[11px] font-black uppercase tracking-widest px-8 py-4 rounded-full hover:bg-surface-container transition-all">${c.name}</button>
+            <button onclick="setFilter('${c.id}')" data-id="${c.id}" class="filter-btn flex-none bg-white text-outline border border-primary/5 text-[11px] font-black uppercase tracking-widest px-5 py-2.5 rounded-full hover:bg-surface-container transition-all">${c.name}</button>
         `).join('')}
     `;
 }
@@ -145,23 +144,23 @@ function renderProducts(products) {
     }
 
     container.innerHTML = products.map(p => `
-        <div onclick="openModal(${p.id}, '${p.name}', ${p.price_per_kg})" class="bg-white rounded-[2.25rem] border border-primary/5 shadow-xl overflow-hidden group hover:shadow-2xl transition-all duration-300 flex flex-col active:scale-95 cursor-pointer relative">
-            <div class="h-44 relative overflow-hidden bg-surface-container flex items-center justify-center p-4">
+        <div onclick="openModal(${p.id}, '${p.name}', ${p.price_per_kg})" class="bg-white rounded-[1.5rem] border border-primary/5 shadow-[0_8px_30px_rgb(0,0,0,0.04)] overflow-hidden group hover:shadow-xl transition-all duration-300 flex flex-col active:scale-95 cursor-pointer relative">
+            <div class="h-32 relative overflow-hidden bg-surface-container flex items-center justify-center">
                 ${p.image_url ? 
-                    `<img src="${p.image_url}" alt="${p.name}" class="w-full h-full object-contain group-hover:scale-110 transition-transform duration-500">` : 
-                    `<span class="material-symbols-outlined text-5xl text-primary/20">${p.icon || 'inventory_2'}</span>`
+                    `<img src="${p.image_url}" alt="${p.name}" class="w-full h-full object-contain p-2 group-hover:scale-110 transition-transform duration-500">` : 
+                    `<span class="material-symbols-outlined text-4xl text-primary/20">${p.icon || 'inventory_2'}</span>`
                 }
-                <div class="absolute top-4 left-4 bg-primary/90 backdrop-blur-md text-white px-3 py-1 rounded-full text-[9px] font-black shadow-lg">
+                <div class="absolute top-3 left-3 bg-primary/90 backdrop-blur-md text-white px-2.5 py-1 rounded-full text-[8px] font-black shadow-lg z-10">
                     Rp${new Intl.NumberFormat('id-ID').format(p.price_per_kg)}
                 </div>
             </div>
-            <div class="p-6 flex-grow flex flex-col justify-between">
+            <div class="p-4 flex-grow flex flex-col justify-between">
                 <div>
-                    <span class="text-[9px] font-black text-secondary uppercase tracking-[0.25em] mb-2 block opacity-70">${p.parent_name}</span>
-                    <h3 class="headline text-sm font-black text-primary mb-1 line-clamp-2 uppercase tracking-tighter leading-tight">${p.name}</h3>
+                    <span class="text-[8px] font-black text-secondary uppercase tracking-[0.2em] mb-1.5 block opacity-70 truncate">${p.parent_name}</span>
+                    <h3 class="headline text-xs font-black text-primary mb-1 line-clamp-2 uppercase tracking-tight leading-tight">${p.name}</h3>
                 </div>
-                <div class="mt-6 flex items-center justify-center gap-2 text-primary font-black text-[10px] uppercase tracking-widest bg-primary/5 py-3 rounded-2xl group-hover:bg-primary group-hover:text-white transition-colors">
-                    <span class="material-symbols-outlined text-[16px] font-black">add_circle</span>
+                <div class="mt-4 flex items-center justify-center gap-1.5 text-primary font-black text-[9px] uppercase tracking-widest bg-primary/5 py-2.5 rounded-xl group-hover:bg-primary group-hover:text-white transition-colors">
+                    <span class="material-symbols-outlined text-[14px] font-black">add_circle</span>
                     Jual
                 </div>
             </div>
@@ -207,7 +206,9 @@ document.getElementById('sell-form').addEventListener('submit', async (e) => {
         if (result.status === 'success') {
             alert('✔ Berhasil! Laporan Anda telah kami terima. Silakan serahkan sampah ke petugas untuk verifikasi.');
             closeModal();
-            location.href = 'profile.php';
+            setTimeout(() => {
+                location.href = 'profile.php';
+            }, 1500);
         } else {
             alert('❌ ' + result.message);
         }

@@ -10,21 +10,21 @@ include '../includes/header.php';
 <div class="flex min-h-screen bg-surface">
     <?php include 'sidebar.php'; ?>
     
-    <div class="flex-1 ml-64 p-8">
-        <header class="mb-12 flex justify-between items-start">
+    <div class="flex-1 md:ml-64 p-4 md:p-8 transition-all duration-300 w-full md:w-auto">
+        <header class="mb-4 md:mb-6 md:mb-12 flex justify-between items-start">
             <div>
-                <h1 class="text-4xl font-black text-primary headline tracking-tight mb-2">Penjualan (Kasir)</h1>
+                <h1 class="text-lg md:text-2xl md:text-4xl font-black text-primary headline tracking-tight mb-2">Penjualan (Kasir)</h1>
                 <p class="text-on-surface-variant font-medium">Catat pengeluaran stok sampah yang dijual ke pengepul besar.</p>
             </div>
-            <button onclick="openSalesModal()" class="bg-primary text-white px-8 py-4 font-bold rounded-2xl shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center gap-2">
+            <button onclick="openSalesModal()" class="bg-primary text-white px-4 md:px-8 py-3 md:py-4 text-xs md:text-sm whitespace-nowrap md:whitespace-normal font-bold rounded-2xl shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all flex items-center gap-2">
                 <span class="material-symbols-outlined">add_shopping_cart</span>
                 Tambah Penjualan
             </button>
         </header>
 
-        <section class="bg-white rounded-[2rem] shadow-xl shadow-primary/5 border border-primary/10 overflow-hidden">
+        <section class="bg-white rounded-2xl md:rounded-[2rem] shadow-xl shadow-primary/5 border border-primary/10 overflow-hidden">
             <div class="p-8 border-b border-primary/10 bg-primary/5">
-                <h2 class="text-xl font-bold headline text-primary flex items-center gap-2">
+                <h2 class="text-sm md:text-lg lg:text-xl font-bold !leading-tight headline text-primary flex items-center gap-2">
                     <span class="material-symbols-outlined">receipt_long</span> Data Penjualan
                 </h2>
             </div>
@@ -54,7 +54,7 @@ include '../includes/header.php';
 <!-- Modal Form Penjualan -->
 <div id="sales-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] hidden flex items-center justify-center p-6">
     <div class="bg-white w-full max-w-lg rounded-[2.5rem] p-10 shadow-2xl overflow-y-auto max-h-[90vh]">
-        <h3 class="text-2xl font-black text-primary headline tracking-tight mb-2">Input Penjualan Baru</h3>
+        <h3 class="text-lg md:text-2xl font-black text-primary headline tracking-tight mb-2">Input Penjualan Baru</h3>
         <p class="text-sm text-on-surface-variant mb-8 font-medium">Data ini akan memotong stok di Inventori.</p>
         
         <form id="sales-form" class="space-y-6">
@@ -83,7 +83,7 @@ include '../includes/header.php';
             <div class="bg-primary/5 p-4 rounded-xl border border-primary/20">
                 <label class="block text-[10px] font-bold text-outline uppercase tracking-widest mb-1">Total Penjualan</label>
                 <input type="number" id="total_price" name="total_price" required readonly
-                       class="w-full bg-transparent border-none text-2xl px-0 py-0 font-black text-primary focus:ring-0 cursor-not-allowed">
+                       class="w-full bg-transparent border-none text-lg md:text-2xl px-0 py-0 font-black text-primary focus:ring-0 cursor-not-allowed">
             </div>
 
             <div>

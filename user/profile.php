@@ -98,17 +98,13 @@ $lng = $u['longitude'] ?: 106.8272;
 
 <!-- Action Buttons -->
 <div class="grid grid-cols-2 gap-3 animate-slide-up" style="animation-delay: 0.2s">
-    <button onclick="shareApp()" class="flex flex-col items-center justify-center gap-2 bg-white p-4 rounded-3xl border border-primary/5 shadow-lg shadow-black/5 active:scale-95 transition-all">
-        <div class="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center text-primary">
-            <span class="material-symbols-outlined text-[20px] font-bold">share</span>
-        </div>
-        <span class="text-[9px] font-black uppercase tracking-widest text-outline">Bagikan</span>
+    <button onclick="shareApp()" class="flex flex-row items-center justify-center gap-2 px-4 py-3 bg-white rounded-2xl border border-primary/5 shadow-md shadow-black/5 active:scale-95 transition-all">
+        <span class="material-symbols-outlined text-[18px] text-primary">share</span>
+        <span class="text-[9px] font-black uppercase tracking-widest text-outline">Bagikan Aplikasi</span>
     </button>
-    <a href="../logout.php" class="flex flex-col items-center justify-center gap-2 bg-red-50 p-4 rounded-3xl border border-red-100 shadow-lg shadow-red-500/5 active:scale-95 transition-all no-underline">
-        <div class="w-10 h-10 bg-red-500/10 rounded-xl flex items-center justify-center text-red-500">
-            <span class="material-symbols-outlined text-[20px] font-bold">logout</span>
-        </div>
-        <span class="text-[9px] font-black uppercase tracking-widest text-red-500/60">Keluar</span>
+    <a href="../logout.php" class="flex flex-row items-center justify-center gap-2 px-4 py-3 bg-red-50 rounded-2xl border border-red-100 shadow-md shadow-red-500/5 active:scale-95 transition-all no-underline">
+        <span class="material-symbols-outlined text-[18px] text-red-500">logout</span>
+        <span class="text-[9px] font-black uppercase tracking-widest text-red-500/80">Keluar</span>
     </a>
 </div>
 
@@ -126,74 +122,76 @@ $lng = $u['longitude'] ?: 106.8272;
 
 <!-- Profile Form -->
 <form id="profile-form" class="space-y-8 pb-32">
-    <div class="grid grid-cols-1 gap-6">
+    <div class="grid grid-cols-1 gap-4">
         <!-- Identitas Warga -->
-        <div class="section-container bg-surface-container-lowest">
-            <h3 class="headline font-black text-sm uppercase tracking-widest text-outline mb-6 flex items-center gap-2">
-                <span class="material-symbols-outlined text-[18px]">person</span>
-                Identitas Warga
+        <div class="section-container bg-surface-container-lowest !p-4">
+            <h3 class="headline font-black text-xs uppercase tracking-widest text-outline mb-4 flex items-center gap-2">
+                <span class="material-symbols-outlined text-[16px]">person</span>
+                Identitas
             </h3>
-            <div class="space-y-4">
+            <div class="space-y-3">
                 <div>
-                    <label class="block text-[10px] font-bold text-outline uppercase tracking-widest mb-2 px-1">Nama Rekening Bank (Nama User)</label>
-                    <input type="text" name="name" value="<?php echo htmlspecialchars($u['name']); ?>" required 
-                           class="w-full bg-surface-container border-none rounded-2xl px-5 py-4 focus:ring-2 focus:ring-primary font-bold transition-all" placeholder="Masukkan nama sesuai di buku tabungan">
-                </div>
-                <div>
-                    <label class="block text-[10px] font-bold text-outline uppercase tracking-widest mb-2 px-1">Nomor WhatsApp</label>
+                    <label class="block text-[9px] font-bold text-outline uppercase tracking-widest mb-1.5 px-1">Nomor WhatsApp</label>
                     <input type="text" name="whatsapp" value="<?php echo htmlspecialchars($u['whatsapp']); ?>" readonly 
-                           class="w-full bg-outline/5 border-none rounded-2xl px-5 py-4 font-bold text-outline cursor-not-allowed">
+                           class="w-full bg-outline/5 border-none rounded-xl px-4 py-3 text-sm font-bold text-outline cursor-not-allowed">
                 </div>
                 <div>
-                    <label class="block text-[10px] font-bold text-outline uppercase tracking-widest mb-2 px-1">Organisasi / Komunitas</label>
+                    <label class="block text-[9px] font-bold text-outline uppercase tracking-widest mb-1.5 px-1">Organisasi / Komunitas</label>
                     <input type="text" name="organization" value="<?php echo htmlspecialchars($u['organization']); ?>" 
-                           class="w-full bg-surface-container border-none rounded-2xl px-5 py-4 focus:ring-2 focus:ring-primary font-bold transition-all" placeholder="Dapur/Komunitas/Individu">
+                           class="w-full bg-surface-container border-none rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary font-bold transition-all" placeholder="Dapur/Komunitas/Individu">
                 </div>
             </div>
         </div>
 
         <!-- Rekening Bank -->
-        <div class="section-container bg-surface-container-lowest">
-            <h3 class="headline font-black text-sm uppercase tracking-widest text-outline mb-6 flex items-center gap-2">
-                <span class="material-symbols-outlined text-[18px]">account_balance</span>
+        <div class="section-container bg-surface-container-lowest !p-4">
+            <h3 class="headline font-black text-xs uppercase tracking-widest text-outline mb-4 flex items-center gap-2">
+                <span class="material-symbols-outlined text-[16px]">account_balance</span>
                 Info Pencairan Dana
             </h3>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div class="space-y-3">
                 <div>
-                    <label class="block text-[10px] font-bold text-outline uppercase tracking-widest mb-2 px-1">Nama Bank</label>
-                    <input type="text" name="bank_name" value="<?php echo htmlspecialchars($u['bank_name']); ?>" 
-                           class="w-full bg-surface-container border-none rounded-2xl px-5 py-4 focus:ring-2 focus:ring-primary font-bold transition-all" placeholder="Contoh: BCA, BNI, Mandiri">
+                    <label class="block text-[9px] font-bold text-outline uppercase tracking-widest mb-1.5 px-1">Nama Rekening Bank (Nama User)</label>
+                    <input type="text" name="name" value="<?php echo htmlspecialchars($u['name']); ?>" required 
+                           class="w-full bg-surface-container border-none rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary font-bold transition-all" placeholder="Masukkan nama sesuai di buku tabungan">
                 </div>
-                <div>
-                    <label class="block text-[10px] font-bold text-outline uppercase tracking-widest mb-2 px-1">Nomor Rekening</label>
-                    <input type="text" name="account_number" value="<?php echo htmlspecialchars($u['account_number']); ?>" 
-                           class="w-full bg-surface-container border-none rounded-2xl px-5 py-4 focus:ring-2 focus:ring-primary font-bold transition-all" placeholder="123-456-7890">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <div>
+                        <label class="block text-[9px] font-bold text-outline uppercase tracking-widest mb-1.5 px-1">Nama Bank</label>
+                        <input type="text" name="bank_name" value="<?php echo htmlspecialchars($u['bank_name']); ?>" 
+                               class="w-full bg-surface-container border-none rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary font-bold transition-all" placeholder="Contoh: BCA, BNI, Mandiri">
+                    </div>
+                    <div>
+                        <label class="block text-[9px] font-bold text-outline uppercase tracking-widest mb-1.5 px-1">Nomor Rekening</label>
+                        <input type="text" name="account_number" value="<?php echo htmlspecialchars($u['account_number']); ?>" 
+                               class="w-full bg-surface-container border-none rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary font-bold transition-all" placeholder="123-456-7890">
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- Lokasi Jemput -->
-        <div class="section-container bg-surface-container-lowest overflow-hidden">
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="headline font-black text-sm uppercase tracking-widest text-outline flex items-center gap-2">
-                    <span class="material-symbols-outlined text-[18px]">map</span>
+        <div class="section-container bg-surface-container-lowest overflow-hidden !p-4">
+            <div class="flex justify-between items-center mb-4">
+                <h3 class="headline font-black text-xs uppercase tracking-widest text-outline flex items-center gap-2">
+                    <span class="material-symbols-outlined text-[16px]">map</span>
                     Titik Jemput Akurat
                 </h3>
-                <button type="button" onclick="detectLocation()" class="text-primary text-[10px] font-black uppercase tracking-widest flex items-center gap-1 hover:underline group">
-                    <span class="material-symbols-outlined text-[16px] group-active:animate-ping">my_location</span>
+                <button type="button" onclick="detectLocation()" class="text-primary text-[9px] font-black uppercase tracking-widest flex items-center gap-1 hover:underline group">
+                    <span class="material-symbols-outlined text-[14px] group-active:animate-ping">my_location</span>
                     Deteksi Lokasi
                 </button>
             </div>
-            <div id="map" class="mb-4 shadow-inner"></div>
+            <div id="map" class="mb-3 shadow-inner rounded-xl" style="height: 180px;"></div>
             <input type="hidden" id="latitude" name="latitude" value="<?php echo $lat; ?>">
             <input type="hidden" id="longitude" name="longitude" value="<?php echo $lng; ?>">
             
-            <div class="space-y-4">
-                <p class="text-[10px] text-outline italic px-1">* Geser pin pada peta untuk menetapkan titik jemput yang akurat.</p>
+            <div class="space-y-3">
+                <p class="text-[9px] text-outline italic px-1 leading-snug">* Geser pin pada peta untuk menetapkan titik jemput yang akurat.</p>
                 <div>
-                    <label class="block text-[10px] font-bold text-outline uppercase tracking-widest mb-2 px-1">Alamat Lengkap</label>
+                    <label class="block text-[9px] font-bold text-outline uppercase tracking-widest mb-1.5 px-1">Alamat Lengkap</label>
                     <textarea name="address" rows="3" 
-                              class="w-full bg-surface-container border-none rounded-2xl px-5 py-4 focus:ring-2 focus:ring-primary font-bold transition-all" 
+                              class="w-full bg-surface-container border-none rounded-xl px-4 py-3 text-sm focus:ring-2 focus:ring-primary font-bold transition-all" 
                               placeholder="Masukkan detail alamat, nomor rumah, rt/rw..."><?php echo htmlspecialchars($u['address']); ?></textarea>
                 </div>
             </div>
@@ -222,6 +220,7 @@ marker.on('dragend', function (e) {
     const latlng = marker.getLatLng();
     document.getElementById('latitude').value = latlng.lat.toFixed(8);
     document.getElementById('longitude').value = latlng.lng.toFixed(8);
+    if(typeof saveProfileData === 'function') saveProfileData(true);
 });
 
 // Detect Location via GPS
@@ -258,6 +257,7 @@ async function detectLocation() {
         } finally {
             btn.innerHTML = originalText;
             btn.disabled = false;
+            if(typeof saveProfileData === 'function') saveProfileData(true);
         }
     }, (error) => {
         alert("Gagal mendeteksi lokasi. Pastikan izin lokasi diberikan.");
@@ -303,12 +303,20 @@ async function uploadAvatar() {
     }
 }
 
-// Profile Save
-document.getElementById('profile-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const formData = new FormData(e.target);
+// Auto-Save Profile Logic
+async function saveProfileData(silent = false) {
+    const form = document.getElementById('profile-form');
+    const formData = new FormData(form);
     const data = Object.fromEntries(formData.entries());
     data.action = 'update_profile';
+
+    const saveBtn = document.querySelector('#profile-form button[type="submit"]');
+    const originalContent = saveBtn.innerHTML;
+
+    if (!silent) {
+        saveBtn.innerHTML = '<span class="material-symbols-outlined animate-spin">sync</span> Menyimpan...';
+        saveBtn.disabled = true;
+    }
 
     try {
         const res = await fetch('../api/manage_user.php', {
@@ -317,15 +325,45 @@ document.getElementById('profile-form').addEventListener('submit', async (e) => 
             body: JSON.stringify(data)
         });
         const result = await res.json();
-        if (result.status === 'success') {
-            alert('✔ Profil berhasil disimpan!');
-            location.reload();
-        } else {
-            alert('❌ ' + result.message);
+        
+        if (!silent) {
+            if (result.status === 'success') {
+                saveBtn.innerHTML = '<span class="material-symbols-outlined text-[20px]">check_circle</span> Tersimpan!';
+                setTimeout(() => {
+                    saveBtn.innerHTML = originalContent;
+                    saveBtn.disabled = false;
+                }, 2000);
+            } else {
+                alert('❌ ' + result.message);
+                saveBtn.innerHTML = originalContent;
+                saveBtn.disabled = false;
+            }
         }
     } catch (err) {
         console.error(err);
-        alert('Kesalahan saat menyimpan profil.');
+        if (!silent) {
+            alert('Kesalahan saat menyimpan profil.');
+            saveBtn.innerHTML = originalContent;
+            saveBtn.disabled = false;
+        }
+    }
+}
+
+// 1. Manual Save Form
+document.getElementById('profile-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    await saveProfileData(false);
+});
+
+// 2. Auto-Save on Blur (when leaving an input field)
+document.getElementById('profile-form').addEventListener('focusout', () => {
+    saveProfileData(true);
+});
+
+// 3. Auto-Save on page exit/tab switch
+document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden') {
+        saveProfileData(true);
     }
 });
 </script>

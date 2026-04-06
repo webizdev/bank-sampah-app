@@ -27,9 +27,9 @@ try {
 
     // 2. Fetch Transaction History
     $stmt = $pdo->prepare("
-        SELECT t.*, c.name as category_name, c.icon as category_icon 
+        SELECT t.*, p.name as category_name, p.icon as category_icon 
         FROM transactions t 
-        JOIN waste_categories c ON t.category_id = c.id 
+        JOIN products p ON t.product_id = p.id 
         WHERE t.user_id = ? 
         ORDER BY t.created_at DESC 
         LIMIT 10

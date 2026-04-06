@@ -61,44 +61,112 @@ $is_authenticated = isset($_SESSION['user_id']);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo htmlspecialchars($app_name); ?></title>
     
+    <!-- PWA & Mobile Optimization -->
+    <link rel="manifest" href="<?php echo $path_to_root; ?>manifest.json">
+    <meta name="theme-color" content="#0f5238">
+    <link rel="apple-touch-icon" href="<?php echo $path_to_root; ?>assets/pwa-icon-192.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     
-    <!-- Tailwind CSS (CDN for Dev) -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Compiled Tailwind CSS (Production) -->
+    <link rel="stylesheet" href="<?php echo $path_to_root; ?>css/output.css">
     <link rel="stylesheet" href="<?php echo $path_to_root; ?>css/style.css">
     
     <script>
-        tailwind.config = {
-          theme: {
-            extend: {
-              colors: {
-                primary: '#0f5238',
-                'primary-container': '#d3e8d3',
-                secondary: '#426456',
-                'secondary-container': '#c4eada',
-                tertiary: '#3b6470',
-                error: '#ba1a1a',
-                surface: '#f7fbf2',
-                'on-surface': '#191d19',
-                'on-surface-variant': '#414941',
-                outline: '#717970',
-                'surface-container-low': '#f0f5ec',
-                'surface-container': '#ecf0e7',
-                'surface-container-high': '#e6eade',
-              },
-              fontFamily: {
-                sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-                headline: ['Manrope', 'sans-serif'],
-              },
-            }
-          }
-        }
         const API_BASE = '<?php echo $path_to_root; ?>api/';
+
+        // Service Worker Registration
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('<?php echo $path_to_root; ?>sw.js')
+                    .then(reg => console.log('SW Registered'))
+                    .catch(err => console.log('SW Error: ', err));
+            });
+        }
+
+        // PWA Install Logic
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            
+            // Check if we should show the prompt (flag set after registration)
+            if (localStorage.getItem('show_pwa_prompt') === 'true') {
+                showPwaInstallPrompt();
+            }
+        });
+
+        function showPwaInstallPrompt() {
+            const prompt = document.getElementById('pwa-install-prompt');
+            if (prompt) {
+                prompt.classList.remove('hidden');
+                setTimeout(() => {
+                    prompt.classList.add('translate-y-0');
+                    prompt.classList.remove('translate-y-full');
+                }, 100);
+            }
+        }
+
+        function handlePwaChoice(choice) {
+            const prompt = document.getElementById('pwa-install-prompt');
+            if (choice === 'install' && deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('User accepted the install prompt');
+                    }
+                    deferredPrompt = null;
+                });
+            }
+            
+            // Hide and clear flag
+            if (prompt) {
+                prompt.classList.add('translate-y-full');
+                prompt.classList.remove('translate-y-0');
+                setTimeout(() => prompt.classList.add('hidden'), 500);
+            }
+            localStorage.removeItem('show_pwa_prompt');
+        }
     </script>
+    
+    <!-- Elegant PWA Install Prompt -->
+    <div id="pwa-install-prompt" class="fixed bottom-6 left-4 right-4 z-[9999] hidden transform translate-y-full transition-transform duration-500 ease-out">
+        <div class="bg-white/80 backdrop-blur-xl border border-white/20 rounded-2xl shadow-2xl p-5 flex flex-col md:flex-row items-center gap-4 max-w-md mx-auto">
+            <div class="w-12 h-12 bg-primary rounded-xl flex items-center justify-center flex-shrink-0 shadow-lg">
+                <span class="material-symbols-outlined text-white text-2xl">install_mobile</span>
+            </div>
+            <div class="flex-1 text-center md:text-left">
+                <h4 class="text-sm font-bold text-on-surface">Install Aplikasi Sekarang</h4>
+                <p class="text-xs text-on-surface-variant mt-1 leading-relaxed">
+                    Nikmati pengalaman terbaik mengelola sampah dengan aplikasi Bank Sampah.
+                </p>
+            </div>
+            <div class="flex items-center gap-2 w-full md:w-auto mt-2 md:mt-0">
+                <button onclick="handlePwaChoice('cancel')" class="flex-1 md:flex-none px-4 py-2 text-xs font-medium text-on-surface-variant hover:bg-black/5 rounded-lg transition-colors">
+                    Nanti
+                </button>
+                <button onclick="handlePwaChoice('install')" class="flex-2 md:flex-none px-5 py-2 text-xs font-bold text-white bg-primary hover:bg-primary/90 rounded-lg shadow-lg shadow-primary/20 transition-all hover:scale-105 active:scale-95 pulse-slow">
+                    Ya, Pasang
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <style>
+        .pulse-slow {
+            animation: pulse-ring 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        @keyframes pulse-ring {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.9; transform: scale(1.02); }
+        }
+    </style>
 </head>
 <body class="bg-surface selection:bg-primary-container selection:text-primary font-sans text-on-surface">
 
