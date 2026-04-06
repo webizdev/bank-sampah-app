@@ -49,8 +49,8 @@ include 'includes/header.php';
                     Garbage Pickup.
                 </h1>
                 <p class="text-base md:text-lg text-on-surface-variant max-w-md leading-relaxed">
-                    Ubah sampah menjadi berkah. Platform pengelolaan limbah premium untuk rumah tangga dan bisnis Anda.
-                    Dapatkan saldo dari setiap sampah yang Anda daur ulang.
+                    Ubah sampah menjadi berkah. Platform pengelolaan bank sampah untuk organisasi dan bisnis Anda.
+                    Dapatkan saldo dari setiap sampah yang daur ulang.
                 </p>
                 <div class="flex flex-wrap gap-4">
                     <a href="register.php"
@@ -213,7 +213,7 @@ include 'includes/header.php';
                                 </div>
                             </div>
                         </div>
-                    <?php
+                        <?php
                     endforeach;
                 endfor;
                 ?>
