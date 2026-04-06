@@ -46,7 +46,11 @@ $icons = [
                 </p>
 
                 <div class="pt-6 border-t border-primary/5">
-                    <a href="https://wa.me/<?php echo $admin_contact ?? '08123456789'; ?>?text=Halo, saya ingin tanya tentang layanan <?php echo urlencode($srv['name']); ?>" 
+                    <?php 
+                    $raw_wa = $global_settings['wa_cs_number'] ?? '6281234567890';
+                    $clean_wa = preg_replace('/[^0-9]/', '', $raw_wa);
+                    ?>
+                    <a href="https://wa.me/<?php echo $clean_wa; ?>?text=Halo, saya ingin tanya tentang layanan <?php echo urlencode($srv['name']); ?>" 
                        target="_blank"
                        class="inline-flex items-center gap-2 text-primary font-black text-xs uppercase tracking-widest group-hover:gap-4 transition-all">
                         Hubungi Admin
