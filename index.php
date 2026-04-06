@@ -13,10 +13,10 @@ include 'includes/header.php';
             <span class="text-2xl font-black text-primary tracking-tighter headline"><?php echo htmlspecialchars($app_name); ?>.</span>
         </div>
         <div class="hidden md:flex items-center gap-10 text-sm font-bold text-outline">
-            <a href="#" class="hover:text-primary transition-all hover:scale-105 active:scale-95">Beranda</a>
-            <a href="#" class="hover:text-primary transition-all hover:scale-105 active:scale-95">Tentang Kami</a>
-            <a href="#" class="hover:text-primary transition-all hover:scale-105 active:scale-95">Layanan</a>
-            <a href="#" class="hover:text-primary transition-all hover:scale-105 active:scale-95">Kontak</a>
+            <a href="#beranda" class="hover:text-primary transition-all hover:scale-105 active:scale-95">Beranda</a>
+            <a href="#tentang-kami" class="hover:text-primary transition-all hover:scale-105 active:scale-95">Tentang Kami</a>
+            <a href="#layanan" class="hover:text-primary transition-all hover:scale-105 active:scale-95">Layanan</a>
+            <a href="#kontak" class="hover:text-primary transition-all hover:scale-105 active:scale-95">Kontak</a>
         </div>
         <div class="flex items-center gap-4">
             <a href="login.php" class="text-primary font-bold text-sm hover:underline">Masuk</a>
@@ -27,7 +27,7 @@ include 'includes/header.php';
     </nav>
 
     <!-- Hero Section -->
-    <section class="relative px-8 py-20 max-w-7xl mx-auto overflow-hidden">
+    <section id="beranda" class="relative px-8 py-20 max-w-7xl mx-auto overflow-hidden">
         <div class="grid md:grid-cols-2 gap-12 items-center relative z-10">
             <div class="space-y-8">
                 <div
@@ -108,7 +108,13 @@ include 'includes/header.php';
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
-    <section class="py-32 overflow-hidden bg-surface-container-low mt-20 border-y border-primary/5 shadow-inner relative">
+    <style>
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+    </style>
+    <section id="layanan" class="py-32 overflow-hidden bg-surface-container-low mt-20 border-y border-primary/5 shadow-inner relative">
         <div class="text-center max-w-2xl mx-auto mb-16 space-y-4 px-8">
             <div class="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full mb-4">
                 <span class="material-symbols-outlined text-[16px] text-primary">smartphone</span>
@@ -169,8 +175,8 @@ include 'includes/header.php';
         </div>
     </section>
 
-    <!-- Leader Section -->
-    <section class="px-8 py-32 max-w-7xl mx-auto grid md:grid-cols-2 gap-20 items-center">
+    <!-- Tentang Kami Section (Leader) -->
+    <section id="tentang-kami" class="px-8 py-32 max-w-7xl mx-auto grid md:grid-cols-2 gap-20 items-center">
         <div class="relative order-2 md:order-1">
             <div class="aspect-square rounded-[3rem] overflow-hidden bg-primary/5 relative">
                 <img src="https://awsimages.detik.net.id/community/media/visual/2025/08/07/bank-sampah-pemprov-dki-1754538072437.jpeg?w=600&q=90?auto=format&fit=crop&q=80&w=800"
@@ -181,8 +187,8 @@ include 'includes/header.php';
             </div>
         </div>
         <div class="space-y-8 order-1 md:order-2">
-            <h2 class="text-5xl font-black text-primary leading-tight headline tracking-tight">We're Leader In Waste
-                Management Services</h2>
+            <h2 class="text-5xl font-black text-primary leading-tight headline tracking-tight">Tentang Kami</h2>
+            <h3 class="text-2xl font-bold text-on-surface-variant">We're Leader In Waste Management Services</h3>
             <p class="text-on-surface-variant leading-relaxed">
                 Sebagai pemimpin di industri, kami berkomitmen untuk menghadirkan teknologi pengelolaan limbah terbaru
                 guna meminimalkan dampak lingkungan. Kerja keras kami diakui secara global.
@@ -316,7 +322,7 @@ include 'includes/header.php';
     </section>
 
     <!-- Footer -->
-    <footer class="bg-[#1A2E12] text-white py-20 px-8">
+    <footer id="kontak" class="bg-[#1A2E12] text-white py-20 px-8 mt-20">
         <div class="max-w-7xl mx-auto text-center">
             <div class="flex items-center justify-center gap-2 mb-8">
                 <div class="w-12 h-12 bg-primary rounded-2xl flex items-center justify-center text-white">
@@ -329,10 +335,10 @@ include 'includes/header.php';
                 sampah yang tak bernilai menjadi manfaat ekonomi bagi Anda.
             </p>
             <div class="flex flex-wrap justify-center gap-8 mb-16 font-bold uppercase tracking-[0.3em] text-[10px]">
-                <a href="#" class="hover:text-primary transition-colors">Home</a>
-                <a href="#" class="hover:text-primary transition-colors">About Us</a>
-                <a href="#" class="hover:text-primary transition-colors">Services</a>
-                <a href="#" class="hover:text-primary transition-colors">Contact</a>
+                <a href="#beranda" class="hover:text-primary transition-colors">Beranda</a>
+                <a href="#tentang-kami" class="hover:text-primary transition-colors">Tentang Kami</a>
+                <a href="#layanan" class="hover:text-primary transition-colors">Layanan</a>
+                <a href="#kontak" class="hover:text-primary transition-colors">Kontak</a>
             </div>
             <p class="text-white/20 text-[9px] font-black uppercase tracking-widest border-t border-white/5 pt-12">
                 © <?php echo date('Y'); ?> <?php echo htmlspecialchars($app_name); ?>. All Rights Reserved. Designed for the Future.
