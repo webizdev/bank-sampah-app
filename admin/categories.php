@@ -99,6 +99,20 @@ include 'sidebar.php';
                 <label for="popular" class="text-sm font-bold text-on-surface">Tampilkan sebagai kategori populer</label>
             </div>
 
+            <div id="image-upload-group" class="hidden">
+                <label class="block text-[10px] font-bold text-outline uppercase tracking-widest mb-2">Gambar Produk</label>
+                <div class="flex items-center gap-4">
+                    <div id="image-preview" class="w-20 h-20 rounded-2xl bg-surface-container border border-primary/5 flex items-center justify-center overflow-hidden">
+                        <span class="material-symbols-outlined text-outline">image</span>
+                    </div>
+                    <div class="flex-1">
+                        <input type="file" id="product-image" name="image" accept="image/*"
+                               class="block w-full text-xs text-outline file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-[10px] file:font-black file:uppercase file:bg-primary/10 file:text-primary hover:file:bg-primary/20 transition-all">
+                        <p class="text-[10px] text-outline/60 mt-1 uppercase tracking-wider">Format: JPG, PNG. Max 2MB.</p>
+                    </div>
+                </div>
+            </div>
+
             <div class="flex gap-4 pt-4">
                 <button type="button" onclick="closeModal()" class="flex-1 py-4 font-bold text-outline hover:text-primary transition-all">Batal</button>
                 <button type="submit" class="flex-1 bg-primary text-white py-4 font-bold rounded-2xl shadow-xl shadow-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all">Simpan</button>
@@ -139,11 +153,14 @@ function updateParentDropdown() {
 function togglePriceInput() {
     const parentId = document.getElementById('parent_id').value;
     const priceGroup = document.getElementById('price-group');
+    const imageGroup = document.getElementById('image-upload-group');
     if (parentId) {
         priceGroup.classList.remove('opacity-30', 'pointer-events-none');
+        imageGroup.classList.remove('hidden');
         document.getElementById('price').required = true;
     } else {
         priceGroup.classList.add('opacity-30', 'pointer-events-none');
+        imageGroup.classList.add('hidden');
         document.getElementById('price').required = false;
         document.getElementById('price').value = 0;
     }
@@ -213,8 +230,8 @@ function renderTable() {
             <tr class="hover:bg-primary/[0.02] transition-colors">
                 <td class="px-8 py-4">
                     <div class="flex items-center gap-4">
-                        <div class="w-10 h-10 rounded-xl bg-surface-container flex items-center justify-center text-primary">
-                            <span class="material-symbols-outlined text-[20px]">inventory_2</span>
+                        <div class="w-10 h-10 rounded-xl bg-surface-container flex items-center justify-center text-primary overflow-hidden shadow-sm">
+                            ${prod.image_url ? `<img src="${prod.image_url}" class="w-full h-full object-cover">` : `<span class="material-symbols-outlined text-[20px]">inventory_2</span>`}
                         </div>
                         <div>
                             <p class="font-bold text-on-surface text-sm">${prod.name}</p>
@@ -306,6 +323,15 @@ function editCategory(id, type) {
 
     document.getElementById('modal-title').innerText = 'Edit Data';
     document.getElementById('form-modal').classList.remove('hidden');
+    
+    // Preview Image if exists
+    const preview = document.getElementById('image-preview');
+    if (cat.image_url) {
+        preview.innerHTML = `<img src="${cat.image_url}" class="w-full h-full object-cover">`;
+    } else {
+        preview.innerHTML = `<span class="material-symbols-outlined text-outline">image</span>`;
+    }
+
     togglePriceInput();
 }
 
@@ -330,24 +356,23 @@ async function deleteCategory(id, type) {
 document.getElementById('category-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     const formData = new FormData(e.target);
-    const data = Object.fromEntries(formData.entries());
     
-    // Determine entity using existence of parent_id, or hidden type field
+    const parentId = document.getElementById('parent_id').value;
     const existType = document.getElementById('category-type').value;
-    if (data.parent_id !== '' || existType === 'product') {
-        data.entity = 'products';
-        data.category_id = data.parent_id;
+
+    if (parentId !== '' || existType === 'product') {
+        formData.append('entity', 'products');
+        formData.append('parent_id', parentId);
     } else {
-        data.entity = 'categories';
+        formData.append('entity', 'categories');
     }
     
-    data.is_popular = document.getElementById('popular').checked;
+    formData.append('is_popular', document.getElementById('popular').checked ? 1 : 0);
 
     try {
         const res = await fetch('../api/manage_admin.php', {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(data)
+            body: formData
         });
         const result = await res.json();
         if (result.status === 'success') {
@@ -358,6 +383,17 @@ document.getElementById('category-form').addEventListener('submit', async (e) =>
         }
     } catch (err) {
         console.error(err);
+    }
+});
+
+// Image Preview for upload
+document.getElementById('product-image').addEventListener('change', function(e) {
+    if (this.files && this.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            document.getElementById('image-preview').innerHTML = `<img src="${e.target.result}" class="w-full h-full object-cover">`;
+        }
+        reader.readAsDataURL(this.files[0]);
     }
 });
 

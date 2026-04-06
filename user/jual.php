@@ -138,10 +138,11 @@ function renderProducts(products) {
 
     container.innerHTML = products.map(p => `
         <div onclick="openModal(${p.id}, '${p.name}', ${p.price_per_kg})" class="bg-white rounded-[1.5rem] border border-primary/5 shadow-lg overflow-hidden group hover:shadow-2xl transition-all duration-300 flex flex-col active:scale-95 cursor-pointer">
-            <div class="h-32 xs:h-40 relative overflow-hidden bg-surface-container">
-                <img src="${p.image_url || 'https://via.placeholder.com/600x400?text=' + encodeURIComponent(p.name)}" 
-                     alt="${p.name}" 
-                     class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+            <div class="h-32 xs:h-40 relative overflow-hidden bg-surface-container flex items-center justify-center">
+                ${p.image_url ? 
+                    `<img src="${p.image_url}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">` : 
+                    `<span class="material-symbols-outlined text-4xl text-primary/30">${p.icon || 'inventory_2'}</span>`
+                }
                 <div class="absolute top-2 right-2 bg-primary/90 text-white px-3 py-1 rounded-full text-[8px] font-black shadow-lg">
                     Rp${new Intl.NumberFormat('id-ID').format(p.price_per_kg)} / kg
                 </div>

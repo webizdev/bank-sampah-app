@@ -52,14 +52,14 @@ try {
 
 function handleCategories($pdo, $method, $action, $data) {
     if ($method === 'GET') {
-        $stmt = $pdo->query("SELECT * FROM categories ORDER BY name ASC");
+        $stmt = $pdo->query("SELECT * FROM waste_categories WHERE parent_id IS NULL ORDER BY name ASC");
         echo json_encode(['status' => 'success', 'data' => $stmt->fetchAll()]);
     } elseif ($method === 'POST') {
         if ($action === 'delete') {
-            $stmt = $pdo->prepare("DELETE FROM categories WHERE id = ?");
+            $stmt = $pdo->prepare("DELETE FROM waste_categories WHERE id = ?");
             $stmt->execute([$data['id']]);
         } elseif (isset($data['id']) && $data['id'] > 0) {
-            $stmt = $pdo->prepare("UPDATE categories SET name=?, slug=?, description=?, icon=?, is_popular=? WHERE id=?");
+            $stmt = $pdo->prepare("UPDATE waste_categories SET name=?, slug=?, description=?, icon=?, is_popular=? WHERE id=?");
             $stmt->execute([
                 $data['name'],
                 $data['slug'],
@@ -69,7 +69,7 @@ function handleCategories($pdo, $method, $action, $data) {
                 $data['id']
             ]);
         } else {
-            $stmt = $pdo->prepare("INSERT INTO categories (name, slug, description, icon, is_popular) VALUES (?, ?, ?, ?, ?)");
+            $stmt = $pdo->prepare("INSERT INTO waste_categories (name, slug, description, icon, is_popular) VALUES (?, ?, ?, ?, ?)");
             $stmt->execute([
                 $data['name'],
                 $data['slug'],
@@ -84,35 +84,65 @@ function handleCategories($pdo, $method, $action, $data) {
 
 function handleProducts($pdo, $method, $action, $data) {
     if ($method === 'GET') {
-        $stmt = $pdo->query("SELECT * FROM products ORDER BY name ASC");
+        $stmt = $pdo->query("SELECT * FROM waste_categories WHERE parent_id IS NOT NULL ORDER BY name ASC");
         echo json_encode(['status' => 'success', 'data' => $stmt->fetchAll()]);
     } elseif ($method === 'POST') {
         if ($action === 'delete') {
-            $stmt = $pdo->prepare("DELETE FROM products WHERE id = ?");
+            $stmt = $pdo->prepare("DELETE FROM waste_categories WHERE id = ?");
             $stmt->execute([$data['id']]);
-        } elseif (isset($data['id']) && $data['id'] > 0) {
-            $stmt = $pdo->prepare("UPDATE products SET name=?, slug=?, description=?, price_per_kg=?, icon=?, is_popular=?, category_id=? WHERE id=?");
-            $stmt->execute([
-                $data['name'],
-                $data['slug'],
-                $data['description'],
-                $data['price_per_kg'],
-                $data['icon'],
-                $data['is_popular'] ? 1 : 0,
-                $data['category_id'],
-                $data['id']
-            ]);
         } else {
-            $stmt = $pdo->prepare("INSERT INTO products (name, slug, description, price_per_kg, icon, is_popular, category_id) VALUES (?, ?, ?, ?, ?, ?, ?)");
-            $stmt->execute([
-                $data['name'],
-                $data['slug'],
-                $data['description'],
-                $data['price_per_kg'],
-                $data['icon'],
-                $data['is_popular'] ? 1 : 0,
-                $data['category_id']
-            ]);
+            // Handle Product Image Upload
+            $image_url = null;
+            if (isset($_FILES['image']) && $_FILES['image']['error'] === 0) {
+                if (!is_dir('../uploads/products')) mkdir('../uploads/products', 0777, true);
+                $ext = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
+                $filename = 'product_' . time() . '_' . uniqid() . '.' . $ext;
+                $upload_path = '../uploads/products/' . $filename;
+                if (move_uploaded_file($_FILES['image']['tmp_name'], $upload_path)) {
+                    $image_url = '../uploads/products/' . $filename;
+                }
+            }
+
+            if (isset($data['id']) && $data['id'] > 0) {
+                if ($image_url) {
+                    $stmt = $pdo->prepare("UPDATE waste_categories SET name=?, slug=?, description=?, price_per_kg=?, icon=?, is_popular=?, parent_id=?, image_url=? WHERE id=?");
+                    $stmt->execute([
+                        $data['name'],
+                        $data['slug'],
+                        $data['description'],
+                        $data['price_per_kg'],
+                        $data['icon'],
+                        $data['is_popular'] ? 1 : 0,
+                        $data['parent_id'],
+                        $image_url,
+                        $data['id']
+                    ]);
+                } else {
+                    $stmt = $pdo->prepare("UPDATE waste_categories SET name=?, slug=?, description=?, price_per_kg=?, icon=?, is_popular=?, parent_id=? WHERE id=?");
+                    $stmt->execute([
+                        $data['name'],
+                        $data['slug'],
+                        $data['description'],
+                        $data['price_per_kg'],
+                        $data['icon'],
+                        $data['is_popular'] ? 1 : 0,
+                        $data['parent_id'],
+                        $data['id']
+                    ]);
+                }
+            } else {
+                $stmt = $pdo->prepare("INSERT INTO waste_categories (name, slug, description, price_per_kg, icon, is_popular, parent_id, image_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+                $stmt->execute([
+                    $data['name'],
+                    $data['slug'],
+                    $data['description'],
+                    $data['price_per_kg'],
+                    $data['icon'],
+                    $data['is_popular'] ? 1 : 0,
+                    $data['parent_id'],
+                    $image_url
+                ]);
+            }
         }
         echo json_encode(['status' => 'success']);
     }
