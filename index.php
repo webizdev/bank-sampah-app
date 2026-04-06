@@ -103,6 +103,60 @@ include 'includes/header.php';
         </div>
     </section>
 
+    <!-- App Mockup Section -->
+    <style>
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+    <section class="py-32 overflow-hidden bg-surface-container-low mt-20 border-y border-primary/5 shadow-inner">
+        <div class="text-center max-w-2xl mx-auto mb-16 space-y-4 px-8">
+            <div class="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full mb-4">
+                <span class="material-symbols-outlined text-[16px] text-primary">smartphone</span>
+                <span class="text-[10px] font-black uppercase tracking-widest text-primary">Aplikasi User</span>
+            </div>
+            <h2 class="text-4xl md:text-5xl font-black text-primary headline tracking-tight">Eksplorasi Fitur Kami</h2>
+            <p class="text-on-surface-variant leading-relaxed">Pantau history, cek saldo, dan atur penjemputan sampah dengan mudah melalui antarmuka genggaman yang modern dan interaktif.</p>
+        </div>
+        
+        <div class="flex gap-6 overflow-x-auto snap-x snap-mandatory px-8 md:px-[calc(50vw-150px)] pb-16 pt-4 hide-scrollbar items-center">
+            <!-- Mockup 1: Home -->
+            <div class="snap-center shrink-0 w-[260px] md:w-[300px] hover:-translate-y-4 transition-transform duration-500 group relative">
+                <div class="absolute inset-0 bg-primary/20 blur-3xl rounded-full scale-90 -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div class="bg-white rounded-[2.5rem] border-8 border-[var(--on-surface)] shadow-2xl overflow-hidden aspect-[9/19.5]">
+                    <img src="referensi/app%20home.png" alt="App Home" class="w-full h-full object-cover">
+                </div>
+            </div>
+            <!-- Mockup 2: Layanan -->
+            <div class="snap-center shrink-0 w-[260px] md:w-[300px] hover:-translate-y-4 transition-transform duration-500 group relative">
+                 <div class="absolute inset-0 bg-secondary/20 blur-3xl rounded-full scale-90 -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div class="bg-white rounded-[2.5rem] border-8 border-[var(--on-surface)] shadow-2xl overflow-hidden aspect-[9/19.5]">
+                    <img src="referensi/app%20layanan.png" alt="App Layanan" class="w-full h-full object-cover">
+                </div>
+            </div>
+            <!-- Mockup 3: Beli -->
+            <div class="snap-center shrink-0 w-[260px] md:w-[300px] hover:-translate-y-4 transition-transform duration-500 group relative scale-105 z-10">
+                 <div class="absolute inset-0 bg-primary/30 blur-3xl rounded-full scale-90 -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div class="bg-white rounded-[2.5rem] border-8 border-[var(--on-surface)] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] overflow-hidden aspect-[9/19.5]">
+                    <img src="referensi/app%20beli.png" alt="App Transaksi" class="w-full h-full object-cover">
+                </div>
+            </div>
+            <!-- Mockup 4: Profil 1 -->
+            <div class="snap-center shrink-0 w-[260px] md:w-[300px] hover:-translate-y-4 transition-transform duration-500 group relative">
+                 <div class="absolute inset-0 bg-secondary/20 blur-3xl rounded-full scale-90 -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div class="bg-white rounded-[2.5rem] border-8 border-[var(--on-surface)] shadow-2xl overflow-hidden aspect-[9/19.5]">
+                    <img src="referensi/app%20profil%201.png" alt="App Profil 1" class="w-full h-full object-cover">
+                </div>
+            </div>
+             <!-- Mockup 5: Profil 2 -->
+             <div class="snap-center shrink-0 w-[260px] md:w-[300px] hover:-translate-y-4 transition-transform duration-500 group relative">
+                 <div class="absolute inset-0 bg-primary/20 blur-3xl rounded-full scale-90 -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <div class="bg-white rounded-[2.5rem] border-8 border-[var(--on-surface)] shadow-2xl overflow-hidden aspect-[9/19.5]">
+                    <img src="referensi/app%20profil%202.png" alt="App Profil 2" class="w-full h-full object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Leader Section -->
     <section class="px-8 py-32 max-w-7xl mx-auto grid md:grid-cols-2 gap-20 items-center">
         <div class="relative order-2 md:order-1">
