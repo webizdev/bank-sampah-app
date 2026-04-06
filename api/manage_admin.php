@@ -359,8 +359,16 @@ function handleCrafts($pdo, $method, $action, $data) {
 
 function handleArticles($pdo, $method, $action, $data) {
     if ($method === 'GET') {
-        $stmt = $pdo->query("SELECT * FROM content ORDER BY created_at DESC");
-        echo json_encode(['status' => 'success', 'data' => $stmt->fetchAll()]);
+        try {
+            ob_start();
+            $stmt = $pdo->query("SELECT * FROM content ORDER BY id DESC");
+            $res_data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            ob_clean();
+            echo json_encode(['status' => 'success', 'data' => $res_data]);
+        } catch (Exception $e) {
+            ob_clean();
+            echo json_encode(['status' => 'error', 'message' => 'DB Query Error: ' . $e->getMessage()]);
+        }
     } elseif ($method === 'POST') {
         if ($action === 'delete') {
             $stmt = $pdo->prepare("DELETE FROM content WHERE id = ?");

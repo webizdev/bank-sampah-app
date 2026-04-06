@@ -100,14 +100,18 @@ let articles = [];
 
 async function fetchArticles() {
     try {
-        const res = await fetch('../api/manage_admin.php?entity=articles');
+        // Use API_BASE defined in header.php for more consistent pathing
+        const res = await fetch(API_BASE + 'manage_admin.php?entity=articles');
         const text = await res.text();
+        
         let result;
         try {
             result = JSON.parse(text);
         } catch (e) {
-            console.error('API Parse Error (Not JSON):', text);
-            throw new Error('Format data tidak valid');
+            console.error('API Error (RAW):', text);
+            // If it starts with < it's probably an HTML error page, show only the beginning
+            const snippet = text.trim().substring(0, 100);
+            throw new Error(`Data format error (Is the session still active?). Raw snippet: ${snippet}`);
         }
 
         if (result.status === 'success') {
