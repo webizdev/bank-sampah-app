@@ -1,31 +1,36 @@
     <?php if ((!isset($hide_nav) || !$hide_nav) && empty($is_admin)): ?>
-    <!-- Premium Bottom Navigation -->
-    <nav class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md bg-white/80 backdrop-blur-xl border-t border-primary/5 flex justify-around items-center h-20 px-4 z-50 rounded-t-3xl shadow-2xl shadow-black/10">
-        <a href="<?php echo $path_to_root; ?>user/dashboard.php" class="flex flex-col items-center gap-1 group">
-            <span class="material-symbols-outlined text-[24px] <?php echo basename($_SERVER['PHP_SELF']) == 'dashboard.php' ? 'text-primary' : 'text-outline'; ?> group-active:scale-90 transition-transform">home</span>
-            <span class="text-[9px] font-black uppercase tracking-widest <?php echo basename($_SERVER['PHP_SELF']) == 'dashboard.php' ? 'text-primary' : 'text-outline'; ?>">Home</span>
+    <!-- Premium Bottom Navigation Dock -->
+    <nav class="bottom-dock px-3">
+        <a href="<?php echo $path_to_root; ?>user/dashboard.php" class="nav-item <?php echo basename($_SERVER['PHP_SELF']) == 'dashboard.php' ? 'active' : ''; ?>">
+            <span class="material-symbols-outlined">home</span>
+            <span class="nav-label">Home</span>
         </a>
-        <a href="<?php echo $path_to_root; ?>user/jual.php" class="flex flex-col items-center gap-1 group">
-            <span class="material-symbols-outlined text-[24px] <?php echo basename($_SERVER['PHP_SELF']) == 'jual.php' ? 'text-primary' : 'text-outline'; ?> group-active:scale-90 transition-transform">recycling</span>
-            <span class="text-[9px] font-black uppercase tracking-widest <?php echo basename($_SERVER['PHP_SELF']) == 'jual.php' ? 'text-primary' : 'text-outline'; ?>">Jual</span>
+        <a href="<?php echo $path_to_root; ?>user/layanan.php" class="nav-item <?php echo basename($_SERVER['PHP_SELF']) == 'layanan.php' ? 'active' : ''; ?>">
+            <span class="material-symbols-outlined">auto_awesome_motion</span>
+            <span class="nav-label">Layanan</span>
         </a>
         
-        <!-- FAB: Craft Catalog -->
+        <!-- Central FAB: Craft Catalog -->
         <div class="relative -top-10">
-            <a href="<?php echo $path_to_root; ?>user/craft.php" class="w-16 h-16 bg-primary text-white rounded-full flex items-center justify-center shadow-2xl shadow-primary/40 active:scale-90 transition-all border-4 border-white">
-                <span class="material-symbols-outlined text-[32px]">palette</span>
+            <a href="<?php echo $path_to_root; ?>user/craft.php" 
+               class="w-18 h-18 bg-primary text-white rounded-full flex items-center justify-center shadow-[0_15px_40px_rgba(15,82,56,0.3)] active:scale-90 transition-all border-[6px] border-surface">
+                <span class="material-symbols-outlined text-[34px] font-black">palette</span>
             </a>
         </div>
 
-        <a href="<?php echo $path_to_root; ?>user/layanan.php" class="flex flex-col items-center gap-1 group">
-            <span class="material-symbols-outlined text-[24px] <?php echo basename($_SERVER['PHP_SELF']) == 'layanan.php' ? 'text-primary' : 'text-outline'; ?> group-active:scale-90 transition-transform">volunteer_activism</span>
-            <span class="text-[9px] font-black uppercase tracking-widest <?php echo basename($_SERVER['PHP_SELF']) == 'layanan.php' ? 'text-primary' : 'text-outline'; ?>">Layanan</span>
+        <a href="<?php echo $path_to_root; ?>user/jual.php" class="nav-item <?php echo basename($_SERVER['PHP_SELF']) == 'jual.php' ? 'active' : ''; ?>">
+            <span class="material-symbols-outlined">shopping_cart</span>
+            <span class="nav-label">Jual</span>
         </a>
-        <a href="<?php echo $path_to_root; ?>user/profile.php" class="flex flex-col items-center gap-1 group">
-            <span class="material-symbols-outlined text-[24px] <?php echo basename($_SERVER['PHP_SELF']) == 'profile.php' ? 'text-primary' : 'text-outline'; ?> group-active:scale-90 transition-transform">person</span>
-            <span class="text-[9px] font-black uppercase tracking-widest <?php echo basename($_SERVER['PHP_SELF']) == 'profile.php' ? 'text-primary' : 'text-outline'; ?>">Profil</span>
+        <a href="<?php echo $path_to_root; ?>user/profile.php" class="nav-item <?php echo basename($_SERVER['PHP_SELF']) == 'profile.php' ? 'active' : ''; ?>">
+            <span class="material-symbols-outlined">person</span>
+            <span class="nav-label">Profil</span>
         </a>
     </nav>
+    <style>
+        .w-18 { width: 4.5rem; }
+        .h-18 { height: 4.5rem; }
+    </style>
     <?php endif; ?>
 
     <?php if (!empty($global_settings['wa_cs_number']) && empty($is_admin) && !empty($hide_nav)): ?>

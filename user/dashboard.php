@@ -4,78 +4,71 @@ include '../includes/header.php';
 ?>
 
 <!-- Hero / User Greeting -->
-<section class="mb-8">
-    <h2 id="user-greeting" class="headline text-2xl font-bold tracking-tight text-on-surface">Halo, Pengguna!</h2>
-    <p class="text-on-surface-variant font-medium">Selamat berkontribusi untuk bumi hari ini.</p>
+<section class="mb-10 px-2 animate-slide-up">
+    <h2 id="user-greeting" class="headline text-2xl font-black tracking-tight text-on-surface">Halo, Pengguna!</h2>
+    <p class="text-on-surface-variant font-bold text-sm">Selamat berkontribusi untuk bumi hari ini.</p>
 </section>
 
 <!-- Impact Summary Bento Grid -->
-<section id="user-stats" class="grid grid-cols-2 gap-4 mb-10">
-    <div class="col-span-2 bg-gradient-to-br from-primary to-primary-container p-6 rounded-xl text-white flex justify-between items-center relative overflow-hidden shadow-lg shadow-primary/20">
+<section id="user-stats" class="grid grid-cols-2 gap-4 mb-12 animate-slide-up" style="animation-delay: 0.1s">
+    <div class="col-span-2 bg-primary p-7 rounded-[2.5rem] text-white flex justify-between items-center relative overflow-hidden shadow-2xl shadow-primary/20">
         <div class="z-10">
-            <p class="text-xs uppercase tracking-widest opacity-80 mb-1">Total Kontribusi</p>
-            <p class="headline text-3xl font-extrabold"><span id="stat-total-kg">0.0</span><span class="text-lg font-normal ml-1">kg</span></p>
-            <p class="text-sm mt-2 font-medium bg-white/20 inline-block px-3 py-1 rounded-full backdrop-blur-sm">Sangat Bagus!</p>
+            <p class="text-[10px] font-black uppercase tracking-[0.2em] opacity-60 mb-2">Total Kontribusi</p>
+            <p class="headline text-4xl font-black tracking-tighter"><span id="stat-total-kg">0.0</span><span class="text-lg font-bold ml-1 opacity-60">kg</span></p>
         </div>
         <div class="z-10 text-right">
-            <span class="material-symbols-outlined text-4xl opacity-50" style="font-variation-settings: 'FILL' 1;">eco</span>
+            <div class="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center backdrop-blur-md">
+                <span class="material-symbols-outlined text-3xl opacity-80" style="font-variation-settings: 'FILL' 1;">eco</span>
+            </div>
         </div>
-        <!-- Decorative element -->
-        <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-white/5 rounded-full blur-3xl"></div>
+        <!-- Decorative abstract blobs -->
+        <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-secondary/10 rounded-full blur-3xl"></div>
+        <div class="absolute -left-10 -top-10 w-32 h-32 bg-white/5 rounded-full blur-2xl"></div>
     </div>
-    <div class="card-container flex flex-col justify-between h-32">
-        <span class="material-symbols-outlined text-secondary">database</span>
+    
+    <div class="card-container flex flex-col justify-between h-40">
+        <div class="w-10 h-10 bg-secondary/10 rounded-xl flex items-center justify-center text-secondary">
+            <span class="material-symbols-outlined font-bold">database</span>
+        </div>
         <div>
-            <p class="headline text-xl font-bold">IDR <span id="stat-balance">0</span></p>
-            <p class="text-[11px] uppercase tracking-wider text-on-surface-variant">SALDO</p>
+            <p class="headline text-xl font-black tracking-tight">Rp <span id="stat-balance">0</span></p>
+            <p class="text-[10px] font-black uppercase tracking-[0.15em] text-outline mt-1">SALDO</p>
         </div>
     </div>
-    <div class="card-container flex flex-col justify-between h-32 font-medium">
-        <span class="material-symbols-outlined text-tertiary">workspace_premium</span>
+    
+    <div class="card-container flex flex-col justify-between h-40">
+        <div class="w-10 h-10 bg-primary/10 rounded-xl flex items-center justify-center text-primary">
+            <span class="material-symbols-outlined font-bold">workspace_premium</span>
+        </div>
         <div>
-            <p id="stat-tier" class="headline text-xl font-bold">...</p>
-            <p class="text-[11px] uppercase tracking-wider text-on-surface-variant">Tier Member</p>
+            <p id="stat-tier" class="headline text-xl font-black tracking-tight uppercase">...</p>
+            <p class="text-[10px] font-black uppercase tracking-[0.15em] text-outline mt-1">STATUS</p>
         </div>
     </div>
 </section>
 
 <!-- Large Slider Section: Agenda & Edukasi -->
-<section class="mb-10 -mx-6 overflow-hidden">
-    <div class="px-6 flex justify-between items-end mb-4">
-        <h3 class="headline text-lg font-bold">Eksplorasi Lingkungan</h3>
-        <span class="text-primary font-bold text-xs uppercase tracking-widest cursor-pointer">Lihat Semua</span>
+<section class="mb-12 -mx-6 overflow-hidden animate-slide-up" style="animation-delay: 0.2s">
+    <div class="px-8 flex justify-between items-end mb-6">
+        <div>
+            <h3 class="headline text-xl font-black tracking-tight text-primary">Eksplorasi Lingkungan</h3>
+            <p class="text-[10px] font-bold text-outline uppercase tracking-widest mt-1">Update & Edukasi Terkini</p>
+        </div>
+        <span class="text-primary font-black text-[10px] uppercase tracking-widest cursor-pointer pb-1 border-b-2 border-primary/20 hover:border-primary transition-all">Lihat Semua</span>
     </div>
-    <div id="article-grid" class="flex overflow-x-auto hide-scrollbar gap-5 px-6 pb-4">
+    <div id="article-grid" class="flex overflow-x-auto hide-scrollbar gap-5 px-8 pb-6">
         <!-- Articles loaded by JS -->
-        <div class="min-w-[280px] bg-surface-container-low h-64 rounded-2xl animate-pulse"></div>
-        <div class="min-w-[280px] bg-surface-container-low h-64 rounded-2xl animate-pulse"></div>
+        <div class="min-w-[280px] bg-white h-72 rounded-[2rem] border border-primary/5 animate-pulse"></div>
+        <div class="min-w-[280px] bg-white h-72 rounded-[2rem] border border-primary/5 animate-pulse"></div>
     </div>
 </section>
 
-<!-- Quick Actions -->
-<section class="mb-10">
-    <h3 class="headline text-lg font-bold mb-5">Layanan Tercepat</h3>
-    <div class="space-y-4">
-        <a href="layanan.php" class="flex items-center p-4 card-container group hover:bg-surface-container-low transition-colors duration-200">
-            <div class="w-12 h-12 bg-secondary-container rounded-lg flex items-center justify-center text-secondary">
-                <span class="material-symbols-outlined">local_shipping</span>
-            </div>
-            <div class="ml-4 flex-1">
-                <h5 class="headline font-bold text-on-surface">Jemput Sampah</h5>
-                <p class="text-xs text-on-surface-variant">Sampah langsung dijemput di rumah</p>
-            </div>
-            <span class="material-symbols-outlined text-outline-variant group-hover:translate-x-1 transition-transform">chevron_right</span>
-        </a>
-        <a href="jual.php" class="flex items-center p-4 card-container group hover:bg-surface-container-low transition-colors duration-200">
-            <div class="w-12 h-12 bg-primary-container/20 rounded-lg flex items-center justify-center text-primary">
-                <span class="material-symbols-outlined">shopping_cart</span>
-            </div>
-            <div class="ml-4 flex-1">
-                <h5 class="headline font-bold text-on-surface">Jual Sampah</h5>
-                <p class="text-xs text-on-surface-variant">Tukarkan sampahmu menjadi saldo</p>
-            </div>
-            <span class="material-symbols-outlined text-outline-variant group-hover:translate-x-1 transition-transform">chevron_right</span>
-        </a>
+<!-- Premium Quick Call to Action -->
+<section class="mb-8 animate-slide-up" style="animation-delay: 0.3s">
+    <div class="bg-surface-container-highest/50 p-8 rounded-[2.5rem] border border-outline/10 text-center">
+        <h4 class="headline text-lg font-black text-on-surface mb-2">Mau Menjual Sampah?</h4>
+        <p class="text-xs text-on-surface-variant font-bold mb-6">Dapatkan saldo langsung ke dompet digitalmu.</p>
+        <a href="jual.php" class="btn-premium w-full shadow-lg shadow-primary/20">Mulai Jual Sekarang</a>
     </div>
 </section>
 

@@ -106,22 +106,20 @@ if ($is_user_app) {
 <div class="<?php echo $container_class; ?>">
     
     <?php if ($is_user_app && (!isset($hide_nav) || !$hide_nav)): ?>
-    <!-- Premium Editorial Header (User App Only) -->
-    <header class="flex justify-between items-center mb-10 w-full animate-fade-in">
+    <!-- Premium Compact Header (User App Only) -->
+    <header class="flex justify-between items-center mb-6 w-full animate-fade-in px-2 pt-2">
         <div class="flex flex-col">
-            <h1 class="headline text-xl font-extrabold tracking-tighter leading-none flex items-center gap-2">
-                <span class="w-2 h-2 bg-primary rounded-full"></span>
-                <?php echo htmlspecialchars(strtoupper($app_name)); ?>
+            <h1 class="headline text-lg font-extrabold tracking-tighter leading-none flex items-center gap-2">
+                <span class="w-1.5 h-1.5 bg-primary rounded-full"></span>
+                <?php echo htmlspecialchars($app_name); ?>
             </h1>
-            <span class="text-[9px] font-bold tracking-[0.2em] text-outline uppercase mt-1">Living Archive Project</span>
+            <span class="text-[8px] font-black tracking-[0.2em] text-outline uppercase mt-1 opacity-70">Empowering Ecology</span>
         </div>
-        <div class="flex items-center gap-4">
-            <button class="w-10 h-10 rounded-full border border-primary/10 flex items-center justify-center text-primary hover:bg-primary-container/20 transition-colors">
-                <span class="material-symbols-outlined text-[20px]">notifications</span>
-            </button>
-            <div class="w-10 h-10 rounded-full bg-surface-container-high border-2 border-white flex items-center justify-center overflow-hidden">
-                <img src="https://ui-avatars.com/api/?name=<?php echo urlencode($_SESSION['user_name'] ?? 'User'); ?>&background=0f5238&color=fff" alt="User" class="w-full h-full object-cover">
+        <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-white border border-primary/5 shadow-sm p-0.5 flex items-center justify-center">
+                 <img src="https://ui-avatars.com/api/?name=<?php echo urlencode($_SESSION['user_name'] ?? 'User'); ?>&background=0f5238&color=fff" alt="User" class="w-full h-full rounded-full object-cover">
             </div>
         </div>
     </header>
+
     <?php endif; ?>
