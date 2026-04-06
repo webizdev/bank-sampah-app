@@ -1,43 +1,229 @@
 <?php
-// Profile & History Page
 include '../includes/header.php';
+
+// Fetch current user data
+$stmt = $pdo->prepare("SELECT * FROM users WHERE id = ?");
+$stmt->execute([$_SESSION['user_id']]);
+$u = $stmt->fetch();
+
+if (!$u) {
+    echo "User not found.";
+    exit;
+}
+
+// Map Default Coordinates (Jakarta if NULL)
+$lat = $u['latitude'] ?: -6.1754;
+$lng = $u['longitude'] ?: 106.8272;
 ?>
 
+<!-- Leaflet CSS -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+<style>
+    #map { height: 250px; border-radius: 1.5rem; z-index: 1; }
+    .profile-avatar-wrapper { position: relative; cursor: pointer; }
+    .profile-avatar-wrapper:hover .overlay { opacity: 1; }
+    .profile-avatar-wrapper .overlay {
+        position: absolute; inset: 0; background: rgba(0,0,0,0.4);
+        display: flex; items-center; justify-center; opacity: 0;
+        transition: opacity 0.3s; border-radius: 9999px;
+    }
+</style>
+
 <!-- Profile Header -->
-<section class="mb-10 flex flex-col items-center text-center">
-    <div class="w-24 h-24 rounded-full bg-primary-container flex items-center justify-center overflow-hidden border-4 border-white shadow-xl mb-4">
-        <img src="https://ui-avatars.com/api/?name=Aris&background=0f5238&color=fff&size=128" alt="Profile" class="w-full h-full object-cover">
-    </div>
-    <h2 class="headline text-2xl font-bold text-on-surface">Aris Setiawan</h2>
-    <p class="text-on-surface-variant font-medium">Bumi-Warrior • Sejak Jan 2026</p>
+<section class="mb-10 flex flex-col items-center text-center relative">
+    <form id="avatar-form" enctype="multipart/form-data">
+        <label for="avatar-input" class="profile-avatar-wrapper group block w-28 h-28 rounded-full border-4 border-white shadow-2xl overflow-hidden mb-4 bg-surface-container">
+            <img id="avatar-preview" src="<?php echo $u['avatar_url'] ?: 'https://ui-avatars.com/api/?name='.urlencode($u['name']).'&background=0f5238&color=fff&size=128'; ?>" 
+                 alt="Profile" class="w-full h-full object-cover">
+            <div class="overlay">
+                <span class="material-symbols-outlined text-white text-2xl">photo_camera</span>
+            </div>
+            <input type="file" id="avatar-input" name="avatar" class="hidden" accept="image/*" onchange="uploadAvatar()">
+        </label>
+    </form>
     
-    <div class="mt-6 flex gap-4">
-        <button class="section-container py-2 px-6 text-xs font-bold uppercase tracking-widest text-primary border border-primary/10">Edit Profil</button>
-        <a href="../logout.php" class="section-container py-2 px-6 text-xs font-bold uppercase tracking-widest text-error border border-error/10">Keluar</a>
+    <div class="space-y-1">
+        <h2 class="headline text-2xl font-black text-primary tracking-tight"><?php echo htmlspecialchars($u['name']); ?></h2>
+        <div class="flex items-center justify-center gap-2">
+            <span class="bg-secondary/10 text-secondary px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest"><?php echo $u['tier']; ?> Member</span>
+            <?php if ($u['organization']): ?>
+                <span class="bg-primary/10 text-primary px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest"><?php echo htmlspecialchars($u['organization']); ?></span>
+            <?php endif; ?>
+        </div>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="mt-8 flex gap-3 w-full max-w-sm mx-auto">
+        <button onclick="shareApp()" class="flex-1 bg-surface-container-low py-4 px-6 rounded-2xl text-primary font-black text-xs uppercase tracking-widest flex items-center justify-center gap-2 border border-primary/5 hover:bg-primary/5 transition-all">
+            <span class="material-symbols-outlined text-[18px]">share</span>
+            Bagikan Link
+        </button>
+        <a href="../logout.php" class="py-4 px-6 rounded-2xl text-red-500 font-black text-xs uppercase tracking-widest border border-red-500/10 hover:bg-red-50 transition-all flex items-center justify-center gap-2">
+            <span class="material-symbols-outlined text-[18px]">logout</span>
+            Keluar
+        </a>
     </div>
 </section>
 
-<!-- Impact Metrics -->
-<section id="user-stats" class="grid grid-cols-2 gap-4 mb-10">
-    <div class="card-container text-center">
-        <p class="text-[10px] uppercase font-bold tracking-widest text-on-surface-variant mb-1">Total Setoran</p>
-        <p class="headline text-2xl font-black text-primary"><span id="stat-total-kg">0.0</span><span class="text-xs font-medium ml-1">kg</span></p>
-    </div>
-    <div class="card-container text-center text-on-surface">
-        <p class="text-[10px] uppercase font-bold tracking-widest text-on-surface-variant mb-1">Pohon Diselamatkan</p>
-        <p class="headline text-2xl font-black text-secondary">1.2<span class="text-xs font-medium ml-1">batang</span></p>
-    </div>
-</section>
+<!-- Profile Form -->
+<form id="profile-form" class="space-y-8 pb-32">
+    <div class="grid grid-cols-1 gap-6">
+        <!-- Identitas Warga -->
+        <div class="section-container bg-surface-container-lowest">
+            <h3 class="headline font-black text-sm uppercase tracking-widest text-outline mb-6 flex items-center gap-2">
+                <span class="material-symbols-outlined text-[18px]">person</span>
+                Identitas Warga
+            </h3>
+            <div class="space-y-4">
+                <div>
+                    <label class="block text-[10px] font-bold text-outline uppercase tracking-widest mb-2 px-1">Nama Rekening Bank (Nama User)</label>
+                    <input type="text" name="name" value="<?php echo htmlspecialchars($u['name']); ?>" required 
+                           class="w-full bg-surface-container border-none rounded-2xl px-5 py-4 focus:ring-2 focus:ring-primary font-bold transition-all" placeholder="Masukkan nama sesuai di buku tabungan">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-bold text-outline uppercase tracking-widest mb-2 px-1">Nomor WhatsApp</label>
+                    <input type="text" name="whatsapp" value="<?php echo htmlspecialchars($u['whatsapp']); ?>" readonly 
+                           class="w-full bg-outline/5 border-none rounded-2xl px-5 py-4 font-bold text-outline cursor-not-allowed">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-bold text-outline uppercase tracking-widest mb-2 px-1">Organisasi / Komunitas</label>
+                    <input type="text" name="organization" value="<?php echo htmlspecialchars($u['organization']); ?>" 
+                           class="w-full bg-surface-container border-none rounded-2xl px-5 py-4 focus:ring-2 focus:ring-primary font-bold transition-all" placeholder="Dapur/Komunitas/Individu">
+                </div>
+            </div>
+        </div>
 
-<!-- Transaction History -->
-<section class="mb-10">
-    <h3 class="headline text-lg font-bold mb-6">Riwayat Transaksi</h3>
-    <div id="transaction-history" class="space-y-4">
-        <!-- Will be loaded by app.js -->
-        <div class="animate-pulse h-16 bg-surface-container-low rounded-xl"></div>
-        <div class="animate-pulse h-16 bg-surface-container-low rounded-xl"></div>
-    </div>
-</section>
+        <!-- Rekening Bank -->
+        <div class="section-container bg-surface-container-lowest">
+            <h3 class="headline font-black text-sm uppercase tracking-widest text-outline mb-6 flex items-center gap-2">
+                <span class="material-symbols-outlined text-[18px]">account_balance</span>
+                Info Pencairan Dana
+            </h3>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-[10px] font-bold text-outline uppercase tracking-widest mb-2 px-1">Nama Bank</label>
+                    <input type="text" name="bank_name" value="<?php echo htmlspecialchars($u['bank_name']); ?>" 
+                           class="w-full bg-surface-container border-none rounded-2xl px-5 py-4 focus:ring-2 focus:ring-primary font-bold transition-all" placeholder="Contoh: BCA, BNI, Mandiri">
+                </div>
+                <div>
+                    <label class="block text-[10px] font-bold text-outline uppercase tracking-widest mb-2 px-1">Nomor Rekening</label>
+                    <input type="text" name="account_number" value="<?php echo htmlspecialchars($u['account_number']); ?>" 
+                           class="w-full bg-surface-container border-none rounded-2xl px-5 py-4 focus:ring-2 focus:ring-primary font-bold transition-all" placeholder="123-456-7890">
+                </div>
+            </div>
+        </div>
 
+        <!-- Lokasi Jemput -->
+        <div class="section-container bg-surface-container-lowest overflow-hidden">
+            <h3 class="headline font-black text-sm uppercase tracking-widest text-outline mb-6 flex items-center gap-2">
+                <span class="material-symbols-outlined text-[18px]">map</span>
+                Titik Jemput Akurat
+            </h3>
+            <div id="map" class="mb-4 shadow-inner"></div>
+            <input type="hidden" id="latitude" name="latitude" value="<?php echo $lat; ?>">
+            <input type="hidden" id="longitude" name="longitude" value="<?php echo $lng; ?>">
+            
+            <div class="space-y-4">
+                <p class="text-[10px] text-outline italic px-1">* Geser pin pada peta untuk menetapkan titik jemput yang akurat.</p>
+                <div>
+                    <label class="block text-[10px] font-bold text-outline uppercase tracking-widest mb-2 px-1">Alamat Lengkap</label>
+                    <textarea name="address" rows="3" 
+                              class="w-full bg-surface-container border-none rounded-2xl px-5 py-4 focus:ring-2 focus:ring-primary font-bold transition-all" 
+                              placeholder="Masukkan detail alamat, nomor rumah, rt/rw..."><?php echo htmlspecialchars($u['address']); ?></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" class="w-full bg-primary text-white py-5 rounded-[2rem] font-black headline text-lg shadow-2xl shadow-primary/30 active:scale-95 transition-all flex items-center justify-center gap-3">
+        <span class="material-symbols-outlined">save</span>
+        Simpan Profil
+    </button>
+</form>
+
+<script>
+// Leaflet Map Initialization
+const map = L.map('map').setView([<?php echo $lat; ?>, <?php echo $lng; ?>], 15);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '© OpenStreetMap'
+}).addTo(map);
+
+const marker = L.marker([<?php echo $lat; ?>, <?php echo $lng; ?>], {
+    draggable: true
+}).addTo(map);
+
+marker.on('dragend', function (e) {
+    const latlng = marker.getLatLng();
+    document.getElementById('latitude').value = latlng.lat.toFixed(8);
+    document.getElementById('longitude').value = latlng.lng.toFixed(8);
+});
+
+// Share App Link
+function shareApp() {
+    const link = window.location.origin + window.location.pathname.replace('user/profile.php', '');
+    navigator.clipboard.writeText(link).then(() => {
+        alert('✔ Link aplikasi berhasil disalin ke clipboard!');
+    }).catch(err => {
+        console.error('Kagal menyalin: ', err);
+    });
+}
+
+// Avatar Upload
+async function uploadAvatar() {
+    const fileInput = document.getElementById('avatar-input');
+    if (!fileInput.files[0]) return;
+
+    const formData = new FormData();
+    formData.append('avatar', fileInput.files[0]);
+    formData.append('action', 'avatar_upload');
+
+    try {
+        const res = await fetch('../api/manage_user.php', {
+            method: 'POST',
+            body: formData
+        });
+        const result = await res.json();
+        if (result.status === 'success') {
+            document.getElementById('avatar-preview').src = result.url;
+            alert('✔ Foto profil berhasil diperbarui!');
+        } else {
+            alert('❌ ' + result.message);
+        }
+    } catch (err) {
+        console.error(err);
+        alert('Gagal mengunggah foto.');
+    }
+}
+
+// Profile Save
+document.getElementById('profile-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const data = Object.fromEntries(formData.entries());
+    data.action = 'update_profile';
+
+    try {
+        const res = await fetch('../api/manage_user.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data)
+        });
+        const result = await res.json();
+        if (result.status === 'success') {
+            alert('✔ Profil berhasil disimpan!');
+            location.reload();
+        } else {
+            alert('❌ ' + result.message);
+        }
+    } catch (err) {
+        console.error(err);
+        alert('Kesalahan saat menyimpan profil.');
+    }
+});
+</script>
 
 <?php include '../includes/footer.php'; ?>

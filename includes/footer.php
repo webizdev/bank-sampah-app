@@ -6,19 +6,19 @@
             <span class="text-[9px] font-black uppercase tracking-widest <?php echo basename($_SERVER['PHP_SELF']) == 'dashboard.php' ? 'text-primary' : 'text-outline'; ?>">Home</span>
         </a>
         <a href="<?php echo $path_to_root; ?>user/jual.php" class="flex flex-col items-center gap-1 group">
-            <span class="material-symbols-outlined text-[24px] <?php echo basename($_SERVER['PHP_SELF']) == 'jual.php' ? 'text-primary' : 'text-outline'; ?> group-active:scale-90 transition-transform">storefront</span>
-            <span class="text-[9px] font-black uppercase tracking-widest <?php echo basename($_SERVER['PHP_SELF']) == 'jual.php' ? 'text-primary' : 'text-outline'; ?>">Beli</span>
+            <span class="material-symbols-outlined text-[24px] <?php echo basename($_SERVER['PHP_SELF']) == 'jual.php' ? 'text-primary' : 'text-outline'; ?> group-active:scale-90 transition-transform">recycling</span>
+            <span class="text-[9px] font-black uppercase tracking-widest <?php echo basename($_SERVER['PHP_SELF']) == 'jual.php' ? 'text-primary' : 'text-outline'; ?>">Jual</span>
         </a>
         
-        <!-- FAB: Quick Sell -->
+        <!-- FAB: Craft Catalog -->
         <div class="relative -top-10">
-            <a href="<?php echo $path_to_root; ?>user/jual.php" class="w-16 h-16 bg-primary text-white rounded-full flex items-center justify-center shadow-2xl shadow-primary/40 active:scale-90 transition-all border-4 border-white">
-                <span class="material-symbols-outlined text-[32px]">add</span>
+            <a href="<?php echo $path_to_root; ?>user/craft.php" class="w-16 h-16 bg-primary text-white rounded-full flex items-center justify-center shadow-2xl shadow-primary/40 active:scale-90 transition-all border-4 border-white">
+                <span class="material-symbols-outlined text-[32px]">palette</span>
             </a>
         </div>
 
         <a href="<?php echo $path_to_root; ?>user/layanan.php" class="flex flex-col items-center gap-1 group">
-            <span class="material-symbols-outlined text-[24px] <?php echo basename($_SERVER['PHP_SELF']) == 'layanan.php' ? 'text-primary' : 'text-outline'; ?> group-active:scale-90 transition-transform">eco</span>
+            <span class="material-symbols-outlined text-[24px] <?php echo basename($_SERVER['PHP_SELF']) == 'layanan.php' ? 'text-primary' : 'text-outline'; ?> group-active:scale-90 transition-transform">volunteer_activism</span>
             <span class="text-[9px] font-black uppercase tracking-widest <?php echo basename($_SERVER['PHP_SELF']) == 'layanan.php' ? 'text-primary' : 'text-outline'; ?>">Layanan</span>
         </a>
         <a href="<?php echo $path_to_root; ?>user/profile.php" class="flex flex-col items-center gap-1 group">

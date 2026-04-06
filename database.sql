@@ -11,6 +11,13 @@ CREATE TABLE IF NOT EXISTS users (
     balance DECIMAL(15, 2) DEFAULT 0.00,
     total_kg DECIMAL(10, 2) DEFAULT 0.00,
     tier ENUM('Bronze', 'Silver', 'Gold') DEFAULT 'Bronze',
+    bank_name VARCHAR(100) DEFAULT NULL,
+    account_number VARCHAR(50) DEFAULT NULL,
+    avatar_url TEXT DEFAULT NULL,
+    latitude DECIMAL(10, 8) DEFAULT NULL,
+    longitude DECIMAL(11, 8) DEFAULT NULL,
+    address TEXT DEFAULT NULL,
+    organization VARCHAR(100) DEFAULT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
@@ -60,6 +67,16 @@ CREATE TABLE IF NOT EXISTS content (
     category ENUM('AGENDA', 'EDUKASI', 'KARIR') NOT NULL,
     image_url TEXT,
     event_date DATE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS crafts (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    description TEXT,
+    price DECIMAL(15, 2) NOT NULL,
+    image_url TEXT,
+    cta_link TEXT,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

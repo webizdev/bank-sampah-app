@@ -7,9 +7,9 @@ include '../includes/header.php';
 <section class="mb-10">
     <div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div class="max-w-md">
-            <span class="text-secondary font-bold text-xs uppercase tracking-[0.2em] mb-2 block">Katalog Marketplace</span>
-            <h2 class="headline text-4xl font-extrabold tracking-tight text-on-surface">Beli Sampah</h2>
-            <p class="text-on-surface-variant mt-2 text-sm md:text-base">Tukarkan sampah anorganik Anda menjadi saldo digital dengan nilai ekonomi tinggi.</p>
+            <span class="text-secondary font-black text-[10px] uppercase tracking-[0.2em] mb-2 block headline">Setor Sampah</span>
+            <h2 class="headline text-4xl font-black tracking-tight text-on-surface">Jual Sampah</h2>
+            <p class="text-on-surface-variant mt-2 text-sm md:text-base font-medium">Tukarkan sampah anorganik Anda menjadi saldo digital dengan nilai ekonomi tinggi.</p>
         </div>
         <div class="w-full md:w-72">
             <div class="section-container px-4 py-3 flex items-center gap-3">

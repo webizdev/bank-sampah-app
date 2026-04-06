@@ -21,6 +21,10 @@ $current_page = basename($_SERVER['PHP_SELF']);
             <span class="material-symbols-outlined">category</span>
             <span class="text-sm font-bold">Produk</span>
         </a>
+        <a href="crafts.php" class="flex items-center gap-4 px-4 py-4 rounded-2xl transition-all <?php echo $current_page == 'crafts.php' ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-outline hover:bg-primary/5 hover:text-primary'; ?>">
+            <span class="material-symbols-outlined">palette</span>
+            <span class="text-sm font-bold">Katalog Craft</span>
+        </a>
         <a href="inventory.php" class="flex items-center gap-4 px-4 py-4 rounded-2xl transition-all <?php echo $current_page == 'inventory.php' ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-outline hover:bg-primary/5 hover:text-primary'; ?>">
             <span class="material-symbols-outlined">inventory_2</span>
             <span class="text-sm font-bold">Inventori</span>

@@ -9,7 +9,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_role'] !== 'ADMIN') {
     exit;
 }
 
-$input = json_decode(file_get_contents('php://input'), true);
+$input = json_decode(file_get_contents('php://input'), true) ?: $_POST;
 $method = $_SERVER['REQUEST_METHOD'];
 $entity = $_GET['entity'] ?? $input['entity'] ?? '';
 $action = $_GET['action'] ?? $input['action'] ?? '';
@@ -39,6 +39,9 @@ try {
             break;
         case 'sales':
             handleSales($pdo, $method, $action, $input);
+            break;
+        case 'crafts':
+            handleCrafts($pdo, $method, $action, $input);
             break;
         default:
             echo json_encode(['status' => 'error', 'message' => 'Invalid entity']);
@@ -245,6 +248,44 @@ function handleSales($pdo, $method, $action, $data) {
         } elseif ($action === 'delete') {
             $stmt = $pdo->prepare("DELETE FROM sales WHERE id = ?");
             $stmt->execute([$data['id']]);
+            echo json_encode(['status' => 'success']);
+        }
+    }
+}
+
+function handleCrafts($pdo, $method, $action, $data) {
+    if ($method === 'GET') {
+        $stmt = $pdo->query("SELECT * FROM crafts ORDER BY created_at DESC");
+        echo json_encode(['status' => 'success', 'data' => $stmt->fetchAll()]);
+    } elseif ($method === 'POST') {
+        if ($action === 'delete') {
+            $stmt = $pdo->prepare("DELETE FROM crafts WHERE id = ?");
+            $stmt->execute([$data['id']]);
+            echo json_encode(['status' => 'success']);
+        } else {
+            // Handle Image Upload
+            $image_url = null;
+            if (isset($_FILES['image']) && $_FILES['image']['error'] === 0) {
+                $ext = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
+                $filename = 'craft_' . time() . '.' . $ext;
+                $upload_path = '../uploads/crafts/' . $filename;
+                if (move_uploaded_file($_FILES['image']['tmp_name'], $upload_path)) {
+                    $image_url = '../uploads/crafts/' . $filename;
+                }
+            }
+
+            if (isset($data['id']) && $data['id'] > 0) {
+                if ($image_url) {
+                    $stmt = $pdo->prepare("UPDATE crafts SET title=?, price=?, description=?, cta_link=?, image_url=? WHERE id=?");
+                    $stmt->execute([$data['title'], $data['price'], $data['description'], $data['cta_link'], $image_url, $data['id']]);
+                } else {
+                    $stmt = $pdo->prepare("UPDATE crafts SET title=?, price=?, description=?, cta_link=? WHERE id=?");
+                    $stmt->execute([$data['title'], $data['price'], $data['description'], $data['cta_link'], $data['id']]);
+                }
+            } else {
+                $stmt = $pdo->prepare("INSERT INTO crafts (title, price, description, cta_link, image_url) VALUES (?, ?, ?, ?, ?)");
+                $stmt->execute([$data['title'], $data['price'], $data['description'], $data['cta_link'], $image_url]);
+            }
             echo json_encode(['status' => 'success']);
         }
     }
