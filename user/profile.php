@@ -118,12 +118,7 @@ $lng = $u['longitude'] ?: 106.8272;
     </div>
     
     <div class="space-y-4">
-            Bagikan Link
-        </button>
-        <a href="../logout.php" class="py-4 px-6 rounded-2xl text-red-500 font-black text-xs uppercase tracking-widest border border-red-500/10 hover:bg-red-50 transition-all flex items-center justify-center gap-2">
-            <span class="material-symbols-outlined text-[18px]">logout</span>
-            Keluar
-        </a>
+        <!-- Redundant buttons removed to prioritize the premium action cards above -->
     </div>
 </section>
 
