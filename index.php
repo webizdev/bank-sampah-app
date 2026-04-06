@@ -108,7 +108,7 @@ include 'includes/header.php';
         .hide-scrollbar::-webkit-scrollbar { display: none; }
         .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
-    <section class="py-32 overflow-hidden bg-surface-container-low mt-20 border-y border-primary/5 shadow-inner">
+    <section class="py-32 overflow-hidden bg-surface-container-low mt-20 border-y border-primary/5 shadow-inner relative">
         <div class="text-center max-w-2xl mx-auto mb-16 space-y-4 px-8">
             <div class="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full mb-4">
                 <span class="material-symbols-outlined text-[16px] text-primary">smartphone</span>
@@ -118,43 +118,90 @@ include 'includes/header.php';
             <p class="text-on-surface-variant leading-relaxed">Pantau history, cek saldo, dan atur penjemputan sampah dengan mudah melalui antarmuka genggaman yang modern dan interaktif.</p>
         </div>
         
-        <div class="flex gap-6 overflow-x-auto snap-x snap-mandatory px-8 md:px-[calc(50vw-150px)] pb-16 pt-4 hide-scrollbar items-center">
-            <!-- Mockup 1: Home -->
-            <div class="snap-center shrink-0 w-[260px] md:w-[300px] hover:-translate-y-4 transition-transform duration-500 group relative">
-                <div class="absolute inset-0 bg-primary/20 blur-3xl rounded-full scale-90 -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div class="bg-white rounded-[2.5rem] border-8 border-[var(--on-surface)] shadow-2xl overflow-hidden aspect-[9/19.5]">
-                    <img src="assets/app%20home.png" alt="App Home" class="w-full h-full object-cover">
+        <div class="relative max-w-[1400px] mx-auto">
+            <div id="app-slider" class="flex gap-6 overflow-x-auto snap-x snap-mandatory px-8 pb-16 pt-4 hide-scrollbar items-center xl:justify-center">
+                <!-- Mockup 1: Home -->
+                <div class="snap-center shrink-0 w-[240px] md:w-[280px] hover:-translate-y-4 transition-transform duration-500 group relative">
+                    <div class="absolute inset-0 bg-primary/20 blur-3xl rounded-full scale-90 -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="bg-[#1a1a1a] rounded-[2.5rem] shadow-2xl p-2 md:p-3 relative">
+                        <div class="bg-white rounded-[1.8rem] overflow-hidden">
+                            <img src="assets/app%20home.png" alt="App Home" class="w-full h-auto object-contain">
+                        </div>
+                    </div>
+                </div>
+                <!-- Mockup 2: Layanan -->
+                <div class="snap-center shrink-0 w-[240px] md:w-[280px] hover:-translate-y-4 transition-transform duration-500 group relative">
+                     <div class="absolute inset-0 bg-secondary/20 blur-3xl rounded-full scale-90 -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="bg-[#1a1a1a] rounded-[2.5rem] shadow-2xl p-2 md:p-3 relative">
+                        <div class="bg-white rounded-[1.8rem] overflow-hidden">
+                            <img src="assets/app%20layanan.png" alt="App Layanan" class="w-full h-auto object-contain">
+                        </div>
+                    </div>
+                </div>
+                <!-- Mockup 3: Beli -->
+                <div class="snap-center shrink-0 w-[240px] md:w-[280px] hover:-translate-y-4 transition-transform duration-500 group relative scale-[1.05] z-10 mx-2">
+                     <div class="absolute inset-0 bg-primary/40 blur-3xl rounded-full scale-90 -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="bg-[#1a1a1a] rounded-[2.5rem] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.4)] p-2 md:p-3 relative">
+                        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-1/3 h-5 bg-[#1a1a1a] rounded-b-2xl z-20"></div> <!-- Notch -->
+                        <div class="bg-white rounded-[1.8rem] overflow-hidden">
+                            <img src="assets/app%20beli.png" alt="App Transaksi" class="w-full h-auto object-contain">
+                        </div>
+                    </div>
+                </div>
+                <!-- Mockup 4: Profil 1 -->
+                <div class="snap-center shrink-0 w-[240px] md:w-[280px] hover:-translate-y-4 transition-transform duration-500 group relative">
+                     <div class="absolute inset-0 bg-secondary/20 blur-3xl rounded-full scale-90 -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="bg-[#1a1a1a] rounded-[2.5rem] shadow-2xl p-2 md:p-3 relative">
+                        <div class="bg-white rounded-[1.8rem] overflow-hidden">
+                            <img src="assets/app%20profil%201.png" alt="App Profil 1" class="w-full h-auto object-contain">
+                        </div>
+                    </div>
+                </div>
+                 <!-- Mockup 5: Profil 2 -->
+                 <div class="snap-center shrink-0 w-[240px] md:w-[280px] hover:-translate-y-4 transition-transform duration-500 group relative">
+                     <div class="absolute inset-0 bg-primary/20 blur-3xl rounded-full scale-90 -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                    <div class="bg-[#1a1a1a] rounded-[2.5rem] shadow-2xl p-2 md:p-3 relative">
+                        <div class="bg-white rounded-[1.8rem] overflow-hidden">
+                            <img src="assets/app%20profil%202.png" alt="App Profil 2" class="w-full h-auto object-contain">
+                        </div>
+                    </div>
                 </div>
             </div>
-            <!-- Mockup 2: Layanan -->
-            <div class="snap-center shrink-0 w-[260px] md:w-[300px] hover:-translate-y-4 transition-transform duration-500 group relative">
-                 <div class="absolute inset-0 bg-secondary/20 blur-3xl rounded-full scale-90 -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div class="bg-white rounded-[2.5rem] border-8 border-[var(--on-surface)] shadow-2xl overflow-hidden aspect-[9/19.5]">
-                    <img src="assets/app%20layanan.png" alt="App Layanan" class="w-full h-full object-cover">
-                </div>
-            </div>
-            <!-- Mockup 3: Beli -->
-            <div class="snap-center shrink-0 w-[260px] md:w-[300px] hover:-translate-y-4 transition-transform duration-500 group relative scale-105 z-10">
-                 <div class="absolute inset-0 bg-primary/30 blur-3xl rounded-full scale-90 -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div class="bg-white rounded-[2.5rem] border-8 border-[var(--on-surface)] shadow-[0_30px_60px_-15px_rgba(0,0,0,0.3)] overflow-hidden aspect-[9/19.5]">
-                    <img src="assets/app%20beli.png" alt="App Transaksi" class="w-full h-full object-cover">
-                </div>
-            </div>
-            <!-- Mockup 4: Profil 1 -->
-            <div class="snap-center shrink-0 w-[260px] md:w-[300px] hover:-translate-y-4 transition-transform duration-500 group relative">
-                 <div class="absolute inset-0 bg-secondary/20 blur-3xl rounded-full scale-90 -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div class="bg-white rounded-[2.5rem] border-8 border-[var(--on-surface)] shadow-2xl overflow-hidden aspect-[9/19.5]">
-                    <img src="assets/app%20profil%201.png" alt="App Profil 1" class="w-full h-full object-cover">
-                </div>
-            </div>
-             <!-- Mockup 5: Profil 2 -->
-             <div class="snap-center shrink-0 w-[260px] md:w-[300px] hover:-translate-y-4 transition-transform duration-500 group relative">
-                 <div class="absolute inset-0 bg-primary/20 blur-3xl rounded-full scale-90 -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                <div class="bg-white rounded-[2.5rem] border-8 border-[var(--on-surface)] shadow-2xl overflow-hidden aspect-[9/19.5]">
-                    <img src="assets/app%20profil%202.png" alt="App Profil 2" class="w-full h-full object-cover">
-                </div>
+            
+            <!-- Controls (Mobile Only Hint) -->
+            <div class="flex justify-center xl:hidden mt-[-1rem] text-on-surface-variant/50 gap-2 items-center">
+                <span class="material-symbols-outlined text-sm">swipe_left</span>
+                <span class="text-xs uppercase tracking-widest font-bold">Geser</span>
+                <span class="material-symbols-outlined text-sm">swipe_right</span>
             </div>
         </div>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function() {
+                const slider = document.getElementById('app-slider');
+                if(!slider) return;
+                
+                let isPaused = false;
+                
+                slider.addEventListener('mouseenter', () => isPaused = true);
+                slider.addEventListener('mouseleave', () => isPaused = false);
+                slider.addEventListener('touchstart', () => isPaused = true, {passive: true});
+                slider.addEventListener('touchend', () => { setTimeout(() => isPaused = false, 3000); });
+                
+                // Auto scroll every 2.5 seconds
+                setInterval(() => {
+                    if(isPaused) return;
+                    
+                    // The width to scroll is approximately item width + gap = 280 + 24 = 304px
+                    // We'll scroll by 304px
+                    if (slider.scrollLeft >= (slider.scrollWidth - slider.clientWidth - 50)) {
+                        slider.scrollTo({ left: 0, behavior: 'smooth' }); // go back to start
+                    } else {
+                        slider.scrollBy({ left: 304, behavior: 'smooth' });
+                    }
+                }, 2500);
+            });
+        </script>
     </section>
 
     <!-- Leader Section -->
