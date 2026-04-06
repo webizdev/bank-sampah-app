@@ -5,12 +5,12 @@ include 'includes/header.php';
 
 <div class="bg-white min-h-screen">
     <!-- Top Navigation -->
-    <nav class="flex items-center justify-between px-8 py-6 max-w-7xl mx-auto border-b border-primary/5">
+    <nav class="flex items-center justify-between px-6 md:px-8 py-4 md:py-6 max-w-7xl mx-auto border-b border-primary/5">
         <div class="flex items-center gap-2">
-            <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white">
-                <span class="material-symbols-outlined text-[24px]">recycling</span>
+            <div class="w-8 h-8 md:w-10 md:h-10 bg-primary rounded-xl flex items-center justify-center text-white">
+                <span class="material-symbols-outlined text-[20px] md:text-[24px]">recycling</span>
             </div>
-            <span class="text-2xl font-black text-primary tracking-tighter headline"><?php echo htmlspecialchars($app_name); ?>.</span>
+            <span class="text-xl md:text-2xl font-black text-primary tracking-tighter headline"><?php echo htmlspecialchars($app_name); ?>.</span>
         </div>
         <div class="hidden md:flex items-center gap-10 text-sm font-bold text-outline">
             <a href="#beranda" class="hover:text-primary transition-all hover:scale-105 active:scale-95">Beranda</a>
@@ -18,41 +18,41 @@ include 'includes/header.php';
             <a href="#layanan" class="hover:text-primary transition-all hover:scale-105 active:scale-95">Layanan</a>
             <a href="#kontak" class="hover:text-primary transition-all hover:scale-105 active:scale-95">Kontak</a>
         </div>
-        <div class="flex items-center gap-4">
-            <a href="login.php" class="text-primary font-bold text-sm hover:underline">Masuk</a>
+        <div class="flex items-center gap-3 md:gap-4">
+            <a href="login.php" class="text-primary font-bold text-xs md:text-sm hover:underline">Masuk</a>
             <a href="register.php"
-                class="bg-primary text-white font-bold px-6 py-3 rounded-xl hover:shadow-xl hover:shadow-primary/20 transition-all active:scale-95">Mulai
+                class="bg-primary text-white font-bold px-4 py-2 md:px-6 md:py-3 text-xs md:text-sm rounded-xl hover:shadow-xl hover:shadow-primary/20 transition-all active:scale-95">Mulai
                 Sekarang</a>
         </div>
     </nav>
 
     <!-- Hero Section -->
-    <section id="beranda" class="relative px-8 py-20 max-w-7xl mx-auto overflow-hidden">
-        <div class="grid md:grid-cols-2 gap-12 items-center relative z-10">
-            <div class="space-y-8">
+    <section id="beranda" class="relative px-6 md:px-8 py-12 md:py-20 max-w-7xl mx-auto overflow-hidden">
+        <div class="grid md:grid-cols-2 gap-10 md:gap-12 items-center relative z-10">
+            <div class="space-y-6 md:space-y-8">
                 <div
-                    class="inline-flex items-center gap-2 px-4 py-2 bg-primary/5 border border-primary/10 rounded-full">
-                    <span class="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
-                    <span class="text-[10px] font-black uppercase tracking-widest text-primary">Solusi Limbah
+                    class="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 bg-primary/5 border border-primary/10 rounded-full">
+                    <span class="w-1.5 h-1.5 md:w-2 md:h-2 bg-primary rounded-full animate-pulse"></span>
+                    <span class="text-[9px] md:text-[10px] font-black uppercase tracking-widest text-primary">Solusi Limbah
                         Modern</span>
                 </div>
                 <h1
-                    class="text-5xl md:text-6xl lg:text-[7rem] font-black text-primary leading-[0.85] headline tracking-tighter animate-slide-up">
+                    class="text-4xl md:text-6xl lg:text-[7rem] font-black text-primary leading-[0.9] md:leading-[0.85] headline tracking-tighter animate-slide-up">
                     Waste Management<br>
                     <span class="text-outline-thin text-transparent"
                         style="-webkit-text-stroke: 2px #2D4F1E; opacity: 0.6;">Dumpster Rentals</span><br>
                     Garbage Pickup.
                 </h1>
-                <p class="text-lg text-on-surface-variant max-w-md leading-relaxed">
+                <p class="text-base md:text-lg text-on-surface-variant max-w-md leading-relaxed">
                     Ubah sampah menjadi berkah. Platform pengelolaan limbah premium untuk rumah tangga dan bisnis Anda.
                     Dapatkan saldo dari setiap sampah yang Anda daur ulang.
                 </p>
                 <div class="flex flex-wrap gap-4">
                     <a href="register.php"
-                        class="bg-primary text-white font-bold px-8 py-4 rounded-2xl flex items-center gap-2 hover:shadow-2xl hover:shadow-primary/30 transition-all group">
+                        class="bg-primary text-white font-bold px-6 py-3 md:px-8 md:py-4 text-sm md:text-base rounded-2xl flex items-center gap-2 hover:shadow-2xl hover:shadow-primary/30 transition-all group">
                         Mulai Sekarang
                         <span
-                            class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                            class="material-symbols-outlined text-[18px] md:text-[24px] group-hover:translate-x-1 transition-transform">arrow_forward</span>
                     </a>
                 </div>
             </div>
@@ -77,27 +77,27 @@ include 'includes/header.php';
     </section>
 
     <!-- Floating Cards -->
-    <section class="px-8 -mt-20 relative z-20 max-w-7xl mx-auto">
-        <div class="grid md:grid-cols-3 gap-6">
+    <section class="px-6 md:px-8 -mt-6 md:-mt-20 relative z-20 max-w-7xl mx-auto">
+        <div class="grid md:grid-cols-3 gap-4 md:gap-6">
             <div
-                class="bg-white/90 backdrop-blur-xl p-8 rounded-[2rem] shadow-xl border border-primary/5 hover:-translate-y-2 transition-transform">
-                <span class="material-symbols-outlined text-4xl text-primary mb-4">delete_sweep</span>
-                <h3 class="font-bold text-xl mb-4 headline text-primary leading-none">Dumpster Sizes</h3>
-                <p class="text-sm text-outline leading-relaxed">Berbagai ukuran kontainer sesuai kebutuhan volume sampah
+                class="bg-white/90 backdrop-blur-xl p-6 md:p-8 rounded-[1.5rem] md:rounded-[2rem] shadow-xl border border-primary/5 hover:-translate-y-2 transition-transform">
+                <span class="material-symbols-outlined text-3xl md:text-4xl text-primary mb-3 md:mb-4">delete_sweep</span>
+                <h3 class="font-bold text-lg md:text-xl mb-2 md:mb-4 headline text-primary leading-tight">Dumpster Sizes</h3>
+                <p class="text-xs md:text-sm text-outline leading-relaxed">Berbagai ukuran kontainer sesuai kebutuhan volume sampah
                     Anda.</p>
             </div>
             <div
-                class="bg-white/90 backdrop-blur-xl p-8 rounded-[2rem] shadow-xl border border-primary/5 hover:-translate-y-2 transition-transform">
-                <span class="material-symbols-outlined text-4xl text-primary mb-4">local_shipping</span>
-                <h3 class="font-bold text-xl mb-4 headline text-primary leading-none">Waste Collection</h3>
-                <p class="text-sm text-outline leading-relaxed">Penjemputan rutin dan terjadwal secara profesional dan
+                class="bg-white/90 backdrop-blur-xl p-6 md:p-8 rounded-[1.5rem] md:rounded-[2rem] shadow-xl border border-primary/5 hover:-translate-y-2 transition-transform">
+                <span class="material-symbols-outlined text-3xl md:text-4xl text-primary mb-3 md:mb-4">local_shipping</span>
+                <h3 class="font-bold text-lg md:text-xl mb-2 md:mb-4 headline text-primary leading-tight">Waste Collection</h3>
+                <p class="text-xs md:text-sm text-outline leading-relaxed">Penjemputan rutin dan terjadwal secara profesional dan
                     tepat waktu.</p>
             </div>
             <div
-                class="bg-white/90 backdrop-blur-xl p-8 rounded-[2rem] shadow-xl border border-primary/5 hover:-translate-y-2 transition-transform">
-                <span class="material-symbols-outlined text-4xl text-primary mb-4">calendar_month</span>
-                <h3 class="font-bold text-xl mb-4 headline text-primary leading-none">Pickup Schedule</h3>
-                <p class="text-sm text-outline leading-relaxed">Kelola jadwal penjemputan Anda dengan mudah melalui
+                class="bg-white/90 backdrop-blur-xl p-6 md:p-8 rounded-[1.5rem] md:rounded-[2rem] shadow-xl border border-primary/5 hover:-translate-y-2 transition-transform">
+                <span class="material-symbols-outlined text-3xl md:text-4xl text-primary mb-3 md:mb-4">calendar_month</span>
+                <h3 class="font-bold text-lg md:text-xl mb-2 md:mb-4 headline text-primary leading-tight">Pickup Schedule</h3>
+                <p class="text-xs md:text-sm text-outline leading-relaxed">Kelola jadwal penjemputan Anda dengan mudah melalui
                     aplikasi.</p>
             </div>
         </div>
@@ -114,14 +114,14 @@ include 'includes/header.php';
             scroll-padding-top: 80px;
         }
     </style>
-    <section id="layanan" class="py-32 overflow-hidden bg-surface-container-low mt-20 border-y border-primary/5 shadow-inner relative">
-        <div class="text-center max-w-2xl mx-auto mb-16 space-y-4 px-8">
-            <div class="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/20 rounded-full mb-4">
-                <span class="material-symbols-outlined text-[16px] text-primary">smartphone</span>
-                <span class="text-[10px] font-black uppercase tracking-widest text-primary">Aplikasi User</span>
+    <section id="layanan" class="py-20 md:py-32 overflow-hidden bg-surface-container-low mt-12 md:mt-20 border-y border-primary/5 shadow-inner relative">
+        <div class="text-center max-w-2xl mx-auto mb-10 md:mb-16 space-y-4 px-6 md:px-8">
+            <div class="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 bg-primary/10 border border-primary/20 rounded-full mb-2 md:mb-4">
+                <span class="material-symbols-outlined text-[14px] md:text-[16px] text-primary">smartphone</span>
+                <span class="text-[9px] md:text-[10px] font-black uppercase tracking-widest text-primary">Aplikasi User</span>
             </div>
-            <h2 class="text-4xl md:text-5xl font-black text-primary headline tracking-tight">Eksplorasi Fitur Kami</h2>
-            <p class="text-on-surface-variant leading-relaxed">Pantau history, cek saldo, dan atur penjemputan sampah dengan mudah melalui antarmuka genggaman yang modern dan interaktif.</p>
+            <h2 class="text-3xl md:text-5xl font-black text-primary headline tracking-tight">Eksplorasi Fitur Kami</h2>
+            <p class="text-sm md:text-base text-on-surface-variant leading-relaxed">Pantau history, cek saldo, dan atur penjemputan sampah dengan mudah melalui antarmuka genggaman yang modern dan interaktif.</p>
         </div>
         
         <style>
@@ -176,33 +176,33 @@ include 'includes/header.php';
     </section>
 
     <!-- Tentang Kami Section (Leader) -->
-    <section id="tentang-kami" class="px-8 py-32 max-w-7xl mx-auto grid md:grid-cols-2 gap-20 items-center">
-        <div class="relative order-2 md:order-1">
-            <div class="aspect-square rounded-[3rem] overflow-hidden bg-primary/5 relative">
+    <section id="tentang-kami" class="px-6 md:px-8 py-20 md:py-32 max-w-7xl mx-auto grid md:grid-cols-2 gap-12 md:gap-20 items-center">
+        <div class="relative order-2 md:order-1 px-4 md:px-0">
+            <div class="aspect-square rounded-[2rem] md:rounded-[3rem] overflow-hidden bg-primary/5 relative">
                 <img src="https://awsimages.detik.net.id/community/media/visual/2025/08/07/bank-sampah-pemprov-dki-1754538072437.jpeg?w=600&q=90?auto=format&fit=crop&q=80&w=800"
                     alt="Our Team" class="w-full h-full object-cover">
             </div>
-            <div class="absolute -top-10 -right-10 bg-white p-8 rounded-full shadow-2xl border border-primary/5">
-                <span class="material-symbols-outlined text-4xl text-primary">eco</span>
+            <div class="absolute -top-6 -right-6 md:-top-10 md:-right-10 bg-white p-4 md:p-8 rounded-full shadow-2xl border border-primary/5">
+                <span class="material-symbols-outlined text-2xl md:text-4xl text-primary">eco</span>
             </div>
         </div>
-        <div class="space-y-8 order-1 md:order-2">
-            <h2 class="text-4xl md:text-5xl font-black text-primary leading-tight headline tracking-tight">Tentang Kami</h2>
-            <h3 class="text-xl md:text-2xl font-bold text-on-surface-variant">We're Leader In Waste Management Services</h3>
-            <p class="text-on-surface-variant leading-relaxed">
+        <div class="space-y-6 md:space-y-8 order-1 md:order-2">
+            <h2 class="text-3xl md:text-5xl font-black text-primary leading-tight headline tracking-tight">Tentang Kami</h2>
+            <h3 class="text-lg md:text-2xl font-bold text-on-surface-variant">We're Leader In Waste Management Services</h3>
+            <p class="text-sm md:text-base text-on-surface-variant leading-relaxed">
                 Sebagai pemimpin di industri, kami berkomitmen untuk menghadirkan teknologi pengelolaan limbah terbaru
                 guna meminimalkan dampak lingkungan. Kerja keras kami diakui secara global.
             </p>
-            <div class="space-y-4">
+            <div class="space-y-3 md:space-y-4">
                 <div class="flex justify-between items-center mb-2">
-                    <span class="text-sm font-bold text-primary">Recycling Rate</span>
-                    <span class="text-sm font-black text-primary">97%</span>
+                    <span class="text-xs md:text-sm font-bold text-primary">Recycling Rate</span>
+                    <span class="text-xs md:text-sm font-black text-primary">97%</span>
                 </div>
-                <div class="w-full bg-primary/10 h-3 rounded-full overflow-hidden">
+                <div class="w-full bg-primary/10 h-2 md:h-3 rounded-full overflow-hidden">
                     <div class="bg-primary h-full w-[97%] rounded-full"></div>
                 </div>
             </div>
-            <a href="#" class="inline-flex items-center gap-2 group font-bold text-primary">
+            <a href="#" class="inline-flex items-center gap-2 group font-bold text-sm md:text-base text-primary">
                 Learn More About Us
                 <span
                     class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_right_alt</span>
@@ -211,26 +211,26 @@ include 'includes/header.php';
     </section>
 
     <!-- Stats Section -->
-    <section class="bg-primary py-24 px-8 overflow-hidden relative">
-        <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-12 relative z-10">
-            <div class="text-center space-y-2">
-                <h4 class="text-4xl md:text-6xl font-black text-white headline tracking-tight">62K</h4>
+    <section class="bg-primary py-16 md:py-24 px-6 md:px-8 overflow-hidden relative">
+        <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 relative z-10">
+            <div class="text-center space-y-1 md:space-y-2">
+                <h4 class="text-3xl sm:text-4xl md:text-6xl font-black text-white headline tracking-tight">62K</h4>
                 <p class="text-white/60 text-[8px] md:text-[10px] font-bold uppercase tracking-[0.2em]">Pelanggan Puas</p>
             </div>
-            <div class="text-center space-y-2">
-                <h4 class="text-4xl md:text-6xl font-black text-white headline tracking-tight">150+</h4>
+            <div class="text-center space-y-1 md:space-y-2">
+                <h4 class="text-3xl sm:text-4xl md:text-6xl font-black text-white headline tracking-tight">150+</h4>
                 <p class="text-white/60 text-[8px] md:text-[10px] font-bold uppercase tracking-[0.2em]">Kemitraan Organisasi</p>
             </div>
-            <div class="text-center space-y-2">
-                <h4 class="text-4xl md:text-6xl font-black text-white headline tracking-tight">130</h4>
+            <div class="text-center space-y-1 md:space-y-2">
+                <h4 class="text-3xl sm:text-4xl md:text-6xl font-black text-white headline tracking-tight">130</h4>
                 <p class="text-white/60 text-[8px] md:text-[10px] font-bold uppercase tracking-[0.2em]">Staf Lapangan</p>
             </div>
-            <div class="text-center space-y-2">
-                <h4 class="text-4xl md:text-6xl font-black text-white headline tracking-tight">32+</h4>
+            <div class="text-center space-y-1 md:space-y-2">
+                <h4 class="text-3xl sm:text-4xl md:text-6xl font-black text-white headline tracking-tight">32+</h4>
                 <p class="text-white/60 text-[8px] md:text-[10px] font-bold uppercase tracking-[0.2em]">Provinsi Tercover</p>
             </div>
         </div>
-        <div class="absolute top-0 right-0 w-96 h-96 bg-white/5 blur-[120px] rounded-full"></div>
+        <div class="absolute top-0 right-0 w-64 md:w-96 h-64 md:h-96 bg-white/5 blur-[80px] md:blur-[120px] rounded-full"></div>
     </section>
 
     <!-- FAQ & Reviews -->
@@ -244,77 +244,77 @@ include 'includes/header.php';
         <div class="grid md:grid-cols-3 gap-8">
             <!-- Review Card 1 -->
             <div
-                class="bg-white p-10 rounded-[2.5rem] border border-primary/5 shadow-xl relative overflow-hidden group">
-                <div class="mb-8 font-medium">
+                class="bg-white p-6 md:p-10 rounded-[2rem] md:rounded-[2.5rem] border border-primary/5 shadow-xl relative overflow-hidden group">
+                <div class="mb-6 md:mb-8 font-medium">
                     <div class="flex gap-1 text-primary mb-4 text-xs">
-                        <span class="material-symbols-outlined text-[16px]">star</span>
-                        <span class="material-symbols-outlined text-[16px]">star</span>
-                        <span class="material-symbols-outlined text-[16px]">star</span>
-                        <span class="material-symbols-outlined text-[16px]">star</span>
-                        <span class="material-symbols-outlined text-[16px]">star</span>
+                        <span class="material-symbols-outlined text-[14px] md:text-[16px]">star</span>
+                        <span class="material-symbols-outlined text-[14px] md:text-[16px]">star</span>
+                        <span class="material-symbols-outlined text-[14px] md:text-[16px]">star</span>
+                        <span class="material-symbols-outlined text-[14px] md:text-[16px]">star</span>
+                        <span class="material-symbols-outlined text-[14px] md:text-[16px]">star</span>
                     </div>
-                    <p class="italic text-on-surface-variant leading-relaxed">"Mudah sekali menjual sampah di sini.
+                    <p class="italic text-on-surface-variant text-sm md:text-base leading-relaxed">"Mudah sekali menjual sampah di sini.
                         Saldo langsung masuk dan tim penjemput sangat ramah."</p>
                 </div>
-                <div class="flex items-center gap-4 border-t border-primary/5 pt-8">
-                    <div class="w-12 h-12 rounded-full overflow-hidden bg-primary/10">
+                <div class="flex items-center gap-4 border-t border-primary/5 pt-6 md:pt-8">
+                    <div class="w-10 h-10 md:w-12 md:h-12 rounded-full overflow-hidden bg-primary/10">
                         <img src="https://ui-avatars.com/api/?name=Haley+B&background=2D4F1E&color=fff" alt="Haley B">
                     </div>
                     <div>
-                        <h5 class="font-bold text-primary headline">Haley B</h5>
-                        <p class="text-[10px] text-outline font-bold uppercase">Member Silver</p>
+                        <h5 class="font-bold text-primary headline text-sm md:text-base">Haley B</h5>
+                        <p class="text-[9px] md:text-[10px] text-outline font-bold uppercase">Member Silver</p>
                     </div>
                 </div>
             </div>
 
             <!-- Review Card 2 (Featured) -->
             <div
-                class="bg-primary p-10 rounded-[2.5rem] shadow-2xl relative overflow-hidden group scale-105 border-4 border-white/10">
-                <div class="mb-8 font-medium">
+                class="bg-primary p-6 md:p-10 rounded-[2rem] md:rounded-[2.5rem] shadow-2xl relative overflow-hidden group scale-100 md:scale-105 border-4 border-white/10 my-4 md:my-0">
+                <div class="mb-6 md:mb-8 font-medium">
                     <div class="flex gap-1 text-white mb-4 text-xs">
-                        <span class="material-symbols-outlined text-[16px]">star</span>
-                        <span class="material-symbols-outlined text-[16px]">star</span>
-                        <span class="material-symbols-outlined text-[16px]">star</span>
-                        <span class="material-symbols-outlined text-[16px]">star</span>
-                        <span class="material-symbols-outlined text-[16px]">star</span>
+                        <span class="material-symbols-outlined text-[14px] md:text-[16px]">star</span>
+                        <span class="material-symbols-outlined text-[14px] md:text-[16px]">star</span>
+                        <span class="material-symbols-outlined text-[14px] md:text-[16px]">star</span>
+                        <span class="material-symbols-outlined text-[14px] md:text-[16px]">star</span>
+                        <span class="material-symbols-outlined text-[14px] md:text-[16px]">star</span>
                     </div>
-                    <p class="italic text-white leading-relaxed">"Aplikasi paling inovatif untuk pengelolaan bank
+                    <p class="italic text-white text-sm md:text-base leading-relaxed">"Aplikasi paling inovatif untuk pengelolaan bank
                         sampah. Tampilannya sangat premium dan modern!"</p>
                 </div>
-                <div class="flex items-center gap-4 border-t border-white/10 pt-8">
-                    <div class="w-12 h-12 rounded-full overflow-hidden bg-white/20">
+                <div class="flex items-center gap-4 border-t border-white/10 pt-6 md:pt-8">
+                    <div class="w-10 h-10 md:w-12 md:h-12 rounded-full overflow-hidden bg-white/20">
                         <img src="https://ui-avatars.com/api/?name=Huzein+Akbar&background=fff&color=2D4F1E"
                             alt="Huzein Akbar">
                     </div>
                     <div>
-                        <h5 class="font-bold text-white headline">Huzein Akbar</h5>
-                        <p class="text-[10px] text-white/60 font-bold uppercase">Sustainability Advocate</p>
+                        <h5 class="font-bold text-white headline text-sm md:text-base">Huzein Akbar</h5>
+                        <p class="text-[9px] md:text-[10px] text-white/60 font-bold uppercase">Sustainability Advocate</p>
                     </div>
                 </div>
             </div>
 
             <!-- Review Card 3 -->
             <div
-                class="bg-white p-10 rounded-[2.5rem] border border-primary/5 shadow-xl relative overflow-hidden group">
-                <div class="mb-8 font-medium">
+                class="bg-white p-6 md:p-10 rounded-[2rem] md:rounded-[2.5rem] border border-primary/5 shadow-xl relative overflow-hidden group">
+                <div class="mb-6 md:mb-8 font-medium">
                     <div class="flex gap-1 text-primary mb-4 text-xs">
-                        <span class="material-symbols-outlined text-[16px]">star</span>
-                        <span class="material-symbols-outlined text-[16px]">star</span>
-                        <span class="material-symbols-outlined text-[16px]">star</span>
-                        <span class="material-symbols-outlined text-[16px]">star</span>
-                        <span class="material-symbols-outlined text-[16px]">star</span>
+                        <span class="material-symbols-outlined text-[14px] md:text-[16px]">star</span>
+                        <span class="material-symbols-outlined text-[14px] md:text-[16px]">star</span>
+                        <span class="material-symbols-outlined text-[14px] md:text-[16px]">star</span>
+                        <span class="material-symbols-outlined text-[14px] md:text-[16px]">star</span>
+                        <span class="material-symbols-outlined text-[14px] md:text-[16px]">star</span>
                     </div>
-                    <p class="italic text-on-surface-variant leading-relaxed">"Sangat terbantu untuk mengelola sampah
+                    <p class="italic text-on-surface-variant text-sm md:text-base leading-relaxed">"Sangat terbantu untuk mengelola sampah
                         kantor. Proses administrasinya sangat transparan dan akurat."</p>
                 </div>
-                <div class="flex items-center gap-4 border-t border-primary/5 pt-8">
-                    <div class="w-12 h-12 rounded-full overflow-hidden bg-primary/10">
+                <div class="flex items-center gap-4 border-t border-primary/5 pt-6 md:pt-8">
+                    <div class="w-10 h-10 md:w-12 md:h-12 rounded-full overflow-hidden bg-primary/10">
                         <img src="https://ui-avatars.com/api/?name=Abdul+Zein&background=2D4F1E&color=fff"
                             alt="Abdul Zein">
                     </div>
                     <div>
-                        <h5 class="font-bold text-primary headline">Abdul Zein</h5>
-                        <p class="text-[10px] text-outline font-bold uppercase">Staf Administrasi</p>
+                        <h5 class="font-bold text-primary headline text-sm md:text-base">Abdul Zein</h5>
+                        <p class="text-[9px] md:text-[10px] text-outline font-bold uppercase">Staf Administrasi</p>
                     </div>
                 </div>
             </div>
@@ -322,15 +322,15 @@ include 'includes/header.php';
     </section>
 
     <!-- Footer -->
-    <footer id="kontak" class="bg-[#1A2E12] text-white py-20 px-8 mt-20">
+    <footer id="kontak" class="bg-[#1A2E12] text-white py-12 md:py-20 px-6 md:px-8 mt-12 md:mt-20">
         <div class="max-w-7xl mx-auto text-center">
-            <div class="flex items-center justify-center gap-2 mb-8">
-                <div class="w-12 h-12 bg-primary rounded-2xl flex items-center justify-center text-white">
-                    <span class="material-symbols-outlined text-[32px]">recycling</span>
+            <div class="flex items-center justify-center gap-2 mb-6 md:mb-8">
+                <div class="w-10 h-10 md:w-12 md:h-12 bg-primary rounded-xl md:rounded-2xl flex items-center justify-center text-white">
+                    <span class="material-symbols-outlined text-[24px] md:text-[32px]">recycling</span>
                 </div>
-                <span class="text-4xl font-black text-white tracking-tighter headline"><?php echo htmlspecialchars($app_name); ?>.</span>
+                <span class="text-2xl md:text-4xl font-black text-white tracking-tighter headline"><?php echo htmlspecialchars($app_name); ?>.</span>
             </div>
-            <p class="max-w-xl mx-auto text-white/50 text-sm mb-12">
+            <p class="max-w-xl mx-auto text-white/50 text-xs md:text-sm mb-10 md:mb-12">
                 Bergabunglah bersama kami untuk menciptakan lingkungan yang lebih bersih. <?php echo htmlspecialchars($app_name); ?> adalah jembatan antara
                 sampah yang tak bernilai menjadi manfaat ekonomi bagi Anda.
             </p>
@@ -368,7 +368,7 @@ include 'includes/header.php';
                 <?php endif; ?>
             </div>
 
-            <div class="flex flex-wrap justify-center gap-8 mb-16 font-bold uppercase tracking-[0.3em] text-[10px]">
+            <div class="flex flex-wrap justify-center gap-4 md:gap-8 mb-12 md:mb-16 font-bold uppercase tracking-widest md:tracking-[0.3em] text-[9px] md:text-[10px]">
                 <a href="#beranda" class="hover:text-primary transition-colors">Beranda</a>
                 <a href="#tentang-kami" class="hover:text-primary transition-colors">Tentang Kami</a>
                 <a href="#layanan" class="hover:text-primary transition-colors">Layanan</a>
