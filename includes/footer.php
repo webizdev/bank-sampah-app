@@ -1,4 +1,4 @@
-    <?php if (!isset($hide_nav) || !$hide_nav): ?>
+    <?php if ((!isset($hide_nav) || !$hide_nav) && empty($is_admin)): ?>
     <!-- Premium Bottom Navigation -->
     <nav class="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-md bg-white/80 backdrop-blur-xl border-t border-primary/5 flex justify-around items-center h-20 px-4 z-50 rounded-t-3xl shadow-2xl shadow-black/10">
         <a href="<?php echo $path_to_root; ?>user/dashboard.php" class="flex flex-col items-center gap-1 group">
@@ -28,7 +28,7 @@
     </nav>
     <?php endif; ?>
 
-    <?php if (!empty($global_settings['wa_cs_number'])): ?>
+    <?php if (!empty($global_settings['wa_cs_number']) && empty($is_admin)): ?>
     <!-- Floating WhatsApp CTA -->
     <a href="https://wa.me/<?php echo urlencode(preg_replace('/[^0-9]/', '', $global_settings['wa_cs_number'])); ?>?text=Halo%20<?php echo urlencode($app_name); ?>%2C%20saya%20ingin%20bertanya..." 
        target="_blank" 
