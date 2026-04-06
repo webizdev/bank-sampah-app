@@ -19,7 +19,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
         </a>
         <a href="categories.php" class="flex items-center gap-4 px-4 py-4 rounded-2xl transition-all <?php echo $current_page == 'categories.php' ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-outline hover:bg-primary/5 hover:text-primary'; ?>">
             <span class="material-symbols-outlined">category</span>
-            <span class="text-sm font-bold">Categories</span>
+            <span class="text-sm font-bold">Produk</span>
         </a>
         <a href="services.php" class="flex items-center gap-4 px-4 py-4 rounded-2xl transition-all <?php echo $current_page == 'services.php' ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-outline hover:bg-primary/5 hover:text-primary'; ?>">
             <span class="material-symbols-outlined">volunteer_activism</span>
