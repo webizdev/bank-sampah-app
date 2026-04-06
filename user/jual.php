@@ -106,15 +106,16 @@ function renderCategories(categories) {
     container.innerHTML = `
         <button onclick="setFilter('')" class="filter-btn active flex-none bg-primary text-white text-[11px] font-black uppercase tracking-widest px-8 py-4 rounded-full shadow-xl shadow-primary/20 transition-all">Semua</button>
         ${categories.map(c => `
-            <button onclick="setFilter('${c.name}')" class="filter-btn flex-none bg-white text-outline border border-primary/5 text-[11px] font-black uppercase tracking-widest px-8 py-4 rounded-full hover:bg-surface-container transition-all">${c.name}</button>
+            <button onclick="setFilter('${c.id}')" data-id="${c.id}" class="filter-btn flex-none bg-white text-outline border border-primary/5 text-[11px] font-black uppercase tracking-widest px-8 py-4 rounded-full hover:bg-surface-container transition-all">${c.name}</button>
         `).join('')}
     `;
 }
 
-function setFilter(catName) {
-    currentFilter = catName;
+function setFilter(catId) {
+    currentFilter = catId;
     document.querySelectorAll('.filter-btn').forEach(btn => {
-        if(btn.innerText.toLowerCase() === (catName || 'semua').toLowerCase()) {
+        const btnId = btn.getAttribute('data-id') || '';
+        if(btnId == catId) {
             btn.classList.add('active', 'bg-primary', 'text-white', 'shadow-xl', 'shadow-primary/20');
             btn.classList.remove('bg-white', 'text-outline');
         } else {
@@ -128,7 +129,8 @@ function setFilter(catName) {
 function filterProducts() {
     const query = document.getElementById('product-search').value.toLowerCase();
     const filtered = allProducts.filter(p => {
-        const matchCat = !currentFilter || p.parent_name === currentFilter;
+        // Gunakan == untuk menangani string vs number dari ID
+        const matchCat = !currentFilter || p.parent_id == currentFilter;
         const matchSearch = p.name.toLowerCase().includes(query) || (p.parent_name && p.parent_name.toLowerCase().includes(query));
         return matchCat && matchSearch;
     });

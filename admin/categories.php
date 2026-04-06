@@ -145,7 +145,8 @@ async function fetchCategories() {
 
 function updateParentDropdown() {
     const parentSelect = document.getElementById('parent_id');
-    const mainCats = categories.filter(c => !c.parent_id);
+    // Mencari kategori utama (parent_id null, 0, atau empty string)
+    const mainCats = categories.filter(c => !c.parent_id || c.parent_id == 0 || c.parent_id === '');
     parentSelect.innerHTML = '<option value="">-- Tanpa Parent (Ini Kategori) --</option>' + 
         mainCats.map(c => `<option value="${c.id}">${c.name}</option>`).join('');
 }
@@ -167,7 +168,7 @@ function togglePriceInput() {
 }
 
 function renderPills() {
-    const mainCats = categories.filter(c => !c.parent_id);
+    const mainCats = categories.filter(c => !c.parent_id || c.parent_id == 0 || c.parent_id === '');
     let html = `
         <button onclick="filterCategory('all')" class="px-6 py-2 rounded-full text-[10px] font-bold uppercase tracking-widest transition-all ${currentCategoryFilter === 'all' ? 'bg-primary text-white shadow-md shadow-primary/20' : 'bg-surface-container hover:bg-primary/5 text-outline'}">
             Semua Produk
@@ -203,15 +204,19 @@ function filterCategory(id) {
 
 function renderTable() {
     const tbody = document.getElementById('category-table');
-    const mainCats = categories.filter(c => !c.parent_id);
-    const allProducts = categories.filter(c => c.parent_id);
+    // Kategori Utama
+    const mainCats = categories.filter(c => !c.parent_id || c.parent_id == 0 || c.parent_id === '');
+    // Produk (yang punya parent_id valid)
+    const allProducts = categories.filter(c => c.parent_id && c.parent_id != 0 && c.parent_id !== '');
 
+    // Temukan produk yang parent-nya tidak ada di list mainCats (Data Corrupt/Orphan)
     const orphans = allProducts.filter(p => !mainCats.find(c => c.id == p.parent_id));
 
     let filteredProducts = [];
     if (currentCategoryFilter === 'all') {
         filteredProducts = allProducts;
     } else {
+        // Gunakan == untuk menangani string vs number dari ID
         filteredProducts = allProducts.filter(p => p.parent_id == currentCategoryFilter);
     }
 

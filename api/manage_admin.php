@@ -109,6 +109,9 @@ function handleProducts($pdo, $method, $action, $data) {
                 }
             }
 
+            // Normalisasi parent_id: Jika kosong atau 0, ubah jadi NULL
+            $parent_id = (!isset($data['parent_id']) || $data['parent_id'] === '' || $data['parent_id'] == 0) ? null : $data['parent_id'];
+
             if (isset($data['id']) && $data['id'] > 0) {
                 if ($image_url) {
                     $stmt = $pdo->prepare("UPDATE waste_categories SET name=?, slug=?, description=?, price_per_kg=?, icon=?, is_popular=?, parent_id=?, image_url=? WHERE id=?");
@@ -119,7 +122,7 @@ function handleProducts($pdo, $method, $action, $data) {
                         $data['price_per_kg'],
                         $data['icon'],
                         $data['is_popular'] ? 1 : 0,
-                        $data['parent_id'],
+                        $parent_id,
                         $image_url,
                         $data['id']
                     ]);
@@ -132,7 +135,7 @@ function handleProducts($pdo, $method, $action, $data) {
                         $data['price_per_kg'],
                         $data['icon'],
                         $data['is_popular'] ? 1 : 0,
-                        $data['parent_id'],
+                        $parent_id,
                         $data['id']
                     ]);
                 }
@@ -145,7 +148,7 @@ function handleProducts($pdo, $method, $action, $data) {
                     $data['price_per_kg'],
                     $data['icon'],
                     $data['is_popular'] ? 1 : 0,
-                    $data['parent_id'],
+                    $parent_id,
                     $image_url
                 ]);
             }

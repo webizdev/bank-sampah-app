@@ -5,11 +5,11 @@ require_once '../includes/db_connect.php';
 
 try {
     // Fetch categories (top-level)
-    $catStmt = $pdo->query("SELECT id, name, slug, description, icon, parent_id, price_per_kg, is_popular, image_url FROM waste_categories WHERE parent_id IS NULL ORDER BY name ASC");
+    $catStmt = $pdo->query("SELECT id, name, slug, description, icon, parent_id, price_per_kg, is_popular, image_url FROM waste_categories WHERE parent_id IS NULL OR parent_id = 0 OR parent_id = '' ORDER BY name ASC");
     $categories = $catStmt->fetchAll(PDO::FETCH_ASSOC);
 
     // Fetch products (children)
-    $prodStmt = $pdo->query("SELECT id, name, slug, description, icon, parent_id, price_per_kg, is_popular, image_url FROM waste_categories WHERE parent_id IS NOT NULL ORDER BY name ASC");
+    $prodStmt = $pdo->query("SELECT id, name, slug, description, icon, parent_id, price_per_kg, is_popular, image_url FROM waste_categories WHERE parent_id IS NOT NULL AND parent_id != 0 AND parent_id != '' ORDER BY name ASC");
     $products = $prodStmt->fetchAll(PDO::FETCH_ASSOC);
 
     // Merge into flat list with explicit typing

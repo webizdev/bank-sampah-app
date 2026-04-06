@@ -8,14 +8,14 @@ try {
     $query = "SELECT c1.*, c2.name as parent_name 
               FROM waste_categories c1 
               LEFT JOIN waste_categories c2 ON c1.parent_id = c2.id 
-              WHERE c1.parent_id IS NOT NULL 
+              WHERE c1.parent_id IS NOT NULL AND c1.parent_id != 0 AND c1.parent_id != ''
               ORDER BY c2.name, c1.name ASC";
     
     $stmt = $pdo->query($query);
     $products = $stmt->fetchAll();
 
     // Fetch all categories (parents) for filtering
-    $stmt_cats = $pdo->query("SELECT * FROM waste_categories WHERE parent_id IS NULL ORDER BY name ASC");
+    $stmt_cats = $pdo->query("SELECT * FROM waste_categories WHERE parent_id IS NULL OR parent_id = 0 OR parent_id = '' ORDER BY name ASC");
     $categories = $stmt_cats->fetchAll();
 
     echo json_encode([
