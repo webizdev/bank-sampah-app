@@ -99,11 +99,23 @@ include 'sidebar.php';
 let articles = [];
 
 async function fetchArticles() {
-    const res = await fetch('../api/manage_admin.php?entity=articles');
-    const result = await res.json();
-    if (result.status === 'success') {
-        articles = result.data;
-        renderArticles(articles);
+    try {
+        const res = await fetch('../api/manage_admin.php?entity=articles');
+        const result = await res.json();
+        if (result.status === 'success') {
+            articles = result.data;
+            renderArticles(articles);
+        } else {
+            console.error('API Error:', result.message);
+            document.getElementById('article-list').innerHTML = `
+                <div class="col-span-full py-20 text-center">
+                    <p class="text-red-500 font-bold mb-2">Gagal memuat data</p>
+                    <p class="text-outline text-xs">${result.message || 'Unknown error'}</p>
+                </div>`;
+        }
+    } catch (err) {
+        console.error('Fetch Error:', err);
+        document.getElementById('article-list').innerHTML = '<div class="col-span-full py-20 text-center text-red-500 font-bold">Terjadi kesalahan koneksi.</div>';
     }
 }
 

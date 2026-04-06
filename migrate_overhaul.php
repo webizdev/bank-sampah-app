@@ -162,6 +162,21 @@ try {
             try { $pdo->exec($col); } catch (Exception $e) {} 
         }
         echo "✔ Table 'content' verified/updated.<br>";
+
+        // Seed Sample Articles if empty
+        $checkArt = $pdo->query("SELECT COUNT(*) FROM content")->fetchColumn();
+        if ($checkArt == 0) {
+            $sampleArts = [
+                ['Piknik Bersih Pantai Ancol', 'Aksi kolaborasi komunitas untuk membersihkan pesisir Jakarta.', 'Mari bergabung dalam aksi nyata untuk lingkungan! Kita akan berkeliling pesisir Ancol.', 'AGENDA', 'https://images.unsplash.com/photo-1595273670150-db0a3d39074f?w=600', '2026-10-24', 'Pantai Ancol', 'https://wa.me/6281234567890'],
+                ['Workshop Kompos Mandiri', 'Ubah sampah dapur menjadi pupuk bernilai tinggi.', 'Dapatkan pelatihan khusus mengolah sampah organik rumah tangga.', 'EDUKASI', 'https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?w=600', '2026-11-05', 'Balai Kota', 'https://wa.me/6281234567890'],
+                ['Cara Memilah Sampah', 'Panduan praktis memilah sampah dari rumah.', 'Pelajari kategori sampah dan cara pengelolaannya yang benar.', 'EDUKASI', 'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=600', null, 'Online', 'https://wa.me/6281234567890']
+            ];
+            $artStmt = $pdo->prepare("INSERT INTO content (title, subtitle, content, category, image_url, event_date, location, cta_link) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+            foreach ($sampleArts as $sa) {
+                $artStmt->execute($sa);
+            }
+            echo "✔ Sample articles seeded.<br>";
+        }
     } catch (PDOException $e) {
         echo "❌ Error updating 'content': " . $e->getMessage() . "<br>";
     }
