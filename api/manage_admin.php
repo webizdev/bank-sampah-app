@@ -175,14 +175,44 @@ function handleUsers($pdo, $method, $action, $data) {
 
 function handleTransactions($pdo, $method, $action, $data) {
     if ($method === 'GET') {
-        $query = "SELECT t.*, u.name as user_name, p.name as product_name, c.name as category_name 
+        $query = "SELECT t.*, u.name as user_name, p.name as category_name 
                   FROM transactions t 
                   JOIN users u ON t.user_id = u.id 
-                  JOIN products p ON t.category_id = p.id 
-                  JOIN categories c ON p.category_id = c.id 
+                  JOIN waste_categories p ON t.category_id = p.id 
                   ORDER BY t.created_at DESC";
         $stmt = $pdo->query($query);
         echo json_encode(['status' => 'success', 'data' => $stmt->fetchAll()]);
+    } elseif ($method === 'POST') {
+        if ($action === 'verify') {
+            $pdo->beginTransaction();
+            try {
+                // Fetch transaction details
+                $stmt_tx = $pdo->prepare("SELECT t.*, c.price_per_kg FROM transactions t JOIN waste_categories c ON t.category_id = c.id WHERE t.id = ?");
+                $stmt_tx->execute([$data['id']]);
+                $tx = $stmt_tx->fetch();
+
+                $weight_actual = (float)$data['weight_actual'];
+                $total_payout = $weight_actual * $tx['price_per_kg'];
+
+                // Update Transaction
+                $stmt_up = $pdo->prepare("UPDATE transactions SET status = 'VERIFIED', weight_actual = ?, total_payout = ? WHERE id = ?");
+                $stmt_up->execute([$weight_actual, $total_payout, $data['id']]);
+
+                // Update User Balance
+                $stmt_user = $pdo->prepare("UPDATE users SET balance = balance + ?, total_kg = total_kg + ? WHERE id = ?");
+                $stmt_user->execute([$total_payout, $weight_actual, $tx['user_id']]);
+
+                $pdo->commit();
+                echo json_encode(['status' => 'success']);
+            } catch (Exception $e) {
+                $pdo->rollBack();
+                echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
+            }
+        } elseif ($action === 'reject') {
+            $stmt = $pdo->prepare("UPDATE transactions SET status = 'REJECTED' WHERE id = ?");
+            $stmt->execute([$data['id']]);
+            echo json_encode(['status' => 'success']);
+        }
     }
 }
 

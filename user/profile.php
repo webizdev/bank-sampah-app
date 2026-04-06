@@ -1,6 +1,3 @@
-<?php
-include '../includes/header.php';
-
 // Fetch current user data
 $stmt = $pdo->prepare("SELECT * FROM users WHERE id = ?");
 $stmt->execute([$_SESSION['user_id']]);
@@ -10,6 +7,12 @@ if (!$u) {
     echo "User not found.";
     exit;
 }
+
+// Calculate Pending Balance
+$stmt_pending = $pdo->prepare("SELECT SUM(total_payout) as pending_balance FROM transactions WHERE user_id = ? AND status = 'PENDING'");
+$stmt_pending->execute([$_SESSION['user_id']]);
+$pending_data = $stmt_pending->fetch();
+$saldo_pending = $pending_data['pending_balance'] ?: 0;
 
 // Map Default Coordinates (Jakarta if NULL)
 $lat = $u['latitude'] ?: -6.1754;
@@ -54,9 +57,42 @@ $lng = $u['longitude'] ?: 106.8272;
             <?php endif; ?>
         </div>
     </div>
+</section>
 
-    <!-- Quick Actions -->
-    <div class="mt-8 flex gap-3 w-full max-w-sm mx-auto">
+<!-- Balance Summary Card -->
+<section class="mb-10 animate-slide-up" style="animation-delay: 0.1s">
+    <div class="bg-primary rounded-[2.5rem] p-8 shadow-2xl shadow-primary/30 relative overflow-hidden text-white">
+        <!-- Abstract Background -->
+        <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-10 -mt-10 blur-2xl"></div>
+        <div class="absolute bottom-0 left-0 w-24 h-24 bg-secondary/20 rounded-full -ml-12 -mb-12 blur-xl"></div>
+        
+        <div class="relative z-10 space-y-6">
+            <div class="flex justify-between items-start">
+                <div>
+                    <span class="text-[10px] font-black uppercase tracking-[0.2em] opacity-60">Saldo Terverifikasi</span>
+                    <h3 class="headline text-4xl font-black tracking-tight mt-1">Rp <?php echo number_format($u['balance'], 0, ',', '.'); ?></h3>
+                </div>
+                <div class="w-12 h-12 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center">
+                    <span class="material-symbols-outlined text-2xl">account_balance_wallet</span>
+                </div>
+            </div>
+            
+            <div class="pt-6 border-t border-white/10 flex justify-between items-center">
+                <div>
+                    <span class="text-[9px] font-black uppercase tracking-[0.2em] opacity-60">Saldo Pending</span>
+                    <p class="font-bold text-lg">Rp <?php echo number_format($saldo_pending, 0, ',', '.'); ?></p>
+                </div>
+                <div class="text-right">
+                    <span class="text-[9px] font-black uppercase tracking-[0.2em] opacity-60">Total Kontribusi</span>
+                    <p class="font-bold text-lg"><?php echo number_format($u['total_kg'], 1); ?> <span class="text-xs opacity-60">kg</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Quick Actions -->
+<div class="mt-2 flex gap-3 w-full max-w-sm mx-auto animate-slide-up" style="animation-delay: 0.2s">
         <button onclick="shareApp()" class="flex-1 bg-surface-container-low py-4 px-6 rounded-2xl text-primary font-black text-xs uppercase tracking-widest flex items-center justify-center gap-2 border border-primary/5 hover:bg-primary/5 transition-all">
             <span class="material-symbols-outlined text-[18px]">share</span>
             Bagikan Link

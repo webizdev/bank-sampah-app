@@ -48,12 +48,13 @@ include 'sidebar.php';
                             <th class="px-8 py-6">Kategori</th>
                             <th class="px-8 py-6 text-center">Berat (kg)</th>
                             <th class="px-8 py-6">Payout</th>
-                            <th class="px-8 py-6">Status</th>
+                            <th class="px-8 py-6 text-center">Status</th>
+                            <th class="px-8 py-6 text-right">Aksi</th>
                         </tr>
                     </thead>
                     <tbody id="transaction-table" class="divide-y divide-primary/5">
                         <tr>
-                            <td colspan="7" class="px-8 py-20 text-center text-outline italic">Memuat data histori...</td>
+                            <td colspan="8" class="px-8 py-20 text-center text-outline italic">Memuat data histori...</td>
                         </tr>
                     </tbody>
                 </table>
@@ -77,7 +78,7 @@ async function fetchTransactions() {
 function renderTable(dataList) {
     const tbody = document.getElementById('transaction-table');
     if (dataList.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="7" class="px-8 py-20 text-center text-outline italic">Tidak ada transaksi ditemukan.</td></tr>';
+        tbody.innerHTML = '<tr><td colspan="8" class="px-8 py-20 text-center text-outline italic">Tidak ada transaksi ditemukan.</td></tr>';
         return;
     }
 
@@ -102,7 +103,7 @@ function renderTable(dataList) {
             <td class="px-8 py-6">
                 <p class="text-sm font-black text-secondary">IDR ${new Intl.NumberFormat('id-ID').format(t.total_payout || 0)}</p>
             </td>
-            <td class="px-8 py-6">
+            <td class="px-8 py-6 text-center">
                 <span class="px-3 py-1 rounded-full text-[9px] font-black tracking-widest uppercase ${
                     t.status === 'VERIFIED' ? 'bg-green-100 text-green-700' : 
                     (t.status === 'REJECTED' ? 'bg-red-100 text-red-700' : 'bg-primary/10 text-primary')
@@ -110,8 +111,68 @@ function renderTable(dataList) {
                     ${t.status}
                 </span>
             </td>
+            <td class="px-8 py-6 text-right">
+                ${t.status === 'PENDING' ? `
+                    <div class="flex justify-end gap-2">
+                        <button onclick="verifyTransaction(${t.id}, ${t.weight_est})" 
+                                class="w-8 h-8 rounded-lg bg-green-100 text-green-600 flex items-center justify-center hover:bg-green-600 hover:text-white transition-all shadow-sm"
+                                title="Verifikasi">
+                            <span class="material-symbols-outlined text-[18px]">check_circle</span>
+                        </button>
+                        <button onclick="rejectTransaction(${t.id})" 
+                                class="w-8 h-8 rounded-lg bg-red-100 text-red-600 flex items-center justify-center hover:bg-red-600 hover:text-white transition-all shadow-sm"
+                                title="Tolak">
+                            <span class="material-symbols-outlined text-[18px]">cancel</span>
+                        </button>
+                    </div>
+                ` : `
+                    <span class="material-symbols-outlined text-outline/30 text-[18px]">check_circle</span>
+                `}
+            </td>
         </tr>
     `).join('');
+}
+
+async function verifyTransaction(id, weightEst) {
+    const weightActual = prompt("Masukkan berat aktual (kg):", weightEst);
+    if (weightActual === null) return;
+
+    if (confirm(`Verifikasi transaksi #${id} dengan berat ${weightActual}kg? Saldo akan langsung ditambahkan ke user.`)) {
+        const res = await fetch('../api/manage_admin.php', {
+            method: 'POST',
+            body: new URLSearchParams({
+                entity: 'transactions',
+                action: 'verify',
+                id: id,
+                weight_actual: weightActual
+            })
+        });
+        const result = await res.json();
+        if (result.status === 'success') {
+            fetchTransactions();
+        } else {
+            alert("Gagal verifikasi: " + result.message);
+        }
+    }
+}
+
+async function rejectTransaction(id) {
+    if (confirm(`Tolak transaksi #${id}?`)) {
+        const res = await fetch('../api/manage_admin.php', {
+            method: 'POST',
+            body: new URLSearchParams({
+                entity: 'transactions',
+                action: 'reject',
+                id: id
+            })
+        });
+        const result = await res.json();
+        if (result.status === 'success') {
+            fetchTransactions();
+        } else {
+            alert("Gagal memproses: " + result.message);
+        }
+    }
 }
 
 function filterTransactions() {
