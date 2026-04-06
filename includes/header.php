@@ -78,10 +78,22 @@ $is_authenticated = isset($_SESSION['user_id']);
 </head>
 <body class="bg-surface selection:bg-primary-container selection:text-primary font-sans text-on-surface">
 
-<div class="max-w-md mx-auto bg-surface min-h-screen relative shadow-2xl shadow-black/5 flex flex-col pt-8 px-6 pb-32">
+<?php
+// Layout Configuration
+$is_user_app = ($current_dir == 'user');
+$is_admin = ($current_dir == 'admin');
+$is_onboarding = ($current_page == 'index.php' && $current_dir !== 'user' && $current_dir !== 'admin');
+
+if ($is_user_app) {
+    $container_class = "max-w-md mx-auto bg-surface min-h-screen relative shadow-2xl shadow-black/5 flex flex-col pt-8 px-6 pb-32";
+} else {
+    $container_class = "w-full bg-surface min-h-screen relative flex flex-col";
+}
+?>
+<div class="<?php echo $container_class; ?>">
     
-    <?php if (!isset($hide_nav) || !$hide_nav): ?>
-    <!-- Premium Editorial Header -->
+    <?php if ($is_user_app && (!isset($hide_nav) || !$hide_nav)): ?>
+    <!-- Premium Editorial Header (User App Only) -->
     <header class="flex justify-between items-center mb-10 w-full animate-fade-in">
         <div class="flex flex-col">
             <h1 class="headline text-xl font-extrabold tracking-tighter leading-none flex items-center gap-2">

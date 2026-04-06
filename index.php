@@ -12,13 +12,11 @@ include 'includes/header.php';
             </div>
             <span class="text-2xl font-black text-primary tracking-tighter headline">Waste.</span>
         </div>
-        <div class="hidden md:flex items-center gap-8 text-sm font-bold text-outline">
-            <a href="#" class="hover:text-primary transition-colors">Home</a>
-            <a href="#" class="hover:text-primary transition-colors">About Us</a>
-            <a href="#" class="hover:text-primary transition-colors">Services</a>
-            <a href="#" class="hover:text-primary transition-colors">Company</a>
-            <a href="#" class="hover:text-primary transition-colors">Blog</a>
-            <a href="#" class="hover:text-primary transition-colors">Contact</a>
+        <div class="hidden md:flex items-center gap-10 text-sm font-bold text-outline">
+            <a href="#" class="hover:text-primary transition-all hover:scale-105 active:scale-95">Beranda</a>
+            <a href="#" class="hover:text-primary transition-all hover:scale-105 active:scale-95">Tentang Kami</a>
+            <a href="#" class="hover:text-primary transition-all hover:scale-105 active:scale-95">Layanan</a>
+            <a href="#" class="hover:text-primary transition-all hover:scale-105 active:scale-95">Kontak</a>
         </div>
         <div class="flex items-center gap-4">
             <a href="login.php" class="text-primary font-bold text-sm hover:underline">Masuk</a>
@@ -34,9 +32,9 @@ include 'includes/header.php';
                     <span class="w-2 h-2 bg-primary rounded-full animate-pulse"></span>
                     <span class="text-[10px] font-black uppercase tracking-widest text-primary">Solusi Limbah Modern</span>
                 </div>
-                <h1 class="text-6xl md:text-8xl font-black text-primary leading-[0.9] headline tracking-tighter">
+                <h1 class="text-6xl lg:text-[7rem] font-black text-primary leading-[0.85] headline tracking-tighter animate-slide-up">
                     Waste Management<br>
-                    <span class="text-outline-thin text-transparent" style="-webkit-text-stroke: 1.5px #2D4F1E; opacity: 0.8;">Dumpster Rentals</span><br>
+                    <span class="text-outline-thin text-transparent" style="-webkit-text-stroke: 2px #2D4F1E; opacity: 0.6;">Dumpster Rentals</span><br>
                     Garbage Pickup.
                 </h1>
                 <p class="text-lg text-on-surface-variant max-w-md leading-relaxed">
