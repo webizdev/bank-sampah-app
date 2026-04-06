@@ -1,3 +1,5 @@
+    </div><!-- End of .container-class opened in header.php -->
+
     <?php if ((!isset($hide_nav) || !$hide_nav) && empty($is_admin)): ?>
     <!-- Premium Bottom Navigation Dock -->
     <nav class="bottom-dock px-3">
@@ -43,8 +45,5 @@
     <?php endif; ?>
 
     <script src="<?php echo $path_to_root; ?>js/app.js"></script>
-</body>
-</html>
-
 </body>
 </html>

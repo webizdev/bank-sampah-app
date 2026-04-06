@@ -64,10 +64,12 @@ body {
 .bottom-dock {
     position: fixed;
     bottom: 1.5rem;
-    left: 1.5rem;
-    right: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 3rem);
+    max-width: calc(448px - 3rem); /* Matching max-w-md */
     height: 4.5rem;
-    background: rgba(247, 251, 242, 0.8);
+    background: rgba(247, 251, 242, 0.82);
     backdrop-filter: blur(25px);
     -webkit-backdrop-filter: blur(25px);
     border-radius: 2.25rem;
