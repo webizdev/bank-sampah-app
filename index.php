@@ -28,7 +28,7 @@ include 'includes/header.php';
 
     <!-- Hero Section -->
     <section id="beranda" class="relative px-6 md:px-8 py-12 md:py-20 max-w-7xl mx-auto overflow-hidden">
-        <div class="grid md:grid-cols-2 gap-10 md:gap-12 items-center relative z-10">
+        <div class="grid lg:grid-cols-[1.2fr,0.8fr] md:grid-cols-2 gap-10 md:gap-16 items-center relative z-10">
             <div class="space-y-6 md:space-y-8">
                 <div
                     class="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 bg-primary/5 border border-primary/10 rounded-full">
@@ -37,7 +37,7 @@ include 'includes/header.php';
                         Modern</span>
                 </div>
                 <h1
-                    class="text-4xl md:text-6xl lg:text-[7rem] font-black text-primary leading-[0.9] md:leading-[0.85] headline tracking-tighter animate-slide-up">
+                    class="text-4xl md:text-5xl lg:text-[6rem] font-black text-primary leading-[0.9] md:leading-[0.85] headline tracking-tighter animate-slide-up">
                     Waste Management<br>
                     <span class="text-outline-thin text-transparent"
                         style="-webkit-text-stroke: 2px #2D4F1E; opacity: 0.6;">Dumpster Rentals</span><br>
