@@ -39,7 +39,28 @@ include '../includes/header.php';
                                   class="w-full bg-surface-container border-none rounded-xl px-4 py-4 focus:ring-2 focus:ring-primary font-medium"></textarea>
                     </div>
 
-                    <hr class="border-outline/10">
+                    <h2 class="text-lg font-bold headline mb-4 text-primary flex items-center gap-2 mt-6">
+                        <span class="material-symbols-outlined">share</span> Link Media Sosial
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div>
+                            <label class="block text-[10px] font-bold text-outline uppercase tracking-widest mb-2">Instagram (URL)</label>
+                            <input type="url" id="social_instagram" name="social_instagram" placeholder="https://instagram.com/..."
+                                   class="w-full bg-surface-container border-none rounded-xl px-4 py-4 focus:ring-2 focus:ring-primary font-bold text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-outline uppercase tracking-widest mb-2">Facebook (URL)</label>
+                            <input type="url" id="social_facebook" name="social_facebook" placeholder="https://facebook.com/..."
+                                   class="w-full bg-surface-container border-none rounded-xl px-4 py-4 focus:ring-2 focus:ring-primary font-bold text-sm">
+                        </div>
+                        <div>
+                            <label class="block text-[10px] font-bold text-outline uppercase tracking-widest mb-2">Twitter / X (URL)</label>
+                            <input type="url" id="social_twitter" name="social_twitter" placeholder="https://twitter.com/..."
+                                   class="w-full bg-surface-container border-none rounded-xl px-4 py-4 focus:ring-2 focus:ring-primary font-bold text-sm">
+                        </div>
+                    </div>
+
+                    <hr class="border-outline/10 my-6">
 
                     <h2 class="text-xl font-bold headline mb-6 text-primary flex items-center gap-2">
                         <span class="material-symbols-outlined">military_tech</span> Konfigurasi Peringkat (Tier)
@@ -102,6 +123,10 @@ async function loadSettings() {
             document.getElementById('tier_bronze_min').value = s.tier_bronze_min || 0;
             document.getElementById('tier_silver_min').value = s.tier_silver_min || 50;
             document.getElementById('tier_gold_min').value = s.tier_gold_min || 200;
+            
+            if (document.getElementById('social_instagram')) document.getElementById('social_instagram').value = s.social_instagram || '';
+            if (document.getElementById('social_facebook')) document.getElementById('social_facebook').value = s.social_facebook || '';
+            if (document.getElementById('social_twitter')) document.getElementById('social_twitter').value = s.social_twitter || '';
         }
     } catch (e) {
         console.error("Gagal load settings:", e);
