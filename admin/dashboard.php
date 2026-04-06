@@ -1,28 +1,18 @@
 <?php
-$hide_nav = true; // Admin has its own sidebar/nav
+$hide_nav = true; 
 include '../includes/header.php';
+include 'sidebar.php';
 ?>
 
-<div class="bg-surface min-h-screen pb-20">
+<div class="ml-64 bg-surface min-h-screen pb-20">
     <!-- Admin Top Header -->
     <header class="bg-white px-8 py-6 flex justify-between items-center border-b border-primary/5 shadow-sm sticky top-0 z-50">
-        <div class="flex items-center gap-3">
-            <div class="w-10 h-10 bg-primary rounded-xl flex items-center justify-center text-white">
-                <span class="material-symbols-outlined">analytics</span>
-            </div>
-            <div>
-                <h1 class="text-xl font-black text-primary headline tracking-tight leading-none">Admin Console</h1>
-                <p class="text-[10px] font-bold text-outline uppercase tracking-widest mt-1">Staf Bank Sampah</p>
-            </div>
+        <div>
+            <h1 class="text-xl font-black text-primary headline tracking-tight leading-none">Dashboard Overview</h1>
+            <p class="text-[10px] font-bold text-outline uppercase tracking-widest mt-1">Sistem Pengelolaan Bank Sampah</p>
         </div>
-        <div class="flex items-center gap-4">
-            <div class="text-right hidden sm:block">
-                <p class="text-xs font-bold text-on-surface"><?php echo $_SESSION['user_name']; ?></p>
-                <p class="text-[9px] font-black text-primary uppercase">Administrator</p>
-            </div>
-            <a href="../logout.php" class="w-10 h-10 rounded-full bg-surface-container-low flex items-center justify-center text-outline hover:text-red-500 hover:bg-red-50 transition-all">
-                <span class="material-symbols-outlined">logout</span>
-            </a>
+        <div class="flex items-center gap-4 text-xs font-bold text-outline">
+            <span class="px-3 py-1 bg-surface-container rounded-full"><?php echo date('d M Y'); ?></span>
         </div>
     </header>
 
