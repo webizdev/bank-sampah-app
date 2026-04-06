@@ -31,6 +31,15 @@ try {
         case 'transactions':
             handleTransactions($pdo, $method, $action, $input);
             break;
+        case 'settings':
+            handleSettings($pdo, $method, $action, $input);
+            break;
+        case 'system':
+            handleSystem($pdo, $method, $action, $input);
+            break;
+        case 'sales':
+            handleSales($pdo, $method, $action, $input);
+            break;
         default:
             echo json_encode(['status' => 'error', 'message' => 'Invalid entity']);
     }
@@ -171,6 +180,71 @@ function handleTransactions($pdo, $method, $action, $data) {
                   ORDER BY t.created_at DESC";
         $stmt = $pdo->query($query);
         echo json_encode(['status' => 'success', 'data' => $stmt->fetchAll()]);
+    }
+}
+
+function handleSettings($pdo, $method, $action, $data) {
+    if ($method === 'POST' && $action === 'update') {
+        unset($data['entity'], $data['action']); // remove routing params
+        $stmt = $pdo->prepare("INSERT INTO settings (setting_key, setting_value) VALUES (?, ?) ON DUPLICATE KEY UPDATE setting_value = VALUES(setting_value)");
+        foreach ($data as $key => $value) {
+            $stmt->execute([$key, $value]);
+        }
+        echo json_encode(['status' => 'success']);
+    }
+}
+
+function handleSystem($pdo, $method, $action, $data) {
+    if ($method === 'POST' && $action === 'reset') {
+        // Here we require the admin to input their password.
+        // Assuming session holds user_id
+        $stmt = $pdo->prepare("SELECT password FROM users WHERE id = ?");
+        $stmt->execute([$_SESSION['user_id']]);
+        $admin = $stmt->fetch();
+        
+        if (!password_verify($data['password'], $admin['password'])) {
+            echo json_encode(['status' => 'error', 'message' => 'Kata sandi salah!']);
+            return;
+        }
+
+        try {
+            $pdo->beginTransaction();
+            // Delete all transactions and sales (this resets inventory quantities)
+            $pdo->exec("DELETE FROM transactions");
+            $pdo->exec("DELETE FROM sales");
+            
+            // Reset users balances and total_kg
+            $pdo->exec("UPDATE users SET balance = 0, total_kg = 0 WHERE role = 'USER'");
+            
+            $pdo->commit();
+            echo json_encode(['status' => 'success']);
+        } catch (Exception $e) {
+            $pdo->rollBack();
+            echo json_encode(['status' => 'error', 'message' => $e->getMessage()]);
+        }
+    }
+}
+
+function handleSales($pdo, $method, $action, $data) {
+    if ($method === 'GET') {
+        $stmt = $pdo->query("SELECT s.*, p.name as product_name FROM sales s JOIN products p ON s.product_id = p.id ORDER BY s.created_at DESC");
+        echo json_encode(['status' => 'success', 'data' => $stmt->fetchAll()]);
+    } elseif ($method === 'POST') {
+        if ($action === 'create') {
+            $stmt = $pdo->prepare("INSERT INTO sales (product_id, weight_sold, price_per_kg, total_price, buyer_name) VALUES (?, ?, ?, ?, ?)");
+            $stmt->execute([
+                $data['product_id'],
+                $data['weight_sold'],
+                $data['price_per_kg'],
+                $data['total_price'],
+                $data['buyer_name']
+            ]);
+            echo json_encode(['status' => 'success', 'id' => $pdo->lastInsertId()]);
+        } elseif ($action === 'delete') {
+            $stmt = $pdo->prepare("DELETE FROM sales WHERE id = ?");
+            $stmt->execute([$data['id']]);
+            echo json_encode(['status' => 'success']);
+        }
     }
 }
 ?>

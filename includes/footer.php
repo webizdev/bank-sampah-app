@@ -28,6 +28,15 @@
     </nav>
     <?php endif; ?>
 
+    <?php if (!empty($global_settings['wa_cs_number'])): ?>
+    <!-- Floating WhatsApp CTA -->
+    <a href="https://wa.me/<?php echo urlencode(preg_replace('/[^0-9]/', '', $global_settings['wa_cs_number'])); ?>?text=Halo%20<?php echo urlencode($app_name); ?>%2C%20saya%20ingin%20bertanya..." 
+       target="_blank" 
+       class="fixed bottom-6 right-6 md:bottom-10 md:right-10 w-14 h-14 bg-green-500 text-white rounded-full flex items-center justify-center shadow-2xl hover:scale-110 active:scale-95 transition-all z-[100] border-2 border-white ring-4 ring-green-500/20">
+        <span class="material-symbols-outlined text-[28px]">chat</span>
+    </a>
+    <?php endif; ?>
+
     <script src="<?php echo $path_to_root; ?>js/app.js"></script>
 </body>
 </html>

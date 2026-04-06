@@ -21,6 +21,14 @@ $current_page = basename($_SERVER['PHP_SELF']);
             <span class="material-symbols-outlined">category</span>
             <span class="text-sm font-bold">Produk</span>
         </a>
+        <a href="inventory.php" class="flex items-center gap-4 px-4 py-4 rounded-2xl transition-all <?php echo $current_page == 'inventory.php' ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-outline hover:bg-primary/5 hover:text-primary'; ?>">
+            <span class="material-symbols-outlined">inventory_2</span>
+            <span class="text-sm font-bold">Inventori</span>
+        </a>
+        <a href="sales.php" class="flex items-center gap-4 px-4 py-4 rounded-2xl transition-all <?php echo $current_page == 'sales.php' ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-outline hover:bg-primary/5 hover:text-primary'; ?>">
+            <span class="material-symbols-outlined">point_of_sale</span>
+            <span class="text-sm font-bold">Penjualan</span>
+        </a>
         <a href="services.php" class="flex items-center gap-4 px-4 py-4 rounded-2xl transition-all <?php echo $current_page == 'services.php' ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-outline hover:bg-primary/5 hover:text-primary'; ?>">
             <span class="material-symbols-outlined">volunteer_activism</span>
             <span class="text-sm font-bold">Services</span>
@@ -32,6 +40,10 @@ $current_page = basename($_SERVER['PHP_SELF']);
         <a href="transactions.php" class="flex items-center gap-4 px-4 py-4 rounded-2xl transition-all <?php echo $current_page == 'transactions.php' ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-outline hover:bg-primary/5 hover:text-primary'; ?>">
             <span class="material-symbols-outlined">receipt_long</span>
             <span class="text-sm font-bold">History & Reports</span>
+        </a>
+        <a href="settings.php" class="flex items-center gap-4 px-4 py-4 rounded-2xl transition-all <?php echo $current_page == 'settings.php' ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-outline hover:bg-primary/5 hover:text-primary'; ?>">
+            <span class="material-symbols-outlined">settings</span>
+            <span class="text-sm font-bold">Organisasi</span>
         </a>
     </nav>
 

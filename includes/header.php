@@ -27,6 +27,19 @@ if (isset($_SESSION['user_id'])) {
     }
 }
 
+// Fetch Settings safely
+$global_settings = ['app_name' => 'The Organic Breath', 'wa_cs_number' => '6281234567890'];
+try {
+    $stmt_settings = $pdo->query("SELECT setting_key, setting_value FROM settings");
+    if ($stmt_settings) {
+        $raw = $stmt_settings->fetchAll(PDO::FETCH_ASSOC);
+        foreach ($raw as $s) {
+            $global_settings[$s['setting_key']] = $s['setting_value'];
+        }
+    }
+} catch (Exception $e) {}
+$app_name = $global_settings['app_name'] ?? 'The Organic Breath';
+
 // Variables for layout
 $is_authenticated = isset($_SESSION['user_id']);
 ?>
@@ -35,7 +48,7 @@ $is_authenticated = isset($_SESSION['user_id']);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Organic Breath | Premium Waste Bank</title>
+    <title><?php echo htmlspecialchars($app_name); ?></title>
     
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -98,7 +111,7 @@ if ($is_user_app) {
         <div class="flex flex-col">
             <h1 class="headline text-xl font-extrabold tracking-tighter leading-none flex items-center gap-2">
                 <span class="w-2 h-2 bg-primary rounded-full"></span>
-                THE ORGANIC BREATH
+                <?php echo htmlspecialchars(strtoupper($app_name)); ?>
             </h1>
             <span class="text-[9px] font-bold tracking-[0.2em] text-outline uppercase mt-1">Living Archive Project</span>
         </div>
