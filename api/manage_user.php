@@ -24,9 +24,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         }
 
         $new_filename = 'avatar_' . $user_id . '_' . time() . '.' . $ext;
-        $upload_path = '../uploads/avatars/' . $new_filename;
+        
+        // Use absolute path to avoid relative mapping issues
+        $target_dir = __DIR__ . '/../uploads/avatars/';
+        if (!is_dir($target_dir)) {
+            mkdir($target_dir, 0755, true);
+        }
+        
+        $upload_path = $target_dir . $new_filename;
 
         if (move_uploaded_file($_FILES['avatar']['tmp_name'], $upload_path)) {
+            // URL to be stored in DB (relative to site root if possible, or consistent)
             $avatar_url = '../uploads/avatars/' . $new_filename;
             
             // Update DB
@@ -35,9 +43,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 
             echo json_encode(['status' => 'success', 'url' => $avatar_url]);
             exit;
+        } else {
+            $error = error_get_last();
+            echo json_encode(['status' => 'error', 'message' => 'Move failed: ' . ($error['message'] ?? 'Unknown error')]);
+            exit;
         }
     }
-    echo json_encode(['status' => 'error', 'message' => 'Upload failed']);
+    echo json_encode(['status' => 'error', 'message' => 'No file uploaded or upload error code: ' . ($_FILES['avatar']['error'] ?? 'None')]);
     exit;
 }
 
