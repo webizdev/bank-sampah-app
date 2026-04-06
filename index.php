@@ -16,6 +16,7 @@ include 'includes/header.php';
             <a href="#beranda" class="hover:text-primary transition-all hover:scale-105 active:scale-95">Beranda</a>
             <a href="#tentang-kami" class="hover:text-primary transition-all hover:scale-105 active:scale-95">Tentang Kami</a>
             <a href="#layanan" class="hover:text-primary transition-all hover:scale-105 active:scale-95">Layanan</a>
+            <a href="#harga" class="hover:text-primary transition-all hover:scale-105 active:scale-95">Harga</a>
             <a href="#kontak" class="hover:text-primary transition-all hover:scale-105 active:scale-95">Kontak</a>
         </div>
         <div class="flex items-center gap-3 md:gap-4">
@@ -210,6 +211,130 @@ include 'includes/header.php';
         </div>
     </section>
 
+    <!-- Pricing Section -->
+    <section id="harga" class="py-20 md:py-32 bg-surface-container-low relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-6 md:px-8 relative z-10">
+            <div class="text-center mb-16 md:mb-24 space-y-4">
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 bg-primary/10 border border-primary/20 rounded-full mb-4">
+                    <span class="material-symbols-outlined text-[16px] text-primary">sell</span>
+                    <span class="text-[10px] font-black uppercase tracking-widest text-primary">Investasi Lingkungan</span>
+                </div>
+                <h2 class="text-3xl md:text-5xl font-black text-primary headline tracking-tight">Pilih Paket Sesuai Kebutuhan</h2>
+                <p class="text-on-surface-variant max-w-2xl mx-auto text-sm md:text-base">
+                    Seluruh paket sudah termasuk biaya Maintenance, Server, Administrator, dan berlaku selama 1 Tahun.
+                </p>
+            </div>
+
+            <!-- Tier 1-3 -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                <!-- Bronze -->
+                <div class="bg-white p-8 rounded-[2rem] border border-primary/5 shadow-xl hover:-translate-y-2 transition-transform flex flex-col">
+                    <div class="mb-8">
+                        <h4 class="text-xl font-black text-primary headline mb-1">Bronze</h4>
+                        <p class="text-[10px] font-bold text-outline uppercase tracking-widest">Entry Level</p>
+                    </div>
+                    <div class="mb-8">
+                        <span class="text-4xl font-black text-primary">990<span class="text-xl">rb</span></span>
+                        <span class="text-on-surface-variant text-sm">/tahun</span>
+                    </div>
+                    <ul class="space-y-4 mb-10 flex-grow">
+                        <li class="flex items-center gap-3 text-sm text-on-surface-variant">
+                            <span class="material-symbols-outlined text-primary text-[20px]">check_circle</span>
+                            Max. 20 Member
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-on-surface-variant">
+                            <span class="material-symbols-outlined text-primary text-[20px]">check_circle</span>
+                            Maintenance & Server
+                        </li>
+                    </ul>
+                    <a href="https://wa.me/<?php echo $global_settings['wa_cs_number'] ?? ''; ?>" class="w-full py-4 rounded-2xl bg-primary/10 text-primary font-bold text-center hover:bg-primary hover:text-white transition-all">Pilih Bronze</a>
+                </div>
+
+                <!-- Silver (Recommended) -->
+                <div class="bg-primary p-8 rounded-[2rem] shadow-2xl hover:-translate-y-2 transition-transform relative overflow-hidden flex flex-col group border-4 border-white/20">
+                    <div class="absolute top-6 right-6 px-3 py-1 bg-white/20 rounded-full text-[9px] font-black text-white uppercase tracking-widest">Populer</div>
+                    <div class="mb-8">
+                        <h4 class="text-xl font-black text-white headline mb-1">Silver</h4>
+                        <p class="text-[10px] font-bold text-white/60 uppercase tracking-widest">Recommended</p>
+                    </div>
+                    <div class="mb-8 text-white">
+                        <span class="text-4xl font-black">2.7<span class="text-xl">jt</span></span>
+                        <span class="text-white/60 text-sm">/tahun</span>
+                    </div>
+                    <ul class="space-y-4 mb-10 flex-grow">
+                        <li class="flex items-center gap-3 text-sm text-white">
+                            <span class="material-symbols-outlined text-white text-[20px]">check_circle</span>
+                            Max. 60 Member
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-white">
+                            <span class="material-symbols-outlined text-white text-[20px]">check_circle</span>
+                            Prioritas Maintenance
+                        </li>
+                    </ul>
+                    <a href="https://wa.me/<?php echo $global_settings['wa_cs_number'] ?? ''; ?>" class="w-full py-4 rounded-2xl bg-white text-primary font-bold text-center hover:bg-primary-container hover:text-primary transition-all">Pilih Silver</a>
+                </div>
+
+                <!-- Gold -->
+                <div class="bg-white p-8 rounded-[2rem] border border-primary/5 shadow-xl hover:-translate-y-2 transition-transform flex flex-col">
+                    <div class="mb-8">
+                        <h4 class="text-xl font-black text-primary headline mb-1">Gold</h4>
+                        <p class="text-[10px] font-bold text-outline uppercase tracking-widest">Enterprise Basic</p>
+                    </div>
+                    <div class="mb-8">
+                        <span class="text-4xl font-black text-primary">5<span class="text-xl">jt</span></span>
+                        <span class="text-on-surface-variant text-sm">/tahun</span>
+                    </div>
+                    <ul class="space-y-4 mb-10 flex-grow">
+                        <li class="flex items-center gap-3 text-sm text-on-surface-variant">
+                            <span class="material-symbols-outlined text-primary text-[20px]">check_circle</span>
+                            Max. 200 Member
+                        </li>
+                        <li class="flex items-center gap-3 text-sm text-on-surface-variant">
+                            <span class="material-symbols-outlined text-primary text-[20px]">check_circle</span>
+                            Full Administrator
+                        </li>
+                    </ul>
+                    <a href="https://wa.me/<?php echo $global_settings['wa_cs_number'] ?? ''; ?>" class="w-full py-4 rounded-2xl bg-primary/10 text-primary font-bold text-center hover:bg-primary hover:text-white transition-all">Pilih Gold</a>
+                </div>
+            </div>
+
+            <!-- Tier 4-5 -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <!-- Induk -->
+                <div class="bg-surface-container p-8 md:p-12 rounded-[3rem] border border-primary/10 shadow-2xl flex flex-col md:flex-row gap-8 items-center text-center md:text-left relative overflow-hidden group">
+                    <div class="space-y-4 flex-grow">
+                        <h4 class="text-2xl font-black text-primary headline">Bank Sampah Induk</h4>
+                        <div class="text-4xl font-black text-primary">18<span class="text-xl">jt</span><span class="text-on-surface-variant text-sm font-normal"> /tahun</span></div>
+                        <ul class="space-y-3">
+                            <li class="flex items-center justify-center md:justify-start gap-3 text-sm text-on-surface-variant">
+                                <span class="material-symbols-outlined text-primary">monitoring</span>
+                                Monitoring per Kelurahan
+                            </li>
+                            <li class="flex items-center justify-center md:justify-start gap-3 text-sm text-on-surface-variant">
+                                <span class="material-symbols-outlined text-primary">hub</span>
+                                Multi-Unit Management
+                            </li>
+                        </ul>
+                    </div>
+                    <a href="https://wa.me/<?php echo $global_settings['wa_cs_number'] ?? ''; ?>" class="shrink-0 px-8 py-4 rounded-2xl bg-primary text-white font-black hover:scale-105 transition-transform shadow-lg">Chat Sales</a>
+                    <div class="absolute -right-12 -bottom-12 w-48 h-48 bg-primary/5 rounded-full blur-3xl group-hover:bg-primary/10 transition-colors"></div>
+                </div>
+
+                <!-- Enterprise -->
+                <div class="bg-on-surface p-8 md:p-12 rounded-[3rem] shadow-2xl flex flex-col md:flex-row gap-8 items-center text-center md:text-left relative overflow-hidden group">
+                    <div class="space-y-4 flex-grow">
+                        <h4 class="text-2xl font-black text-white headline">Enterprise</h4>
+                        <p class="text-white/60 text-sm">Cocok untuk CSR Perusahaan & Pemerintah Kota/Kabupaten.</p>
+                        <div class="text-2xl md:text-3xl font-black text-white italic">Price on Call</div>
+                    </div>
+                    <a href="https://wa.me/<?php echo $global_settings['wa_cs_number'] ?? ''; ?>" class="shrink-0 px-8 py-4 rounded-2xl bg-white text-on-surface font-black hover:scale-105 transition-transform shadow-lg">Konsultasi</a>
+                    <div class="absolute -right-12 -bottom-12 w-48 h-48 bg-white/5 rounded-full blur-3xl group-hover:bg-white/10 transition-colors"></div>
+                </div>
+            </div>
+        </div>
+        <div class="absolute top-0 left-0 w-full h-full bg-primary/5 -z-10 pointer-events-none"></div>
+    </section>
+
     <!-- Stats Section -->
     <section class="bg-primary py-16 md:py-24 px-6 md:px-8 overflow-hidden relative">
         <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12 relative z-10">
@@ -372,6 +497,7 @@ include 'includes/header.php';
                 <a href="#beranda" class="hover:text-primary transition-colors">Beranda</a>
                 <a href="#tentang-kami" class="hover:text-primary transition-colors">Tentang Kami</a>
                 <a href="#layanan" class="hover:text-primary transition-colors">Layanan</a>
+                <a href="#harga" class="hover:text-primary transition-colors">Harga</a>
                 <a href="#kontak" class="hover:text-primary transition-colors">Kontak</a>
             </div>
             <p class="text-white/20 text-[9px] font-black uppercase tracking-widest border-t border-white/5 pt-12">
