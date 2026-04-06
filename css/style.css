@@ -1,0 +1,88 @@
+/* The Organic Breath - Custom Design System */
+
+:root {
+    /* Primary (Botanical Greens) */
+    --primary: #0f5238;
+    --primary-container: #2d6a4f;
+    --on-primary: #ffffff;
+    
+    /* Secondary (Eco Greens) */
+    --secondary: #1f6d1a;
+    --secondary-container: #a4f792;
+    --on-secondary: #ffffff;
+    
+    /* Tertiary (Earth Tones) */
+    --tertiary: #693c1d;
+    --tertiary-container: #855332;
+    --on-tertiary: #ffffff;
+    
+    /* Surface / Neutral */
+    --surface: #f8f9fa;
+    --surface-container-lowest: #ffffff;
+    --surface-container-low: #f3f4f5;
+    --surface-container: #edeeef;
+    --surface-container-high: #e7e8e9;
+    --surface-container-highest: #e1e3e4;
+    --on-surface: #191c1d;
+    --on-surface-variant: #404943;
+    
+    /* Utility */
+    --outline: #707973;
+    --outline-variant: #bfc9c1;
+    --error: #ba1a1a;
+}
+
+/* Typography pairing */
+body {
+    font-family: 'Manrope', sans-serif;
+    background-color: var(--surface);
+    color: var(--on-surface);
+}
+
+.headline {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+/* Glassmorphism Rule */
+.glass {
+    background: rgba(248, 249, 250, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+}
+
+/* No-Line Rule: Sectioning through color shifts instead of borders */
+.section-container {
+    background-color: var(--surface-container-low);
+    border-radius: 1.5rem;
+    padding: 1.5rem;
+}
+
+.card-container {
+    background-color: var(--surface-container-lowest);
+    border-radius: 1.5rem;
+    padding: 1.25rem;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+}
+
+/* Hide Scrollbar */
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+.hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Custom Gradient Button */
+.btn-primary {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-container) 100%);
+    color: var(--on-primary);
+    border-radius: 9999px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 700;
+    transition: transform 0.2s ease;
+}
+
+.btn-primary:active {
+    transform: scale(0.95);
+}

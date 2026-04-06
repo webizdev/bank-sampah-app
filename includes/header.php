@@ -1,0 +1,84 @@
+<?php
+require_once 'includes/db_connect.php';
+
+// Authentication Check
+$current_page = basename($_SERVER['PHP_SELF']);
+$public_pages = ['login.php', 'register.php'];
+
+if (!isset($_SESSION['user_id']) && !in_array($current_page, $public_pages)) {
+    header('Location: login.php');
+    exit;
+}
+
+// Variables for layout
+$is_authenticated = isset($_SESSION['user_id']);
+?>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Organic Breath | Premium Waste Bank</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+    
+    <!-- Tailwind CSS (CDN for Dev) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/style.css">
+    
+    <script>
+        tailwind.config = {
+          theme: {
+            extend: {
+              colors: {
+                primary: '#0f5238',
+                'primary-container': '#d3e8d3',
+                secondary: '#426456',
+                'secondary-container': '#c4eada',
+                tertiary: '#3b6470',
+                error: '#ba1a1a',
+                surface: '#f7fbf2',
+                'on-surface': '#191d19',
+                'on-surface-variant': '#414941',
+                outline: '#717970',
+                'surface-container-low': '#f0f5ec',
+                'surface-container': '#ecf0e7',
+                'surface-container-high': '#e6eade',
+              },
+              fontFamily: {
+                sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                headline: ['Manrope', 'sans-serif'],
+              },
+            }
+          }
+        }
+    </script>
+</head>
+<body class="bg-surface selection:bg-primary-container selection:text-primary font-sans text-on-surface">
+
+<div class="max-w-md mx-auto bg-surface min-h-screen relative shadow-2xl shadow-black/5 flex flex-col pt-8 px-6 pb-32">
+    
+    <?php if (!isset($hide_nav) || !$hide_nav): ?>
+    <!-- Premium Editorial Header -->
+    <header class="flex justify-between items-center mb-10 w-full animate-fade-in">
+        <div class="flex flex-col">
+            <h1 class="headline text-xl font-extrabold tracking-tighter leading-none flex items-center gap-2">
+                <span class="w-2 h-2 bg-primary rounded-full"></span>
+                THE ORGANIC BREATH
+            </h1>
+            <span class="text-[9px] font-bold tracking-[0.2em] text-outline uppercase mt-1">Living Archive Project</span>
+        </div>
+        <div class="flex items-center gap-4">
+            <button class="w-10 h-10 rounded-full border border-primary/10 flex items-center justify-center text-primary hover:bg-primary-container/20 transition-colors">
+                <span class="material-symbols-outlined text-[20px]">notifications</span>
+            </button>
+            <div class="w-10 h-10 rounded-full bg-surface-container-high border-2 border-white flex items-center justify-center overflow-hidden">
+                <img src="https://ui-avatars.com/api/?name=<?php echo urlencode($_SESSION['user_name'] ?? 'User'); ?>&background=0f5238&color=fff" alt="User" class="w-full h-full object-cover">
+            </div>
+        </div>
+    </header>
+    <?php endif; ?>

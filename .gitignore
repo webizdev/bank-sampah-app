@@ -1,0 +1,21 @@
+# The Organic Breath - .gitignore
+.DS_Store
+Thumbs.db
+
+# System / Tools
+.gemini/
+.agent/
+.agents/
+_agent/
+_agents/
+
+# IDE / Config
+.vscode/
+.idea/
+
+# Environment / Secret
+# config.php (If separated, for now keep single in db_connect but ideally separate)
+
+# Composer / NPM
+vendor/
+node_modules/
