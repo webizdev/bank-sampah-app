@@ -65,7 +65,7 @@ include 'includes/header.php';
                 </div>
                 <!-- Stats Overlays -->
                 <div
-                    class="absolute -bottom-10 -left-6 md:-left-10 bg-white p-4 md:p-6 rounded-3xl shadow-2xl border border-primary/5 -rotate-3 hover:rotate-0 transition-all">
+                    class="absolute bottom-0 md:-bottom-10 -left-4 md:-left-10 bg-white p-4 md:p-6 rounded-3xl shadow-2xl border border-primary/5 -rotate-3 hover:rotate-0 transition-all z-20">
                     <p class="text-3xl md:text-4xl font-black text-primary headline tracking-tighter">98%</p>
                     <p class="text-[8px] md:text-[10px] font-bold text-outline uppercase tracking-widest">Daur Ulang Berhasil</p>
                 </div>
@@ -77,7 +77,7 @@ include 'includes/header.php';
     </section>
 
     <!-- Floating Cards -->
-    <section class="px-6 md:px-8 -mt-6 md:-mt-20 relative z-20 max-w-7xl mx-auto">
+    <section class="px-6 md:px-8 mt-12 md:-mt-20 relative z-20 max-w-7xl mx-auto">
         <div class="grid md:grid-cols-3 gap-4 md:gap-6">
             <div
                 class="bg-white/90 backdrop-blur-xl p-6 md:p-8 rounded-[1.5rem] md:rounded-[2rem] shadow-xl border border-primary/5 hover:-translate-y-2 transition-transform">
