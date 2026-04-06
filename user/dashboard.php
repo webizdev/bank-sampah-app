@@ -45,31 +45,10 @@ include '../includes/header.php';
         <h3 class="headline text-lg font-bold">Eksplorasi Lingkungan</h3>
         <span class="text-primary font-bold text-xs uppercase tracking-widest cursor-pointer">Lihat Semua</span>
     </div>
-    <div class="flex overflow-x-auto hide-scrollbar gap-5 px-6 pb-4">
-        <!-- Agenda Card -->
-        <div class="min-w-[280px] section-container bg-surface-container-low group cursor-pointer active:scale-95 duration-200">
-            <div class="h-44 overflow-hidden relative rounded-xl mb-4">
-                <img src="https://images.unsplash.com/photo-1595273670150-db0a3d39074f?auto=format&fit=crop&q=80&w=600" alt="Beach Cleanup" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                <div class="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest text-primary">Agenda</div>
-            </div>
-            <h4 class="headline font-bold text-lg leading-tight mb-2">Piknik Bersih Pantai Ancol</h4>
-            <div class="flex items-center gap-2 text-on-surface-variant text-xs">
-                <span class="material-symbols-outlined text-sm">calendar_today</span>
-                <span>24 Okt 2026</span>
-            </div>
-        </div>
-        <!-- Edukasi Card -->
-        <div class="min-w-[280px] section-container bg-surface-container-low group cursor-pointer active:scale-95 duration-200">
-            <div class="h-44 overflow-hidden relative rounded-xl mb-4">
-                <img src="https://images.unsplash.com/photo-1532996122724-e3c354a0b15b?auto=format&fit=crop&q=80&w=600" alt="Composting" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
-                <div class="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest text-secondary">Kegiatan</div>
-            </div>
-            <h4 class="headline font-bold text-lg leading-tight mb-2">Workshop Kompos Mandiri</h4>
-            <div class="flex items-center gap-2 text-on-surface-variant text-xs">
-                <span class="material-symbols-outlined text-sm">location_on</span>
-                <span>Balai Kota, Jakarta</span>
-            </div>
-        </div>
+    <div id="article-grid" class="flex overflow-x-auto hide-scrollbar gap-5 px-6 pb-4">
+        <!-- Articles loaded by JS -->
+        <div class="min-w-[280px] bg-surface-container-low h-64 rounded-2xl animate-pulse"></div>
+        <div class="min-w-[280px] bg-surface-container-low h-64 rounded-2xl animate-pulse"></div>
     </div>
 </section>
 
@@ -100,5 +79,55 @@ include '../includes/header.php';
     </div>
 </section>
 
+
+<script>
+async function fetchArticles() {
+    try {
+        const res = await fetch('../api/get_articles.php?limit=5');
+        const result = await res.json();
+        if (result.status === 'success') {
+            renderArticles(result.data);
+        }
+    } catch (err) { console.error(err); }
+}
+
+function renderArticles(data) {
+    const grid = document.getElementById('article-grid');
+    if (data.length === 0) {
+        grid.innerHTML = '<div class="px-6 py-10 text-outline text-xs italic font-medium">Belum ada agenda atau artikel terbaru.</div>';
+        return;
+    }
+
+    grid.innerHTML = data.map(a => `
+        <a href="${a.cta_link || '#'}" target="_blank" class="min-w-[280px] section-container bg-surface-container-low group cursor-pointer active:scale-95 duration-200 flex flex-col no-underline text-inherit">
+            <div class="h-44 overflow-hidden relative rounded-xl mb-4 bg-surface-container">
+                <img src="${a.image_url || 'https://via.placeholder.com/600x400?text=No+Image'}" 
+                     alt="${a.title}" 
+                     class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
+                <div class="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest ${a.category === 'AGENDA' ? 'text-primary' : 'text-secondary'}">
+                    ${a.category}
+                </div>
+            </div>
+            <h4 class="headline font-black text-lg leading-tight mb-2 text-primary group-hover:text-primary-variant transition-colors line-clamp-2">${a.title}</h4>
+            <div class="flex flex-col gap-1.5">
+                ${a.event_date ? `
+                    <div class="flex items-center gap-2 text-on-surface-variant text-[10px] font-bold uppercase tracking-wider">
+                        <span class="material-symbols-outlined text-[14px]">calendar_today</span>
+                        <span>${new Date(a.event_date).toLocaleDateString('id-ID', {day: 'numeric', month: 'short', year: 'numeric'})}</span>
+                    </div>
+                ` : ''}
+                ${a.location ? `
+                    <div class="flex items-center gap-2 text-on-surface-variant text-[10px] font-bold uppercase tracking-wider">
+                        <span class="material-symbols-outlined text-[14px]">location_on</span>
+                        <span>${a.location}</span>
+                    </div>
+                ` : ''}
+            </div>
+        </a>
+    `).join('');
+}
+
+document.addEventListener('DOMContentLoaded', fetchArticles);
+</script>
 
 <?php include '../includes/footer.php'; ?>

@@ -33,6 +33,10 @@ $current_page = basename($_SERVER['PHP_SELF']);
             <span class="material-symbols-outlined">point_of_sale</span>
             <span class="text-sm font-bold">Penjualan</span>
         </a>
+        <a href="articles.php" class="flex items-center gap-4 px-4 py-4 rounded-2xl transition-all <?php echo $current_page == 'articles.php' ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-outline hover:bg-primary/5 hover:text-primary'; ?>">
+            <span class="material-symbols-outlined">newspaper</span>
+            <span class="text-sm font-bold">Artikel & Event</span>
+        </a>
         <a href="services.php" class="flex items-center gap-4 px-4 py-4 rounded-2xl transition-all <?php echo $current_page == 'services.php' ? 'bg-primary text-white shadow-lg shadow-primary/20' : 'text-outline hover:bg-primary/5 hover:text-primary'; ?>">
             <span class="material-symbols-outlined">volunteer_activism</span>
             <span class="text-sm font-bold">Services</span>

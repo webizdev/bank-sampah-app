@@ -43,6 +43,9 @@ try {
         case 'crafts':
             handleCrafts($pdo, $method, $action, $input);
             break;
+        case 'articles':
+            handleArticles($pdo, $method, $action, $input);
+            break;
         default:
             echo json_encode(['status' => 'error', 'message' => 'Invalid entity']);
     }
@@ -345,6 +348,57 @@ function handleCrafts($pdo, $method, $action, $data) {
             } else {
                 $stmt = $pdo->prepare("INSERT INTO crafts (title, price, description, cta_link, image_url) VALUES (?, ?, ?, ?, ?)");
                 $stmt->execute([$data['title'], $data['price'], $data['description'], $data['cta_link'], $image_url]);
+            }
+            echo json_encode(['status' => 'success']);
+        }
+    }
+}
+
+function handleArticles($pdo, $method, $action, $data) {
+    if ($method === 'GET') {
+        $stmt = $pdo->query("SELECT * FROM content ORDER BY created_at DESC");
+        echo json_encode(['status' => 'success', 'data' => $stmt->fetchAll()]);
+    } elseif ($method === 'POST') {
+        if ($action === 'delete') {
+            $stmt = $pdo->prepare("DELETE FROM content WHERE id = ?");
+            $stmt->execute([$data['id']]);
+            echo json_encode(['status' => 'success']);
+        } else {
+            // Handle Image Upload
+            $image_url = null;
+            if (isset($_FILES['image']) && $_FILES['image']['error'] === 0) {
+                if (!is_dir('../uploads/articles')) mkdir('../uploads/articles', 0777, true);
+                $ext = pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION);
+                $filename = 'article_' . time() . '.' . $ext;
+                $upload_path = '../uploads/articles/' . $filename;
+                if (move_uploaded_file($_FILES['image']['tmp_name'], $upload_path)) {
+                    $image_url = '../uploads/articles/' . $filename;
+                }
+            }
+
+            if (isset($data['id']) && $data['id'] > 0) {
+                if ($image_url) {
+                    $stmt = $pdo->prepare("UPDATE content SET title=?, subtitle=?, content=?, category=?, event_date=?, location=?, cta_link=?, image_url=? WHERE id=?");
+                    $stmt->execute([
+                        $data['title'], $data['subtitle'], $data['content'], 
+                        $data['category'], $data['event_date'] ?: null, $data['location'], 
+                        $data['cta_link'], $image_url, $data['id']
+                    ]);
+                } else {
+                    $stmt = $pdo->prepare("UPDATE content SET title=?, subtitle=?, content=?, category=?, event_date=?, location=?, cta_link=? WHERE id=?");
+                    $stmt->execute([
+                        $data['title'], $data['subtitle'], $data['content'], 
+                        $data['category'], $data['event_date'] ?: null, $data['location'], 
+                        $data['cta_link'], $data['id']
+                    ]);
+                }
+            } else {
+                $stmt = $pdo->prepare("INSERT INTO content (title, subtitle, content, category, event_date, location, cta_link, image_url) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+                $stmt->execute([
+                    $data['title'], $data['subtitle'], $data['content'], 
+                    $data['category'], $data['event_date'] ?: null, $data['location'], 
+                    $data['cta_link'], $image_url
+                ]);
             }
             echo json_encode(['status' => 'success']);
         }

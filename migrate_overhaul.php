@@ -139,6 +139,33 @@ try {
         echo "✔ Sample crafts seeded.<br>";
     }
 
+    // 6. Create & Update Content (Articles) Table
+    try {
+        $createContentTable = "CREATE TABLE IF NOT EXISTS content (
+            id INT AUTO_INCREMENT PRIMARY KEY,
+            title VARCHAR(255) NOT NULL,
+            subtitle VARCHAR(255),
+            content TEXT NOT NULL,
+            category ENUM('AGENDA', 'EDUKASI', 'KARIR') NOT NULL,
+            image_url TEXT,
+            event_date DATE,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        ) ENGINE=InnoDB";
+        $pdo->exec($createContentTable);
+        
+        // Add new columns if missing
+        $cols = [
+            "ALTER TABLE content ADD COLUMN location VARCHAR(255) AFTER event_date",
+            "ALTER TABLE content ADD COLUMN cta_link TEXT AFTER location"
+        ];
+        foreach ($cols as $col) {
+            try { $pdo->exec($col); } catch (Exception $e) {} 
+        }
+        echo "✔ Table 'content' verified/updated.<br>";
+    } catch (PDOException $e) {
+        echo "❌ Error updating 'content': " . $e->getMessage() . "<br>";
+    }
+
     echo "<h3>Summary Table List:</h3><pre>";
     $stmt = $pdo->query("SHOW TABLES");
     print_r($stmt->fetchAll(PDO::FETCH_COLUMN));
