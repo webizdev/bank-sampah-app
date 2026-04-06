@@ -154,10 +154,10 @@ include 'includes/header.php';
                 ?>
                     <div class="shrink-0 w-[240px] md:w-[280px] hover:-translate-y-4 hover:scale-[1.02] transition-transform duration-500 group relative">
                         <div class="absolute inset-0 bg-primary/30 blur-3xl rounded-full scale-90 -z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
-                        <div class="bg-[#1a1a1a] rounded-[2.5rem] shadow-[0_20px_50px_-15px_rgba(0,0,0,0.3)] p-2 md:p-3 relative z-10 transition-shadow group-hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)]">
-                            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-1/3 h-5 bg-[#1a1a1a] rounded-b-2xl z-20"></div> <!-- Notch -->
-                            <div class="bg-white rounded-[1.8rem] overflow-hidden">
-                                <img src="<?php echo $m['src']; ?>" alt="<?php echo $m['alt']; ?>" class="w-full h-auto object-contain pointer-events-none">
+                        <div class="bg-[#1a1a1a] rounded-[2.5rem] shadow-[0_20px_50px_-15px_rgba(0,0,0,0.3)] p-[10px] md:p-[14px] relative z-10 transition-shadow group-hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)]">
+                            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-1/3 h-6 bg-[#1a1a1a] rounded-b-[1rem] z-20"></div> <!-- Notch -->
+                            <div class="bg-white rounded-[1.8rem] overflow-hidden aspect-[9/19.5] relative">
+                                <img src="<?php echo $m['src']; ?>" alt="<?php echo $m['alt']; ?>" class="absolute inset-0 w-full h-full object-cover object-top pointer-events-none">
                             </div>
                         </div>
                     </div>
