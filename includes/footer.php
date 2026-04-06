@@ -28,7 +28,7 @@
     </nav>
     <?php endif; ?>
 
-    <?php if (!empty($global_settings['wa_cs_number']) && empty($is_admin)): ?>
+    <?php if (!empty($global_settings['wa_cs_number']) && empty($is_admin) && !empty($hide_nav)): ?>
     <!-- Floating WhatsApp CTA -->
     <a href="https://wa.me/<?php echo urlencode(preg_replace('/[^0-9]/', '', $global_settings['wa_cs_number'])); ?>?text=Halo%20<?php echo urlencode($app_name); ?>%2C%20saya%20ingin%20bertanya..." 
        target="_blank" 
